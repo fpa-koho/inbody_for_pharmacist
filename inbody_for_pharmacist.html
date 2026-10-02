@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>InBody指導マニュアル for Pharmacist | 福岡市薬剤師会 広報委員会</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Sans JP & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#16a34a',
+              600: '#15803d',
+              700: '#166534',
+            },
+            clinical: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#082f49',
+            },
+            accent: {
+              rose: '#e11d48',
+              amber: '#d97706',
+              emerald: '#059669',
+              indigo: '#4f46e5',
+            }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      -webkit-tap-highlight-color: transparent;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      padding-bottom: 85px; /* モバイル用ボトムバー余白 */
+    }
+    @media (min-width: 1024px) {
+      body {
+        padding-bottom: 24px;
+      }
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* 基準線アニメーション */
+    .baseline-marker {
+      stroke-dasharray: 4, 4;
+      animation: dash 20s linear infinite;
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: 100; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-sky-100 selection:text-sky-900 min-h-screen flex flex-col">
+
+  <!-- ヘッダー（清潔感のある白ベース＆スカイブルー） -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md text-slate-800 border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 py-2.5 sm:py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- ロゴ・タイトル -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-teal-500 flex items-center justify-center font-black text-white text-lg shadow-sm">
+          In
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] font-extrabold text-sky-700 tracking-wider">福岡市薬剤師会 広報委員会</span>
+            <span class="bg-sky-100 text-sky-800 text-[10px] font-bold px-1.5 py-0.2 rounded border border-sky-200">v10.3</span>
+          </div>
+          <h1 class="text-sm sm:text-base font-black text-slate-900 leading-tight">
+            InBody指導マニュアル for Pharmacist
+          </h1>
+        </div>
+      </div>
+
+      <!-- モード切り替えトグル -->
+      <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 shadow-inner w-full sm:w-auto justify-center">
+        <button id="mode-btn-counseling" onclick="setAppMode('counseling')" 
+          class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 bg-sky-600 text-white shadow-xs">
+          <span>🩺</span>
+          <span>対面・即応モード</span>
+          <span class="text-[9px] bg-sky-800/30 text-white px-1.5 py-0.5 rounded-full">現場カンペ</span>
+        </button>
+        <button id="mode-btn-training" onclick="setAppMode('training')" 
+          class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900">
+          <span>🔬</span>
+          <span>学術・エビデンス</span>
+          <span class="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.5 rounded-full">詳細解説</span>
+        </button>
+      </div>
+
+      <!-- PC用検索窓 -->
+      <div class="hidden md:flex items-center gap-3">
+        <div class="relative">
+          <input type="text" id="globalSearch" oninput="handleSearch()" placeholder="キーワード瞬時検索（膝痛, eGFR, FRIDs等）" 
+            class="w-64 bg-slate-50 text-xs text-slate-800 rounded-lg pl-8 pr-3 py-1.5 border border-slate-300 focus:outline-none focus:border-sky-500 focus:bg-white transition">
+          <span class="absolute left-2.5 top-1.5 text-slate-400 text-xs">🔍</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- モバイル用検索窓 -->
+    <div class="md:hidden px-4 pb-2">
+      <div class="relative">
+        <input type="text" id="mobileSearch" oninput="syncAndSearch(this.value)" placeholder="気になる項目を検索（膝痛, 睡眠薬, C型, むくみ等）" 
+          class="w-full bg-slate-50 text-xs text-slate-800 rounded-lg pl-8 pr-3 py-1.5 border border-slate-300 focus:outline-none focus:border-sky-500 focus:bg-white transition">
+        <span class="absolute left-2.5 top-1.5 text-slate-400 text-xs">🔍</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ナビゲーションバー -->
+  <nav class="bg-white border-b border-slate-200 sticky top-[95px] sm:top-[61px] z-40 py-2 px-4 shadow-2xs overflow-x-auto no-scrollbar">
+    <div class="max-w-6xl mx-auto flex items-center gap-2 text-xs font-bold whitespace-nowrap">
+      <span class="text-slate-400 text-[11px] mr-1 hidden sm:inline">ショートカット:</span>
+      <a href="#sec-qol-benefits" class="px-2.5 py-1 rounded-md bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 transition">🌟 QOL・願いから逆引き</a>
+      <a href="#sec-quick-selector" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition">⚡ クイック逆引き</a>
+      <a href="#sec-shapes" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition">📊 100%基準線グラフ</a>
+      <a href="#sec-killer-scripts" class="px-2.5 py-1 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition">💬 ポジティブトーク(全8編)</a>
+      <a href="#sec-tracing-report" class="px-2.5 py-1 rounded-md bg-sky-50 hover:bg-sky-100 text-sky-800 border border-sky-200 transition">🤝 薬学的判断＆医師連携</a>
+      <a href="#sec-deep-evidence" class="px-2.5 py-1 rounded-md bg-purple-50 hover:bg-purple-100 text-purple-800 border border-purple-200 transition">🔬 深い薬学エビデンス(全8項目)</a>
+      <a href="#sec-simulator" class="px-2.5 py-1 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition">🧮 SMI判定計算機</a>
+    </div>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full space-y-8" id="mainContainer">
+
+    <!-- ペースメーカー絶対禁忌＆測定前体水分安定バー -->
+    <div class="bg-gradient-to-r from-rose-50 via-rose-50/70 to-amber-50/50 rounded-2xl p-4 sm:p-5 text-slate-900 shadow-sm border-2 border-rose-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-start gap-3">
+        <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white shrink-0 text-xl font-bold shadow-sm">
+          🚫
+        </div>
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-[11px] font-black uppercase text-rose-700 tracking-wider">
+            <span>Safety First</span>
+            <span>|</span>
+            <span>絶対禁忌チェック</span>
+          </div>
+          <h2 class="text-sm sm:text-base font-black text-rose-950">
+            心臓ペースメーカー等の植込み型能動医療機器の装着者は測定不可
+          </h2>
+          <p class="text-xs text-rose-800 mt-0.5">
+            微弱通電による機器誤作動を防ぐため、測定前の口頭確認を徹底してください。
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 text-[11px] text-slate-700 bg-white/90 p-2.5 rounded-xl border border-rose-200 shrink-0 w-full md:w-auto shadow-2xs font-semibold">
+        <div class="flex items-center gap-1"><span class="text-emerald-600 font-bold">✓</span> 空腹(食後2〜3h)</div>
+        <div class="flex items-center gap-1"><span class="text-emerald-600 font-bold">✓</span> 直前排尿</div>
+        <div class="flex items-center gap-1"><span class="text-emerald-600 font-bold">✓</span> 発汗・入浴後NG</div>
+        <div class="flex items-center gap-1"><span class="text-amber-600 font-bold">⚠️</span> 身長は正確にミリ入力</div>
+      </div>
+    </div>
+
+    <!-- 1. QOL・願いから逆引きセレクター -->
+    <section id="sec-qol-benefits" class="bg-gradient-to-br from-emerald-50/80 via-teal-50/40 to-white rounded-2xl p-5 sm:p-6 border-2 border-emerald-300 shadow-xs space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-emerald-200 pb-3">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-black tracking-wider uppercase shadow-2xs">
+            <span>Patient-Centered Value</span>
+            <span>|</span>
+            <span>相談者の願いから逆引き</span>
+          </div>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 mt-1 flex items-center gap-2">
+            <span>🌟</span> 相談者が本当に聞きたい「生活の質（QOL）が向上する変化」セレクター
+          </h3>
+        </div>
+        <p class="text-xs text-emerald-800 font-semibold">「数字の報告」ではなく「生活がどう楽に、楽しく変わるか」の希望をお伝えします</p>
+      </div>
+
+      <!-- 6大希望ボタングリッド -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+        <button onclick="selectQolBenefit('move')" class="qol-btn p-3 rounded-xl border-2 border-emerald-400 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <div class="text-2xl mb-1 group-hover:scale-110 transition">🏃</div>
+          <div class="text-xs font-black text-slate-900">動きが変わる</div>
+          <div class="text-[10px] text-emerald-700 font-bold mt-0.5">足が軽い・階段ラク</div>
+        </button>
+
+        <button onclick="selectQolBenefit('pain')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <div class="text-2xl mb-1 group-hover:scale-110 transition">🩹</div>
+          <div class="text-xs font-black text-slate-900">痛みが減る</div>
+          <div class="text-[10px] text-slate-600 font-bold mt-0.5">膝・腰の負担軽減</div>
+        </button>
+
+        <button onclick="selectQolBenefit('sleep')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <div class="text-2xl mb-1 group-hover:scale-110 transition">🌙</div>
+          <div class="text-xs font-black text-slate-900">ぐっすり快眠</div>
+          <div class="text-[10px] text-slate-600 font-bold mt-0.5">だるさ解消・朝爽快</div>
+        </button>
+
+        <button onclick="selectQolBenefit('posture')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <div class="text-2xl mb-1 group-hover:scale-110 transition">✨</div>
+          <div class="text-xs font-black text-slate-900">若々しく見える</div>
+          <div class="text-[10px] text-slate-600 font-bold mt-0.5">姿勢がピン・服が似合う</div>
+        </button>
+
+        <button onclick="selectQolBenefit('disease')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <div class="text-2xl mb-1 group-hover:scale-110 transition">💊</div>
+          <div class="text-xs font-black text-slate-900">お薬を減らしたい</div>
+          <div class="text-[10px] text-slate-600 font-bold mt-0.5">血圧・血糖の根本改善</div>
+        </button>
+
+        <button onclick="selectQolBenefit('travel')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <div class="text-2xl mb-1 group-hover:scale-110 transition">🍁</div>
+          <div class="text-xs font-black text-slate-900">元気に旅に行ける</div>
+          <div class="text-[10px] text-slate-600 font-bold mt-0.5">フレイル予防・一生歩く</div>
+        </button>
+      </div>
+
+      <!-- QOL回答・生活処方カード（動的表示） -->
+      <div id="qolResultCard" class="bg-white rounded-xl p-4 sm:p-5 border border-emerald-300 shadow-xs space-y-4 transition-all duration-300">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+          <div class="flex items-center gap-2">
+            <span id="qolCardIcon" class="text-2xl">🏃</span>
+            <div>
+              <span id="qolCardSub" class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Life Transformation</span>
+              <h4 id="qolCardTitle" class="text-sm sm:text-base font-black text-slate-900">
+                「足元が羽のように軽くなり、階段や散歩が楽しくなる」未来へ
+              </h4>
+            </div>
+          </div>
+          <span id="qolKeyMetricBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+            着目する用紙項目：両脚の筋肉量（kg）
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
+          <!-- 1. 相談者の心に刺さる希望トーク -->
+          <div class="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-200 space-y-1.5">
+            <strong class="text-emerald-900 block text-xs flex items-center gap-1 font-extrabold">
+              <span>🗣</span> 相談者に響く希望の言葉：
+            </strong>
+            <p id="qolTalkText" class="text-slate-800 text-[11px] leading-relaxed italic">
+              「〇〇さん、足の筋肉は『天然のバネ』です。ここを目覚めさせると、駅の階段を一段飛ばしで登れそうなくらい足がスッと前に出るようになりますよ。お散歩や買い物帰りの『あぁ疲れた…』が劇的になくなる変化を、一緒に楽しみませんか？」
+            </p>
+          </div>
+
+          <!-- 2. 今日からできる生活処方 -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5">
+            <strong class="text-slate-900 block text-xs flex items-center gap-1 font-extrabold">
+              <span>🎯</span> 今日からできる「1分生活処方」：
+            </strong>
+            <p id="qolActionText" class="text-slate-700 text-[11px] leading-relaxed">
+              歯磨きをしながら「かかとを上げて5秒キープ」を1日10回。第二の心臓であるふくらはぎを刺激し、血液とエネルギーを全身に送り出します。
+            </p>
+          </div>
+
+          <!-- 3. 実感できる変化の目安 -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2 flex flex-col justify-between">
+            <div>
+              <strong class="text-slate-900 block text-xs flex items-center gap-1 font-extrabold">
+                <span>⏱</span> 実感できる変化のタイムライン：
+              </strong>
+              <p id="qolTimelineText" class="text-slate-700 text-[11px] leading-relaxed">
+                <strong>【2週間後】：</strong>夕方の足のだるさ・むくみが軽減。<br>
+                <strong>【1ヶ月後】：</strong>信号待ちや椅子からの立ち上がりが軽やかに！
+              </p>
+            </div>
+            <button onclick="copyQolScript()" class="w-full py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-[10px] font-bold transition shadow-xs flex items-center justify-center gap-1">
+              <span>📋</span> この希望トークをコピー
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 対面・即応クイック逆引き診断 -->
+    <section id="sec-quick-selector" class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold text-sky-700 uppercase tracking-wider block">Quick Decision Selector</span>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span>⚡</span> 対面・即応クイック逆引き診断（タップで即回答）
+          </h3>
+        </div>
+        <p class="text-xs text-slate-500">用紙を見た瞬間、気になる項目を1タップするだけでリスクと推奨トークが表示されます</p>
+      </div>
+
+      <!-- 選択肢ボタングリッド -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <button onclick="applyQuickFilter('shape-c')" class="q-filter-btn p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-300 transition text-left active:scale-98 shadow-2xs">
+          <div class="text-[10px] text-slate-500 font-mono">用紙の形状</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 flex items-center justify-between">
+            <span>C 型（くぼみ）</span>
+            <span class="text-rose-600 font-mono font-black">C</span>
+          </div>
+          <div class="text-[10px] text-rose-600 font-bold mt-1">伸びしろ最大・代謝向上</div>
+        </button>
+
+        <button onclick="applyQuickFilter('leg-low')" class="q-filter-btn p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-300 transition text-left active:scale-98 shadow-2xs">
+          <div class="text-[10px] text-slate-500 font-mono">下肢評価</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 flex items-center justify-between">
+            <span>脚筋肉量「低」</span>
+            <span class="text-rose-600 font-bold">⚠</span>
+          </div>
+          <div class="text-[10px] text-slate-600 font-bold mt-1">天然のブレーキ・土台強化</div>
+        </button>
+
+        <button onclick="applyQuickFilter('rx-frids')" class="q-filter-btn p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-300 transition text-left active:scale-98 shadow-2xs">
+          <div class="text-[10px] text-sky-600 font-mono">服用薬連携</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 flex items-center justify-between">
+            <span>睡眠薬・降圧薬</span>
+            <span class="text-sky-600 font-black">Rx</span>
+          </div>
+          <div class="text-[10px] text-slate-600 font-bold mt-1">ふらつき・夜間転倒回避</div>
+        </button>
+
+        <button onclick="applyQuickFilter('edema-trap')" class="q-filter-btn p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-purple-50 hover:border-purple-300 transition text-left active:scale-98 shadow-2xs">
+          <div class="text-[10px] text-purple-600 font-mono">水分の罠</div>
+          <div class="text-xs font-bold text-slate-900 mt-0.5 flex items-center justify-between">
+            <span>下肢高/点数「-」</span>
+            <span class="text-purple-600">💧</span>
+          </div>
+          <div class="text-[10px] text-slate-600 font-bold mt-1">細胞外水分・むくみ・心不全</div>
+        </button>
+      </div>
+
+      <!-- クイック回答カード -->
+      <div id="quickResultCard" class="bg-gradient-to-br from-slate-50 to-sky-50/20 rounded-xl p-4 sm:p-5 border-2 border-slate-200 shadow-xs space-y-3 transition-all duration-300">
+        <div class="flex items-center justify-between">
+          <span id="quickCardBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+            C型判定時の臨床アクション
+          </span>
+          <span class="text-xs text-slate-400">ワンタップ即応ガイド</span>
+        </div>
+        <h4 id="quickCardTitle" class="text-sm sm:text-base font-extrabold text-slate-900">
+          体重は標準枠だが、筋肉がくぼみ体脂肪が右に突出しているパターン
+        </h4>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+            <strong class="text-slate-800 block text-[11px] text-rose-700 font-bold">⚠️ 注意すべき臨床リスク：</strong>
+            <p id="quickRiskText" class="text-slate-600 text-[11px] leading-relaxed">
+              基礎代謝低下によるリバウンド体質、骨格筋でのブドウ糖取り込み不足（食後高血糖）、将来のロコモ・転倒リスク。
+            </p>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1">
+            <strong class="text-slate-800 block text-[11px] text-emerald-700 font-bold">🎯 提案する1アクション：</strong>
+            <p id="quickActionText" class="text-slate-600 text-[11px] leading-relaxed">
+              「食事を減らすダイエット」は中止。「毎食手のひら1枚分のタンパク質（魚・卵・大豆・肉）」を補給し、歯磨き中のつま先立ち10回から開始。
+            </p>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-1 flex flex-col justify-between">
+            <div>
+              <strong class="text-slate-800 block text-[11px] text-sky-700 font-bold">🗣 30秒トーク（要約）：</strong>
+              <p id="quickTalkSummary" class="text-slate-600 text-[11px] leading-relaxed italic">
+                「体重の数字は標準ですが、内訳は筋肉が控えめで脂肪が多めの状態です。食事を減らすと代謝が落ちて逆効果ですので、しっかり食べて筋肉を守りましょう！」
+              </p>
+            </div>
+            <button onclick="copyQuickScript()" class="mt-2 w-full py-1.5 rounded-lg bg-sky-700 text-white text-[10px] font-bold hover:bg-sky-800 transition shadow-2xs">
+              📋 このトークをコピー
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. 100%基準線 形状判定グラフ -->
+    <section id="sec-shapes" class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold text-sky-700 uppercase tracking-wider block">Visual Pattern Recognition</span>
+          <h3 class="text-base sm:text-lg font-black text-slate-900">
+            「100%標準基準線」対比による3大形状パターン瞬時判定
+          </h3>
+        </div>
+        <p class="text-xs text-slate-500">中央の「標準100%ライン」に対して骨格筋量が凹んでいるか・突出しているか</p>
+      </div>
+
+      <!-- 切替ボタン -->
+      <div class="grid grid-cols-3 gap-2 bg-slate-100 p-1.5 rounded-xl border border-slate-200">
+        <button onclick="renderShapeGraph('C')" id="btnShapeC" class="py-2.5 rounded-lg text-xs font-bold transition flex flex-col items-center bg-sky-600 text-white shadow-2xs">
+          <span class="text-sm font-black font-mono">C 型</span>
+          <span class="text-[10px] opacity-90">標準体重肥満型 / 虚弱</span>
+        </button>
+        <button onclick="renderShapeGraph('I')" id="btnShapeI" class="py-2.5 rounded-lg text-xs font-bold transition flex flex-col items-center bg-white text-slate-700 hover:bg-slate-200">
+          <span class="text-sm font-black font-mono">I 型</span>
+          <span class="text-[10px] text-slate-500">標準体重健康型</span>
+        </button>
+        <button onclick="renderShapeGraph('D')" id="btnShapeD" class="py-2.5 rounded-lg text-xs font-bold transition flex flex-col items-center bg-white text-slate-700 hover:bg-slate-200">
+          <span class="text-sm font-black font-mono">D 型</span>
+          <span class="text-[10px] text-slate-500">標準体重強靭型(理想)</span>
+        </button>
+      </div>
+
+      <!-- グラフ本体：100%標準基準線 ＆ 棒グラフの描画 -->
+      <div class="bg-slate-50/80 p-4 sm:p-6 rounded-xl border border-slate-200 relative overflow-hidden">
+        <div class="flex items-center justify-between text-[11px] text-slate-500 mb-3 border-b border-slate-200 pb-2">
+          <span>項目（体重・骨格筋量・体脂肪量）</span>
+          <div class="flex items-center gap-3">
+            <span class="flex items-center gap-1"><span class="w-3 h-0.5 bg-rose-500 border border-dashed border-rose-500"></span> <strong class="text-rose-600">100% 理想基準線</strong></span>
+            <span class="text-slate-400">|</span>
+            <span class="text-slate-600 font-semibold">85%〜115%が標準域</span>
+          </div>
+        </div>
+
+        <div class="space-y-4 relative py-2">
+          <!-- 縦の100%基準線 -->
+          <div class="absolute top-0 bottom-0 left-[55%] sm:left-[50%] w-0.5 border-r-2 border-dashed border-rose-400 z-10 pointer-events-none flex flex-col justify-between">
+            <span class="text-[9px] font-bold text-rose-600 bg-white px-1 rounded shadow-2xs -translate-x-1/2">標準100%</span>
+            <span class="text-[9px] font-bold text-rose-600 bg-white px-1 rounded shadow-2xs -translate-x-1/2">基準帯</span>
+          </div>
+
+          <!-- 体重バー -->
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+              <span>① 体重 (Weight)</span>
+              <span id="labelBarWeight" class="font-mono text-slate-700">58.4 kg (100% / 標準)</span>
+            </div>
+            <div class="w-full bg-slate-200 h-6 rounded-lg overflow-hidden relative">
+              <div id="barWeight" class="bg-slate-500 h-full rounded-lg transition-all duration-500 flex items-center justify-end pr-2 text-white text-[10px] font-bold font-mono" style="width: 55%;">
+                100%
+              </div>
+            </div>
+          </div>
+
+          <!-- 骨格筋量バー -->
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+              <span id="nameBarMuscle" class="text-sky-800">② 骨格筋量 (SMM) ➔ くぼみ判定</span>
+              <span id="labelBarMuscle" class="font-mono font-bold text-rose-600">19.2 kg (82% / 不足凹)</span>
+            </div>
+            <div class="w-full bg-slate-200 h-6 rounded-lg overflow-hidden relative">
+              <div id="barMuscle" class="bg-rose-500 h-full rounded-lg transition-all duration-500 flex items-center justify-end pr-2 text-white text-[10px] font-bold font-mono" style="width: 38%;">
+                82%
+              </div>
+            </div>
+          </div>
+
+          <!-- 体脂肪量バー -->
+          <div>
+            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1">
+              <span id="nameBarFat" class="text-amber-800">③ 体脂肪量 (Body Fat) ➔ 張り出し判定</span>
+              <span id="labelBarFat" class="font-mono font-bold text-amber-600">22.4 kg (145% / 過多凸)</span>
+            </div>
+            <div class="w-full bg-slate-200 h-6 rounded-lg overflow-hidden relative">
+              <div id="barFat" class="bg-amber-500 h-full rounded-lg transition-all duration-500 flex items-center justify-end pr-2 text-white text-[10px] font-bold font-mono" style="width: 78%;">
+                145%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 判定解説ボックス -->
+        <div id="shapeDescriptionBox" class="mt-4 p-3.5 rounded-xl bg-white border border-slate-200 text-xs space-y-1.5 shadow-2xs">
+          <div class="flex items-center justify-between">
+            <strong id="shapeBoxTitle" class="text-sky-900 font-extrabold text-sm">【C型】伸びしろ最大型（筋肉を目覚めさせると劇的に身体が軽くなる体型）</strong>
+            <span class="text-[10px] bg-sky-50 text-sky-700 px-2 py-0.5 rounded font-bold border border-sky-200">生活改善で即実感</span>
+          </div>
+          <p id="shapeBoxBody" class="text-slate-600 text-[11px] leading-relaxed">
+            骨格筋量が中央の100%基準破線より左側に凹んでおり、体脂肪量が右側に張り出しています。これは「悪天候」ではなく「最高の伸びしろ」です！筋肉が少し増えるだけで基礎代謝が上がり、身体のだるさや冷えが解消され、お腹周りがスッキリ引き締まる嬉しい変化が最も出やすい体型です。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ポジティブトーク集（全8編） -->
+    <section id="sec-killer-scripts" class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold text-sky-700 uppercase tracking-wider block">Communication Scenarios</span>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span>💬</span> 生活の質が変わる！「ポジティブトーク・全8編」
+          </h3>
+        </div>
+        <p class="text-xs text-slate-500">相談者の不安を希望に変え、「明日からやってみたい！」を引き出すカウンセリング</p>
+      </div>
+
+      <!-- スクリプトアコーディオン群（全8パターン） -->
+      <div class="space-y-3" id="scriptAccordionList">
+
+        <!-- スクリプト 0: 膝・腰の痛みを訴える方へ「天然のコルセット」 -->
+        <details open class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-emerald-50/40 open:border-emerald-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">★</span>
+              <span class="text-emerald-950 font-extrabold">【痛みの減少】「膝や腰が重だるい・痛む」➔ 筋肉という“天然のサポーター”を育てる</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-emerald-200 text-slate-800 italic shadow-2xs">
+              「〇〇さん、膝や腰がおつらいですね。痛いと動くのも億劫になりますよね。<br>
+              実は、太ももやお腹の筋肉は『天然のサポーター・コルセット』にあたります。体重の負荷を骨や軟骨の代わりに筋肉がグッと受け止めてくれるため、太ももの筋肉がほんの少し強くなるだけで、歩くときの膝の痛みが驚くほどスッと楽になります。<br>
+              痛いときは無理に歩く必要はありません。テレビを見ながら椅子に深く座り、片足を水平に5秒ピンと伸ばすだけ。膝に体重をかけずに筋肉のサポーターを作って、痛みを気にせずお買い物に行ける足を取り戻しましょう！」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-emerald-800 font-bold">💡 ポイント：痛みを100%受容し、「筋肉＝痛みを吸い取るサポーター」として希望を示す</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 1: 体重減ったのに点数落ちた -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">1</span>
+              <span>「食事制限で体重を減らしたのに、なぜ点数が下がったの？」（ショック・不満）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-sky-200 text-slate-800 italic shadow-2xs">
+              「〇〇さん、体重を落とされたこれまでの努力、取り組み、本当に素晴らしいですね！<br>
+              ただ、InBodyの詳しい内訳を見てみますと、今回減ったのは脂肪ではなく、体を支える大切な『筋肉と水分』でした。<br>
+              筋肉がお風呂の追い焚きヒーターだとすると、筋肉が落ちると代謝が落ちて、かえって将来太りやすい体質になってしまいます。<br>
+              ここからは『食事を減らす』のではなく、『卵やお肉、大豆などタンパク質をしっかり食べて、筋肉を守りながら脂肪を燃やす』次のステージに進みましょう！<br>
+              食事のこと栄養のこと、お薬のことも、もう少し話しましょうか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：体重減少をまず100%肯定した上で、ヒーターの例えで筋肉の重要性を伝える</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 2: 膝や腰が痛いから運動できない -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">2</span>
+              <span>「膝や腰が痛いから、スクワットやウォーキングなんて無理」（拒絶・痛み）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-sky-200 text-slate-800 italic shadow-2xs">
+              「膝や腰がおつらい中、教えてくださりありがとうございます。痛いときに無理をして歩いたりスクワットをするのは絶対に禁物です。<br>
+              実は、足の筋肉は『座ったまま』でも十分鍛えられます。椅子に深く腰掛けて、テレビを見ながら片足をピーンと前に伸ばして5秒キープする運動や、貧乏ゆすりのようにかかとをトントン上下させるだけでも、太ももやふくらはぎの血流がグンと良くなります。<br>
+              体重をかけずに膝周りの筋肉がついてくると、天然のサポーターになって膝の痛みが和らぐことも多いですよ。今日から座ったまま1回、試してみませんか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：痛みを共感し、荷重のかからない椅子運動（大腿四頭筋セッティング）を提案</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 3: もう高齢だから筋肉なんてつかない -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">3</span>
+              <span>「もう80歳を過ぎたし、今さら筋肉なんてつかないでしょ」（諦め・無力感）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-sky-200 text-slate-800 italic shadow-2xs">
+              「そう思われるお気持ち、とてもよく分かります。ですが最新の医学研究では、90歳を超えた方でも適切な刺激と栄養を与えれば、筋肉は何歳からでも太く・強くなることが証明されているんです！<br>
+              筋肉の細胞には定年退職がありません。いきなり激しい筋トレをする必要はなく、毎日の歯磨きをしながらかかとを浮かせたり、手すりを持って立ち座りするだけで、筋肉は『おっ、まだ出番があるんだな』と応えてくれます。<br>
+              〇〇さんがこれからもご自身の足で行きたい場所へ自由にお出かけできるよう、私もしっかりサポートしますね！」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：エビデンス（高齢者の筋肥大能）を優しく伝え、自己決定感を後押しする</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 4: 高齢者・下肢筋肉「低」× 睡眠薬（FRIDs） -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">4</span>
+              <span>下肢筋肉量「低」× 睡眠薬・降圧薬服用中の患者へ（転倒予防アプローチ）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-sky-200 text-slate-800 italic shadow-2xs">
+              「腕や体幹はしっかり保たれていますが、両足の筋肉量が少し低めに出ていますね。<br>
+              足の筋肉は、夜中にトイレへ立たれるときやお散歩のときに身体を支える一番のブレーキ役です。<br>
+              現在お飲みいただいている睡眠薬（または血圧のお薬）は、お体がしっかり休まる反面、夜間や朝方に少しふらつきが出やすい特徴があります。<br>
+              転倒やつまずきによる骨折を絶対に防ぐために、夜間は足元灯をつけていただくことと、日中に椅子からの立ち上がり運動を1日5回から始めてみませんか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：薬を否定せず、薬の特性（筋弛緩・起立性低血圧）と足の筋肉をリンクさせる</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 5: お薬飲んでるから運動食事は今のままでいいでしょ -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">5</span>
+              <span>「血圧や血糖の薬をちゃんと飲んでるから、運動や食事は今のままで十分でしょ」（薬の調整や減薬の可能性へ）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-sky-200 text-slate-800 italic shadow-2xs">
+              「毎日忘れずにお薬を飲まれていること、本当にしっかりされてますね！治療の大きな柱がしっかりしています。<br>
+              お薬は血管を広げたり余分な糖を出してくれますが、実は食事で摂った糖や脂質の約70%を燃やして処理しているのは『下半身の筋肉』なんです。<br>
+              その筋肉が元気になると、お薬の効き目が格段に良くなり、将来的に『お薬の数を減らす・弱くする』という嬉しいゴールも見えてきます。<br>
+              お薬と筋肉の二人三脚で、さらに健康な体を作っていきましょう！<br>
+              目標や希望は何か立てていますか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：服薬の継続性を賞賛し、「筋肉＝糖消費工場」と減薬の希望、次の目標を問いかける</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 6: 炭水化物を完全に抜いて早く痩せたい -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-mono shrink-0">6</span>
+              <span>「手っ取り早く痩せたいから、ご飯やパンを完全にゼロにする！」（極端な糖質制限）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-amber-200 text-slate-800 italic shadow-2xs">
+              「早く結果を出したいという前向きなお気持ち、とても熱意が伝わってきます！<br>
+              ただ、お薬と体の仕組みからお伝えしますと、炭水化物を完全にゼロにすると、体はエネルギー不足を補うために、なんと『自分の筋肉を削って糖を作り出す（糖新生）』ようになってしまいます。<br>
+              そうすると体重計の数字は落ちても筋肉が痩せ細り、体脂肪率が跳ね上がる『C型』になってしまうんです。<br>
+              炭水化物はゼロにするのではなく、毎食お茶碗に軽く1杯（こぶし1個分）召し上がって筋肉を守りながら、夕食の揚げ物を控える方法が一番綺麗に引き締まりますよ。<br>
+              もう少しお薬と食事のこと活用できる製品についてお話しませんか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：熱意を認めつつ糖新生を分かりやすく解説し、具体的な製品や食事相談へ広げる</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 7: 運動すると筋肉痛で続かない -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 sm:p-4 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-mono shrink-0">7</span>
+              <span>「この前張り切って運動したら筋肉痛で動けなくなって…やっぱり続かない」（三日坊主・過負荷）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3 rounded-lg border border-emerald-200 text-slate-800 italic shadow-2xs">
+              「筋肉痛が出るほど全力で取り組まれたんですね！そこまで真剣に挑戦された行動力、本当に素晴らしいです！<br>
+              筋肉痛は、筋肉が生まれ変わろうとして『休ませて』と合図を出した証拠です。最初は『こんなに少なくていいの？』と物足りないくらいで終えるのが、三日坊主を防いでずっと続ける最大の秘訣なんです。<br>
+              例えば、信号待ちで背筋を伸ばす、歯磨きしながらかかとを浮かせたり、エスカレーターではなく階段を3段だけ登る、これだけでも立派な運動なんですよ。<br>
+              まずは『帰宅時に靴を脱ぐ前にスクワット2回』など、これならできそうと思える小さな習慣から試してみませんか？<br>
+              ご自身の普段の生活の中で、無理なく続けられそうなタイミングはどのあたりにありそうですか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[10px] text-slate-500 font-semibold">💡 ポイント：挑戦を大いに称賛し、物足りないくらいの超低負荷から日常のタイミングを一緒に探す</span>
+              <button onclick="copyScriptText(this)" class="px-2.5 py-1 bg-white border border-slate-300 rounded text-[10px] font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- 5. 薬学的判断の深化 ＆ 医師との情報共有・対話連携 -->
+    <section id="sec-tracing-report" class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold text-sky-700 uppercase tracking-wider block">Clinical Pharmacotherapy & Interprofessional Dialogue</span>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span>🤝</span> 薬学的判断の深化 ＆ 医師との情報共有・対話連携
+          </h3>
+        </div>
+        <p class="text-xs text-slate-500">数値を「薬学的見立て」に深め、相談者への助言と主治医との建設的な対話へつなげます</p>
+      </div>
+
+      <!-- 臨床テーマ切り替えタブ -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <button onclick="switchCollabTab('cr')" id="btnCollabCr" class="p-3 rounded-xl border-2 border-sky-400 bg-sky-50/80 text-sky-950 text-left transition shadow-2xs active:scale-98">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-sky-700">Case 1. 腎機能の真実</span>
+            <span class="text-xs">🧬</span>
+          </div>
+          <div class="font-extrabold text-xs mt-1">筋肉量激減 × 腎排泄薬過量リスク</div>
+          <div class="text-[10px] text-slate-600 mt-0.5">見かけのCr低値・eGFR過大評価を見抜く</div>
+        </button>
+
+        <button onclick="switchCollabTab('frids')" id="btnCollabFrids" class="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50/50 text-slate-700 text-left transition shadow-2xs active:scale-98">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Case 2. 転倒・骨折回避</span>
+            <span class="text-xs">🚶</span>
+          </div>
+          <div class="font-extrabold text-xs mt-1">下肢筋肉「低」× 睡眠薬・降圧薬</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">筋弛緩・ふらつきと土台崩れへの介入</div>
+        </button>
+
+        <button onclick="switchCollabTab('edema')" id="btnCollabEdema" class="p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50/50 text-slate-700 text-left transition shadow-2xs active:scale-98">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-500">Case 3. 循環器・水分不均衡</span>
+            <span class="text-xs">💧</span>
+          </div>
+          <div class="font-extrabold text-xs mt-1">ECW比率異常・点数空白 × 心不全疑い</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">見かけの筋肉増加の罠・利尿薬調整</div>
+        </button>
+      </div>
+
+      <!-- 対話・薬学的判断カード（動的切り替え） -->
+      <div class="bg-gradient-to-br from-slate-50 via-sky-50/20 to-teal-50/20 rounded-xl p-4 sm:p-5 border border-sky-200 shadow-2xs space-y-4">
+        
+        <!-- ヘッダー -->
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sky-100 pb-2.5">
+          <div>
+            <span id="collabSubTitle" class="text-[10px] font-bold text-sky-700 uppercase tracking-wider block">Clinical Pharmacist Assessment</span>
+            <h4 id="collabMainTitle" class="text-sm sm:text-base font-extrabold text-slate-900">
+              筋肉量著減に伴う「推算eGFR過大評価」と腎排泄型薬剤の中毒防止
+            </h4>
+          </div>
+          <span id="collabTargetDrugs" class="text-[10px] font-mono font-bold bg-white text-sky-800 px-2.5 py-1 rounded-full border border-sky-200 shadow-2xs">
+            着目薬剤：DOAC / ジゴキシン / ガバペンチノイド / 抗菌薬
+          </span>
+        </div>
+
+        <!-- 3大対話ステップ：薬剤師の見立て ➔ 患者への助言 ➔ 医師との情報共有論点 -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
+
+          <!-- ステップ1: 薬剤師の薬学的見立て -->
+          <div class="bg-white p-3.5 rounded-xl border border-sky-100 shadow-2xs space-y-2">
+            <div class="flex items-center gap-1.5 text-sky-900 font-bold text-xs">
+              <span class="w-5 h-5 rounded-full bg-sky-600 text-white flex items-center justify-center text-[10px] font-black">1</span>
+              <span>🧠 薬剤師の薬学的見立て（深読み）</span>
+            </div>
+            <p id="collabPharmacistView" class="text-slate-700 text-[11px] leading-relaxed">
+              SMIがサルコペニア基準を著しく下回る場合、筋肉由来の内因性クレアチニン産生自体が枯渇している。血清Crが0.3〜0.5mg/dLと低く出て推算eGFRが90以上と「正常」に見えても、実質腎機能（GFR）は著明に低下している恐れが高い。腎排泄型薬物が通常量で蓄積中毒を起こす危険を察知する。
+            </p>
+          </div>
+
+          <!-- ステップ2: 相談者（患者）への対話アドバイス -->
+          <div class="bg-white p-3.5 rounded-xl border border-sky-100 shadow-2xs space-y-2">
+            <div class="flex items-center gap-1.5 text-emerald-900 font-bold text-xs">
+              <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black">2</span>
+              <span>🗣️ 相談者への助言（主治医相談の橋渡し）</span>
+            </div>
+            <p id="collabPatientTalk" class="text-slate-700 text-[11px] leading-relaxed italic">
+              「〇〇さん、いま筋肉がかなり細くなっていて、お体の代謝の様子が少し変わってきているサインが出ています。次回主治医の先生に『薬局で筋肉量を測ったらかなり少なめだったので、今のお薬の量や腎臓の数値に影響がないか確認してほしいと言われました』と一言お伝えしてみませんか？私たちからもメモをお渡ししますね。」
+            </p>
+          </div>
+
+          <!-- ステップ3: 主治医との情報共有・ディスカッションの論点 -->
+          <div class="bg-white p-3.5 rounded-xl border border-sky-100 shadow-2xs space-y-2">
+            <div class="flex items-center gap-1.5 text-purple-900 font-bold text-xs">
+              <span class="w-5 h-5 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-black">3</span>
+              <span>🩺 医師とのディスカッション論点</span>
+            </div>
+            <p id="collabDoctorDiscussion" class="text-slate-700 text-[11px] leading-relaxed">
+              単に「減量してください」と要求するのではなく、<strong>「InBodyで重度低筋量（SMI 4.8）を確認したため、血清Crに基づくeGFRが過大評価されている懸念がある」</strong>という客観的事実を提示。筋肉量の影響を受けない<strong>シスタチンCでの再評価</strong>や、血中濃度モニタリングの必要性を共同検討する。
+            </p>
+          </div>
+
+        </div>
+
+        <!-- 医師・多職種と共有できる「要点メモ」エリア -->
+        <div class="bg-white rounded-xl p-3.5 border-2 border-sky-300 text-slate-800 space-y-2 shadow-2xs">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-sky-800 font-black flex items-center gap-1.5">
+              <span>📋</span> <span>主治医・多職種共有用 要点サマリーメモ（電話・連絡票・対面対話用）</span>
+            </span>
+            <button onclick="copyCollabSummary()" class="px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-[10px] font-bold transition flex items-center gap-1 shadow-2xs">
+              <span>📋</span> メモをコピー
+            </button>
+          </div>
+          <p id="collabSummaryText" class="text-slate-800 text-[11px] font-mono leading-relaxed bg-sky-50/70 p-3 rounded-lg border border-sky-200 select-all">
+【薬学的判断・共有事項】患者様（82歳女性）のInBody測定にて四肢骨格筋指数（SMI）4.8 kg/m²（基準未満）を認めました。筋肉量著減に伴い血清Cr産生が低下し、推算eGFRが見かけ上正常〜高値に過大評価されている可能性が危惧されます。現在処方中の腎排泄型薬剤（DOAC等）につきまして、シスタチンCに基づく腎機能再評価や用量適正化をご検討・ご相談させていただけますと幸いです。
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. 深い薬学エビデンス集（全8項目） -->
+    <section id="sec-deep-evidence" class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold text-purple-700 uppercase tracking-wider block">Clinical Pharmacokinetics & Pathophysiology</span>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span>🔬</span> 深い薬学エビデンス集（学術詳細・全8項目）
+          </h3>
+        </div>
+        <p class="text-xs text-slate-500">処方鑑査・服薬指導・副作用予測に直結する専門知見</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <!-- 1. eGFR過大評価の罠 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>①</span> 骨格筋量激減と推算eGFRの過大評価
+            </span>
+            <span class="text-[9px] bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded font-bold">過量投与防止</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            血清クレアチニン（Cr）は骨格筋のクレアチン代謝産物です。著しいサルコペニア高齢者ではCr産生が枯渇し、<strong>血清Crが見かけ上0.3〜0.5mg/dL等の異常低値</strong>を示します。これにより推算eGFRやCockcroft-Gault式が「腎機能正常」と誤算出され、腎排泄型薬剤（DOAC、ジゴキシン、レベチラセタム、ガバペンチノイド、親水性抗生剤等）の過量投与中毒を引き起こします。SMI低値時は<strong>シスタチンCでの腎機能再推算</strong>を医師に提案すべきです。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：日本腎臓学会『CKD診療ガイド2023』/ 日本老年薬学会
+          </div>
+        </div>
+
+        <!-- 2. むくみ・細胞外水分比率の罠 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>②</span> むくみ・心不全による「見かけの筋量増加」の罠
+            </span>
+            <span class="text-[9px] bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded font-bold">浮腫鑑別</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            InBodyは水分量を基に筋肉量を算出するため、<strong>下肢浮腫（細胞外水分の貯留）がある高齢者では、下肢筋肉量が「高」と偽陽性</strong>を示します。「筋肉がついた」と誤認して褒めるのは危険です。細胞外水分比率（ECW/TBW）が0.400以上、またはInBody点数がハイフン（非表示）の場合は、<strong>心不全増悪、ネフローゼ、低アルブミン血症、利尿薬のアドヒアランス不良</strong>を強く疑い、下肢の圧痕性浮腫（pitting edema）を確認します。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：日本循環器学会『急性・慢性心不全診療ガイドライン2021』
+          </div>
+        </div>
+
+        <!-- 3. SGLT2阻害薬と筋異化 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>③</span> SGLT2阻害薬による脱水・異化亢進（サルコペニア）
+            </span>
+            <span class="text-[9px] bg-sky-100 text-sky-800 px-1.5 py-0.5 rounded font-bold">糖代謝管理</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            SGLT2阻害薬は尿糖排泄により1日約200〜300kcalを体外に逃がします。若年・肥満患者では優れた脂肪減少効果を発揮しますが、<strong>高齢者や低栄養患者ではインスリン分泌低下下でタンパク異化（筋分解）が亢進</strong>し、体重減少と同時に急激な骨格筋萎縮（サルコペニア）を招くリスクがあります。SGLT2阻害薬服用患者の体重減少時は、InBodyで除脂肪量が保たれているか（脂肪だけが減っているか）の追跡が不可欠です。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：Diabetes Obes Metab. 2018; 20: 2288–2297 / ADA Guidelines
+          </div>
+        </div>
+
+        <!-- 4. GLP-1/GIP共作動薬と除脂肪量喪失 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>④</span> GLP-1受容体作動薬/チルゼパチドの除脂肪量モニタリング
+            </span>
+            <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">最新薬物治療</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            セマグルチドやチルゼパチドなどの強力な食欲抑制・体重減少薬では、急激な体重減少（10〜20%減）の過程で、<strong>減少総重量の約20〜40%が「骨格筋・除脂肪量」から失われる</strong>ことが臨床試験（STEP-1, SURPASS等）で判明しています。十分なタンパク質摂取（1.2〜1.5g/kg/日）とレジスタンストレーニングを併用させないと、サルコペニア肥満を助長し投薬中止後に急速なリバウンドを起こします。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：Wilding JPH, et al. N Engl J Med. 2021; 384:989-1002 (STEP 1)
+          </div>
+        </div>
+
+        <!-- 5. 転倒誘発薬（FRIDs） -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>⑤</span> 下肢筋力低下 × 転倒誘発薬（FRIDs）の相乗リスク
+            </span>
+            <span class="text-[9px] bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded font-bold">骨折防止</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            ベンゾジアゼピン系/Z-drug睡眠薬（筋弛緩作用・持ち越し）、α1遮断薬・降圧薬（起立性低血圧）、抗コリン薬（ふらつき）などの転倒誘発薬（FRIDs: Fall-Risk Increasing Drugs）を服用している高齢者が「下肢筋肉量：低」の場合、大腿骨近位部骨折の発生率は飛躍的に高まります。InBodyの結果を契機として、睡眠衛生指導による減薬や、非ベンゾ系（オレキシン受容体拮抗薬・メラトニン受容体作動薬）への処方提案を行います。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：日本老年医学会『高齢者の安全な薬物療法ガイドライン2015』
+          </div>
+        </div>
+
+        <!-- 6. 体内動態（PK/PD）の変容 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>⑥</span> 筋肉減少・体脂肪過多による分布容積（Vd）の変動
+            </span>
+            <span class="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded font-bold">薬物動態学</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            体組成の変容は薬物体内動態を激変させます。筋肉（体水分）が減少すると水溶性薬物（ジゴキシン、リチウム、テオフィリン、アミノグリコシド系等）の分布容積（Vd）が縮小し、同一投与量でも<strong>初期血中濃度が急激に跳ね上がって中毒域に達しやすくなります</strong>。逆に体脂肪率が増大すると脂溶性薬物（ジアゼパム、アミオダロン等）のVdが著増し、脂肪組織からの緩徐な再遊離により消失半減期（t1/2）が何倍にも延長（翌朝へのふらつき持ち越し）します。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：日本サルコペニア・フレイル学会『サルコペニア診療ガイドライン2020』
+          </div>
+        </div>
+
+        <!-- 7. ステロイド筋症 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>⑦</span> 副腎皮質ステロイドによるステロイド筋症のモニタリング
+            </span>
+            <span class="text-[9px] bg-purple-100 text-purple-800 px-1.5 py-0.5 rounded font-bold">医薬品副作用</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            プレドニゾロン換算10mg/日以上の長期投与では、筋タンパク質合成抑制とユビキチン・プロテアソーム系亢進により、主に大腿四頭筋や腸腰筋など<strong>下肢近位筋の選択的筋萎縮（Type IIb白筋線維の変性）</strong>が生じます。InBodyの部位別筋肉量で「体幹や腕に比べて両脚だけが急激に低下」している場合、ステロイド筋症の初期徴候である可能性が高く、階段昇降困難や立ち上がりテストと併せて早期把握します。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：Schakman O, et al. J Steroid Biochem Mol Biol. 2013; 137:240–248
+          </div>
+        </div>
+
+        <!-- 8. ビタミンD・カルシウムと筋力 -->
+        <div class="bg-slate-50/80 rounded-xl p-4 border border-slate-200 space-y-2 hover:border-purple-300 transition">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-purple-900 flex items-center gap-1.5 text-xs">
+              <span>⑧</span> 活性型ビタミンD3製剤と筋力・転倒予防エビデンス
+            </span>
+            <span class="text-[9px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold">骨粗鬆症連動</span>
+          </div>
+          <p class="text-slate-600 leading-relaxed text-[11px]">
+            骨格筋細胞にはビタミンD受容体（VDR）が発現しており、ビタミンDはカルシウム流入を介して筋収縮力を直接高め、速筋線維の萎縮を防ぎます。エルデカルシトールやアルファカルシドール等の活性型ビタミンD3製剤は、骨密度上昇だけでなく<strong>高齢者の転倒頻度を有意に低下させる（転倒リスク約20%減少）</strong>ことが多くのRCTで実証されています。骨粗鬆症治療薬の服薬意義として「足のふらつき予防」を伝える強力な根拠です。
+          </p>
+          <div class="text-[10px] text-purple-700 font-mono pt-1 border-t border-slate-200">
+            出典：Bischoff-Ferrari HA, et al. BMJ. 2009; 339:b3692 / 骨粗鬆症の予防と治療ガイドライン2015
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. SMI計算機 -->
+    <section id="sec-simulator" class="bg-white rounded-2xl p-5 sm:p-6 border border-slate-200 shadow-xs space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">Clinical Calculator</span>
+          <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span>🧮</span> SMI（骨格筋指数）＆ サルコペニア即時診断計算機
+          </h3>
+        </div>
+        <p class="text-xs text-slate-500">用紙の数値を入力すると、AWGS 2019基準に基づき即座に判定します</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+        <!-- 入力フォーム -->
+        <div class="md:col-span-6 space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-700 font-bold mb-1">性別</label>
+              <select id="simGender" onchange="calculateSMI()" class="w-full bg-white p-2 rounded-lg border border-slate-300 font-bold">
+                <option value="male">男性</option>
+                <option value="female" selected>女性</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-700 font-bold mb-1">年齢</label>
+              <input type="number" id="simAge" value="74" oninput="calculateSMI()" class="w-full bg-white p-2 rounded-lg border border-slate-300 font-bold">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-700 font-bold mb-1">身長 (cm)</label>
+              <input type="number" id="simHeight" value="152.0" step="0.1" oninput="calculateSMI()" class="w-full bg-white p-2 rounded-lg border border-slate-300 font-bold font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-700 font-bold mb-1">四肢骨格筋量 (kg)</label>
+              <input type="number" id="simASM" value="12.8" step="0.1" oninput="calculateSMI()" class="w-full bg-white p-2 rounded-lg border border-slate-300 font-bold font-mono">
+            </div>
+          </div>
+          <div class="text-[10px] text-slate-500 leading-tight">
+            ※四肢骨格筋量（ASM）は用紙の「部位別筋肉量」の両腕＋両脚の合計値です。
+          </div>
+        </div>
+
+        <!-- 判定結果カード -->
+        <div class="md:col-span-6 bg-gradient-to-br from-sky-50 via-teal-50/40 to-white rounded-xl p-5 border-2 border-sky-300 text-slate-800 space-y-3 shadow-2xs">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-sky-800 font-mono tracking-wider">AWGS 2019 Diagnostic Result</span>
+            <span id="simResultBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-300">
+              判定中
+            </span>
+          </div>
+
+          <div class="flex items-baseline gap-2">
+            <span class="text-xs text-slate-600 font-bold">算出 SMI:</span>
+            <span id="simSmiValue" class="text-3xl font-black text-rose-600 font-mono">5.54</span>
+            <span class="text-xs text-slate-600 font-semibold">kg/m²</span>
+          </div>
+
+          <div id="simDiagnosticText" class="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-sky-200 shadow-2xs">
+            女性サルコペニア基準（5.7 kg/m²未満）を下回っています。骨格筋量低下（低筋量）に該当し、歩行速度や握力低下を伴うとサルコペニアと確定診断されます。
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-600 font-semibold pt-1 border-t border-sky-200">
+            <div>基準値（男性）：7.0 kg/m²未満</div>
+            <div>基準値（女性）：5.7 kg/m²未満</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white text-slate-600 text-xs py-8 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-sky-600"></span>
+        <span class="font-black text-slate-900">InBody指導マニュアル for Pharmacist</span>
+        <span>|</span>
+        <span class="text-sky-700 font-bold">福岡市薬剤師会 広報委員会</span>
+      </div>
+      <p class="text-slate-500 text-center sm:text-right text-[11px]">
+        地域包括ケア・対面健康相談・服薬指導・処方鑑査支援ツール
+      </p>
+    </div>
+  </footer>
+
+  <!-- スマホ専用固定ボトムバー -->
+  <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-1.5 shadow-lg">
+    <div class="max-w-md mx-auto flex items-center justify-around text-center">
+      <a href="#sec-qol-benefits" class="flex flex-col items-center text-emerald-700 font-bold transition py-1">
+        <span class="text-base">🌟</span>
+        <span class="text-[9px] font-black">生活改善</span>
+      </a>
+      <a href="#sec-quick-selector" class="flex flex-col items-center text-slate-600 hover:text-sky-700 transition py-1">
+        <span class="text-base">⚡</span>
+        <span class="text-[9px] font-bold">逆引き</span>
+      </a>
+      <a href="#sec-shapes" class="flex flex-col items-center text-slate-600 hover:text-sky-700 transition py-1">
+        <span class="text-base">📊</span>
+        <span class="text-[9px] font-bold">基準線</span>
+      </a>
+      <a href="#sec-killer-scripts" class="flex flex-col items-center text-rose-600 font-bold transition py-1">
+        <span class="text-base">💬</span>
+        <span class="text-[9px] font-black">トーク集</span>
+      </a>
+      <a href="#sec-deep-evidence" class="flex flex-col items-center text-purple-700 hover:text-purple-900 transition py-1">
+        <span class="text-base">🔬</span>
+        <span class="text-[9px] font-bold">学術詳細</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- コピートースト通知 -->
+  <div id="appToast" class="fixed bottom-20 sm:bottom-8 left-1/2 -translate-x-1/2 z-50 bg-slate-900/90 backdrop-blur text-white text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2 border border-slate-700">
+    <span class="text-emerald-400 font-bold">✓</span>
+    <span id="toastMsg">クリップボードにコピーしました</span>
+  </div>
+
+  <script>
+    // QOL（生活の質向上・希望別）データ
+    const qolBenefitsData = {
+      'move': {
+        icon: '🏃',
+        sub: 'Move Freely & Lightly',
+        title: '「足元が羽のように軽くなり、階段や散歩が楽しくなる」未来へ',
+        badge: '着目する用紙項目：両脚の筋肉量（kg）',
+        talk: '「〇〇さん、足の筋肉は『天然のバネ』です。ここを目覚めさせると、駅の階段を一段飛ばしで登れそうなくらい足がスッと前に出るようになりますよ。お散歩や買い物帰りの『あぁ疲れた…』が劇的になくなる変化を、一緒に楽しみませんか？」',
+        action: '歯磨きをしながら「かかとを上げて5秒キープ」を1日10回。第二の心臓であるふくらはぎを刺激し、血液とエネルギーを全身に送り出します。',
+        timeline: '<strong>【2週間後】：</strong>夕方の足のだるさ・むくみが軽減。<br><strong>【1ヶ月後】：</strong>信号待ちや椅子からの立ち上がりが軽やかに！'
+      },
+      'pain': {
+        icon: '🩹',
+        sub: 'Pain-Free Active Life',
+        title: '「太ももが天然のサポーターになり、膝や腰の重だるさがスーッと軽くなる」未来へ',
+        badge: '着目する用紙項目：左右下肢筋肉バランス',
+        talk: '「膝や腰の痛みは、骨や軟骨が一人で体重を支えきれなくなっているサインです。太ももの筋肉は『天然のサポーター』。ここが少し引き締まるだけで、体重のクッションになって痛みが驚くほど和らぎます。体重をかけない座り運動から始めましょう！」',
+        action: 'テレビを見ながら、椅子に深く腰掛けて「片足を水平に伸ばして5秒キープ」。左右交互に5回ずつ。膝に負担をかけずに大腿四頭筋を鍛えます。',
+        timeline: '<strong>【2週間後】：</strong>立ち上がり時の『イタタ…』が軽減。<br><strong>【1ヶ月後】：</strong>階段を降りるときの膝の不安感が解消！'
+      },
+      'sleep': {
+        icon: '🌙',
+        sub: 'Deep Sleep & Fresh Morning',
+        title: '「夜はベッドに入って即ぐっすり、朝は目覚まし前にスッキリ起きられる」未来へ',
+        badge: '着目する用紙項目：基礎代謝量 ＆ 骨格筋量',
+        talk: '「日中、筋肉に適度な刺激を与えると、夜に良質な睡眠ホルモン（メラトニン）がたっぷり分泌されます。さらに筋肉が増えると寝ている間の体温が保たれ、夜中に寒さやトイレで起きることが減り、朝の目覚めが爽快になりますよ！」',
+        action: '夕食後や寝る1時間前の「深呼吸しながらの股関節・ふくらはぎストレッチ」。副交感神経を優位にし、スムーズな入眠を促します。',
+        timeline: '<strong>【3日後】：</strong>寝付きの早さと朝の目覚めの良さを実感。<br><strong>【2週間後】：</strong>日中の眠気やだるさがスッキリ解消！'
+      },
+      'posture': {
+        icon: '✨',
+        sub: 'Youthful Posture & Confidence',
+        title: '「背筋がピンと伸びてお腹スッキリ、周りから『若々しいね！』と褒められる」未来へ',
+        badge: '着目する用紙項目：体幹筋肉量 ＆ 内臓脂肪レベル',
+        talk: '「体幹の筋肉は、身体を内側から支える『美姿勢の柱』です。ここがシャンとすると、胃腸が正しい位置に戻ってポッコリお腹が自然と引っ込みます。お洋服がスッキリ着こなせて、歩く姿も5歳若返って見えますよ！」',
+        action: '椅子に座る時、おへその下（丹田）に軽く力を入れて背もたれから背中を5cm離す「美姿勢キープ」。',
+        timeline: '<strong>【1週間後】：</strong>背中のハリや肩こりが楽になる。<br><strong>【1ヶ月後】：</strong>スカートやズボンのウエスト周りに嬉しい余裕が！'
+      },
+      'disease': {
+        icon: '💊',
+        sub: 'Natural Health & Deprescribing',
+        title: '「筋肉が余分な糖や脂質をグングン燃やし、お薬を減らす嬉しいゴールへ」未来へ',
+        badge: '着目する用紙項目：骨格筋量（SMM） / 筋肉発達率',
+        talk: '「毎日のお薬服用、本当に素晴らしい管理力です！実は、血液中の糖分の約70〜80%を消費してくれる最大の燃焼工場は『筋肉』なんです。筋肉が元気に働き始めると、お薬の効き目が格段に良くなり、将来的にお薬の量を減らしたり止めたりできる可能性が大きく広がります！」',
+        action: '食後15分〜30分の間に、その場で足踏み100回または軽い散歩。食後の血糖値スパイクを筋肉がダイレクトに吸収します。',
+        timeline: '<strong>【1ヶ月後】：</strong>次回の血液検査（血糖値・中性脂肪・HbA1c）で改善の兆候。<br><strong>【3ヶ月後】：</strong>主治医から『お薬減らせるかもね』と言われる未来へ！'
+      },
+      'travel': {
+        icon: '🍁',
+        sub: 'Lifelong Freedom & Vitality',
+        title: '「何歳になっても自分の足で行きたい場所へ！旅行や趣味を一生楽しめる」未来へ',
+        badge: '着目する用紙項目：四肢骨格筋指数（SMI）',
+        talk: '「健康の最大の目的は、やりたいことを思い切り楽しめる自由ですよね。足腰の筋肉がしっかりしていれば、温泉旅行の石段も、お孫さんとの外出も、ずっと笑顔で自分の足で楽しめます。筋肉は何歳からでも育ちます。一生楽しむための貯金を今から始めましょう！」',
+        action: 'お出かけ時に「いつもより歩幅を3cm広げて歩く」。これだけで大腰筋（深層筋肉）が刺激され、つまずきをゼロにします。',
+        timeline: '<strong>【2週間後】：</strong>歩行スピードが自然と速くなり、疲れにくくなる。<br><strong>【半年後】：</strong>長時間の外出や旅行でも全く足が痛まない自信を獲得！'
+      }
+    };
+
+    function selectQolBenefit(type) {
+      const data = qolBenefitsData[type];
+      if (!data) return;
+
+      document.getElementById('qolCardIcon').innerText = data.icon;
+      document.getElementById('qolCardSub').innerText = data.sub;
+      document.getElementById('qolCardTitle').innerText = data.title;
+      document.getElementById('qolKeyMetricBadge').innerText = data.badge;
+      document.getElementById('qolTalkText').innerText = data.talk;
+      document.getElementById('qolActionText').innerText = data.action;
+      document.getElementById('qolTimelineText').innerHTML = data.timeline;
+
+      document.querySelectorAll('.qol-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-emerald-400', 'bg-emerald-50');
+        btn.classList.add('border-slate-200', 'bg-white');
+      });
+      event.currentTarget.classList.remove('border-slate-200', 'bg-white');
+      event.currentTarget.classList.add('border-2', 'border-emerald-400', 'bg-emerald-50');
+
+      showToast(`「${data.title}」の希望アプローチを表示しました`);
+    }
+
+    function copyQolScript() {
+      const text = document.getElementById('qolTalkText').innerText;
+      copyDirectText(text, "QOL希望トークをコピーしました");
+    }
+
+    let currentMode = 'counseling';
+
+    function setAppMode(mode) {
+      currentMode = mode;
+      const btnCounseling = document.getElementById('mode-btn-counseling');
+      const btnTraining = document.getElementById('mode-btn-training');
+      const secQuick = document.getElementById('sec-quick-selector');
+      const secEvidence = document.getElementById('sec-deep-evidence');
+
+      if (mode === 'counseling') {
+        btnCounseling.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 bg-sky-600 text-white shadow-xs";
+        btnTraining.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900";
+        secQuick.scrollIntoView({ behavior: 'smooth' });
+        showToast("【対面・即応モード】に切り替えました（クイック逆引き優先）");
+      } else {
+        btnTraining.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 bg-purple-600 text-white shadow-xs";
+        btnCounseling.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 text-slate-600 hover:text-slate-900";
+        secEvidence.scrollIntoView({ behavior: 'smooth' });
+        showToast("【学術・エビデンスモード】に切り替えました（詳細解説優先）");
+      }
+    }
+
+    const quickData = {
+      'shape-c': {
+        badge: 'C型判定時の臨床アクション',
+        title: '体重は標準枠だが、筋肉がくぼみ体脂肪が右に突出しているパターン',
+        risk: '基礎代謝低下によるリバウンド体質、骨格筋でのブドウ糖取り込み不足（食後高血糖）、将来のロコモ・転倒リスク。',
+        action: '「食事を減らすダイエット」は中止。「毎食手のひら1枚分のタンパク質（魚・卵・大豆・肉）」を補給し、歯磨き中のつま先立ち10回から開始。',
+        talk: '「体重の数字は標準ですが、内訳は筋肉が控えめで脂肪が多めの状態です。食事を減らすと代謝が落ちて逆効果ですので、しっかり食べて筋肉を守りましょう！」'
+      },
+      'leg-low': {
+        badge: '下肢筋肉量「低」時の臨床アクション',
+        title: '上半身や体幹に比べ、両脚の筋肉量が基準を下回っているパターン',
+        risk: '全身筋肉の約70%が集中する下肢の萎縮により、歩行ふらつき・夜間転倒・インスリン抵抗性悪化が先行します。',
+        action: '椅子からの立ち座り運動（1日10回×2セット）や、座位での足首パタパタ運動。夜間の足元灯確保。',
+        talk: '「両足の筋肉は体を支えるブレーキであり、食事の糖を燃やす一番大きな工場です。ここが細くなると血糖値が上がったり転倒しやすくなります。椅子スクワットから始めましょう！」'
+      },
+      'rx-frids': {
+        badge: '転倒誘発薬（FRIDs）併用時の臨床アクション',
+        title: '睡眠薬（BZ/Z-drug）・降圧薬・抗めまい薬を服用中の患者',
+        risk: '薬の筋弛緩・ふらつき・起立性低血圧と、筋力低下が重なり、大腿骨近位部骨折の超ハイリスク群となります。',
+        action: '就寝直前の服薬徹底、夜間トイレ動線の段差解消、ふらつき発現時の主治医への減薬・変更提案。',
+        talk: '「お飲みいただいている睡眠薬（降圧薬）はお体が休まる反面、夜中や朝方に少し足元がふらつきやすくなります。暗い中での歩行は避け、足の運動で土台を強くしておきましょう。」'
+      },
+      'edema-trap': {
+        badge: '水分貯留・むくみ疑い時の臨床アクション',
+        title: '下肢筋肉量が異常に高い、またはInBody点数が「-」（非表示）のパターン',
+        risk: '筋肉がついたのではなく、細胞外水分比率（ECW/TBW）の著増（心不全・腎機能悪化・浮腫）による偽陽性。',
+        action: 'すねの内側を指で5秒圧迫し圧痕（靴下の跡等）を確認。利尿薬の服薬状況確認、循環器科・腎臓内科受診勧奨。',
+        talk: '「足に少し余分な水分が溜まっている可能性があります。筋肉の測定点数が計算できない状態ですので、足のむくみや息切れがないか、主治医の先生にも相談してみましょう。」'
+      }
+    };
+
+    function applyQuickFilter(type) {
+      const data = quickData[type];
+      if (!data) return;
+
+      document.getElementById('quickCardBadge').innerText = data.badge;
+      document.getElementById('quickCardTitle').innerText = data.title;
+      document.getElementById('quickRiskText').innerText = data.risk;
+      document.getElementById('quickActionText').innerText = data.action;
+      document.getElementById('quickTalkSummary').innerText = data.talk;
+
+      showToast(`「${data.badge}」の推奨アプローチを表示しました`);
+    }
+
+    function copyQuickScript() {
+      const text = document.getElementById('quickTalkSummary').innerText;
+      copyDirectText(text, "クイックトークをコピーしました");
+    }
+
+    const shapeGraphData = {
+      'C': {
+        weight: { pct: 55, text: '58.4 kg (100% / 標準)' },
+        muscle: { pct: 38, text: '19.2 kg (82% / 不足凹)', label: '② 骨格筋量 (SMM) ➔ くぼみ判定' },
+        fat: { pct: 78, text: '22.4 kg (145% / 過多凸)', label: '③ 体脂肪量 (Body Fat) ➔ 張り出し判定' },
+        title: '【C型】伸びしろ最大型（筋肉を目覚めさせると劇的に身体が軽くなる体型）',
+        desc: '骨格筋量が中央の100%基準破線より左側に凹んでおり、体脂肪量が右側に大きく張り出しています。運動習慣の乏しい方や、炭水化物偏重・極端な食事抜きダイエット経験者に極めて多く見られます。筋肉量が不足しているため、基礎代謝が低下して冷えやすく、食後高血糖（インスリン抵抗性）を引き起こしやすい病態です。'
+      },
+      'I': {
+        weight: { pct: 55, text: '60.0 kg (100% / 標準)' },
+        muscle: { pct: 55, text: '24.5 kg (100% / 標準揃い)', label: '② 骨格筋量 (SMM) ➔ 標準維持' },
+        fat: { pct: 55, text: '13.0 kg (100% / 標準揃い)', label: '③ 体脂肪量 (Body Fat) ➔ 標準維持' },
+        title: '【I型】標準体重健康型（理想バランス）',
+        desc: '体重・骨格筋量・体脂肪量の3つの先端が、中央の100%基準線上に美しく垂直に揃ったバランス型です。日常的に適度な活動量を保たれている証拠です。加齢による下肢筋量の減少を防ぎ、この良好なバランスをいかに長期維持するかが指導のポイントになります。'
+      },
+      'D': {
+        weight: { pct: 60, text: '64.0 kg (107% / 標準高)' },
+        muscle: { pct: 85, text: '31.0 kg (128% / 突出凸)', label: '② 骨格筋量 (SMM) ➔ 突出型' },
+        fat: { pct: 35, text: '8.5 kg (65% / 引き締まり)', label: '③ 体脂肪量 (Body Fat) ➔ 低〜標準' },
+        title: '【D型】標準体重強靭型（アスリート・高代謝型）',
+        desc: '骨格筋量が100%基準線を大きく右側に超えて力強く張り出した、理想的なD型シルエットです。基礎代謝量が極めて高く、糖や脂質を効率的に消費できるため生活習慣病リスクが非常に低い強靭なお体です。InBody点数も85〜95点以上の高得点を記録します。'
+      }
+    };
+
+    function renderShapeGraph(shape) {
+      const data = shapeGraphData[shape];
+      if (!data) return;
+
+      ['C', 'I', 'D'].forEach(s => {
+        const btn = document.getElementById(`btnShape${s}`);
+        if (s === shape) {
+          btn.className = "py-2.5 rounded-lg text-xs font-bold transition flex flex-col items-center bg-sky-600 text-white shadow-2xs";
+        } else {
+          btn.className = "py-2.5 rounded-lg text-xs font-bold transition flex flex-col items-center bg-white text-slate-700 hover:bg-slate-200";
+        }
+      });
+
+      document.getElementById('labelBarWeight').innerText = data.weight.text;
+      document.getElementById('barWeight').style.width = data.weight.pct + '%';
+      document.getElementById('barWeight').innerText = data.weight.pct + '%';
+
+      document.getElementById('nameBarMuscle').innerText = data.muscle.label;
+      document.getElementById('labelBarMuscle').innerText = data.muscle.text;
+      document.getElementById('barMuscle').style.width = data.muscle.pct + '%';
+      document.getElementById('barMuscle').innerText = data.muscle.pct + '%';
+
+      document.getElementById('nameBarFat').innerText = data.fat.label;
+      document.getElementById('labelBarFat').innerText = data.fat.text;
+      document.getElementById('barFat').style.width = data.fat.pct + '%';
+      document.getElementById('barFat').innerText = data.fat.pct + '%';
+
+      document.getElementById('shapeBoxTitle').innerText = data.title;
+      document.getElementById('shapeBoxBody').innerText = data.desc;
+    }
+
+    // 薬学的判断の深化 ＆ 医師との情報共有・対話データ
+    const collabData = {
+      'cr': {
+        subTitle: 'Clinical Pharmacist Assessment: Renal Function Reality',
+        mainTitle: '筋肉量著減に伴う「推算eGFR過大評価」と腎排泄型薬剤の中毒防止',
+        targetDrugs: '着目薬剤：DOAC / ジゴキシン / ガバペンチノイド / 親水性抗菌薬',
+        pharmacistView: 'SMIがサルコペニア基準を著しく下回る場合、筋肉由来の内因性クレアチニン産生自体が枯渇している。血清Crが0.3〜0.5mg/dLと低く出て推算eGFRが90以上と「正常」に見えても、実質腎機能（GFR）は著明に低下している恐れが高い。腎排泄型薬物が通常量で蓄積中毒を起こす危険を察知する。',
+        patientTalk: '「〇〇さん、いま筋肉がかなり細くなっていて、お体の代謝の様子が少し変わってきているサインが出ています。次回主治医の先生に『薬局で筋肉量を測ったらかなり少なめだったので、今のお薬の量や腎臓の数値に影響がないか確認してほしいと言われました』と一言お伝えしてみませんか？私たちからもメモをお渡ししますね。」',
+        doctorDiscussion: '単に「減量してください」と要求するのではなく、「InBodyで重度低筋量（SMI 4.8）を確認したため、血清Crに基づくeGFRが過大評価されている懸念がある」という客観的事実を提示。筋肉量の影響を受けないシスタチンCでの再評価や、血中濃度モニタリングの必要性を共同検討する。',
+        summaryText: '【薬学的判断・共有事項】患者様（82歳女性）のInBody測定にて四肢骨格筋指数（SMI）4.8 kg/m²（基準未満）を認めました。筋肉量著減に伴い血清Cr産生が低下し、推算eGFRが見かけ上正常〜高値に過大評価されている可能性が危惧されます。現在処方中の腎排泄型薬剤（DOAC等）につきまして、シスタチンCに基づく腎機能再評価や用量適正化をご検討・ご相談させていただけますと幸いです。'
+      },
+      'frids': {
+        subTitle: 'Fall-Risk Reduction & Pharmacotherapy Optimization',
+        mainTitle: '下肢筋肉量低下 × 転倒誘発薬（FRIDs）による夜間骨折ハイリスクの未然防止',
+        targetDrugs: '着目薬剤：BZ系/Z-drug睡眠薬 / α1遮断薬・降圧薬 / 抗コリン薬',
+        pharmacistView: '下肢筋肉が「低」の場合、上半身の体重を支える土台とブレーキ機能が低下している。ここに睡眠薬の筋弛緩・翌朝持ち越しや降圧薬の起立性低血圧が重なると、夜間排尿時の大腿骨近位部骨折リスクが急激に跳ね上がる。薬を減らす・変える契機として捉える。',
+        patientTalk: '「〇〇さん、腕や体幹は保たれていますが、足の筋肉が少しお休みモードになっています。夜間にトイレへ立たれるとき、足元がふらついたりヒヤッとしたことはありませんか？今のお薬とお体の相性を先生と見直すことで、もっとふらつかずに安心して眠れる方法を一緒に考えましょう。」',
+        doctorDiscussion: '「患者様の下肢筋肉量が著減（標準の74%）しており、夜間のふらつき自覚がある」事実を共有。睡眠薬を筋弛緩作用の少ない非ベンゾジアゼピン系（オレキシン受容体拮抗薬・メラトニン受容体作動薬）へ変更、または就寝前降圧薬の服用タイミング調整についてアドバイス・相談を行う。',
+        summaryText: '【薬学的判断・共有事項】患者様（78歳男性）のInBody測定にて下肢筋肉量「低」（標準の74%）を認めました。現在処方中の睡眠薬および降圧薬による筋弛緩・起立性ふらつきと相まって夜間転倒・骨折リスクが高いとアセスメントいたします。転倒防止の観点より、非ベンゾ系睡眠薬への変更や漸減のご検討につきご相談申し上げます。'
+      },
+      'edema': {
+        subTitle: 'Fluid Balance Assessment & Cardiovascular Care',
+        mainTitle: '細胞外水分比率異常（ECW高値・点数空白）と心不全・浮腫の早期察知',
+        targetDrugs: '着目薬剤：ループ利尿薬 / Ca拮抗薬（浮腫副作用） / NSAIDs',
+        pharmacistView: '下肢筋肉量が「高」と出ても喜んではいけない。細胞外水分比率（ECW/TBW）≧0.400や点数空白は、組織間隙への水分貯留（浮腫）を反映した見かけの偽陽性。心不全の潜在的増悪、低アルブミン血症、または利尿薬のアドヒアランス低下・効果減弱を疑う。',
+        patientTalk: '「〇〇さん、足の測定数値に少し水分が多く溜まっているサインが出ています。最近、夕方に靴下のゴム跡が深く残ったり、階段を登ったときにいつもより息が切れるようなことはございませんか？一度主治医の先生に足のむくみ具合を診ていただきましょう。」',
+        doctorDiscussion: '「InBodyにてECW/TBW比率0.412（異常高値）および点数算出不能、下腿に圧痕性浮腫（pitting edema 2+）を確認した」旨を報告。心不全増悪や利尿薬の用量調節、あるいはCa拮抗薬による薬剤性浮腫の鑑別について臨床情報を提供し、早期受診・精査へつなげる。',
+        summaryText: '【薬学的判断・共有事項】患者様（85歳女性）の測定にて細胞外水分比率（ECW/TBW）0.412と著明な体水分貯留を認め、下腿圧痕性浮腫（2+）および直近体重急増（2週間で+2.5kg）を確認いたしました。心不全増悪または体水分コントロール不全の懸念がございますため、循環機能・腎機能のご診察および利尿薬等のご評価をご検討いただけますよう情報共有いたします。'
+      }
+    };
+
+    function switchCollabTab(type) {
+      const data = collabData[type];
+      if (!data) return;
+
+      document.getElementById('collabSubTitle').innerText = data.subTitle;
+      document.getElementById('collabMainTitle').innerText = data.mainTitle;
+      document.getElementById('collabTargetDrugs').innerText = data.targetDrugs;
+      document.getElementById('collabPharmacistView').innerText = data.pharmacistView;
+      document.getElementById('collabPatientTalk').innerText = data.patientTalk;
+      document.getElementById('collabDoctorDiscussion').innerHTML = data.doctorDiscussion;
+      document.getElementById('collabSummaryText').innerText = data.summaryText;
+
+      ['cr', 'frids', 'edema'].forEach(k => {
+        const btn = document.getElementById(`btnCollab${k.charAt(0).toUpperCase() + k.slice(1)}`);
+        if (k === type) {
+          btn.className = "p-3 rounded-xl border-2 border-sky-400 bg-sky-50/80 text-sky-950 text-left transition shadow-2xs active:scale-98";
+          btn.querySelector('span:first-child').className = "text-[10px] font-bold uppercase tracking-wider text-sky-700";
+        } else {
+          btn.className = "p-3 rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50/50 text-slate-700 text-left transition shadow-2xs active:scale-98";
+          btn.querySelector('span:first-child').className = "text-[10px] font-bold uppercase tracking-wider text-slate-500";
+        }
+      });
+
+      showToast(`「${data.mainTitle}」の薬学的対話ガイドを表示しました`);
+    }
+
+    function copyCollabSummary() {
+      const text = document.getElementById('collabSummaryText').innerText;
+      copyDirectText(text, "要点サマリーメモをコピーしました");
+    }
+
+    function calculateSMI() {
+      const gender = document.getElementById('simGender').value;
+      const heightCm = parseFloat(document.getElementById('simHeight').value) || 0;
+      const asm = parseFloat(document.getElementById('simASM').value) || 0;
+
+      if (heightCm <= 0 || asm <= 0) return;
+
+      const heightM = heightCm / 100;
+      const smi = asm / (heightM * heightM);
+      const roundedSmi = smi.toFixed(2);
+      document.getElementById('simSmiValue').innerText = roundedSmi;
+
+      const badge = document.getElementById('simResultBadge');
+      const text = document.getElementById('simDiagnosticText');
+
+      if (gender === 'male') {
+        if (smi < 7.0) {
+          badge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-300";
+          badge.innerText = "サルコペニア該当（基準値未満）";
+          text.innerText = `男性基準（7.0 kg/m²未満）を下回っています（SMI: ${roundedSmi}）。骨格筋量の著しい減少が認められ、転倒リスク・生活機能障害の注意が必要です。`;
+        } else {
+          badge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+          badge.innerText = "標準域（正常）";
+          text.innerText = `男性基準（7.0 kg/m²以上）を満たしています（SMI: ${roundedSmi}）。良好な骨格筋量が維持されています。`;
+        }
+      } else {
+        if (smi < 5.7) {
+          badge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-300";
+          badge.innerText = "サルコペニア該当（基準値未満）";
+          text.innerText = `女性基準（5.7 kg/m²未満）を下回っています（SMI: ${roundedSmi}）。筋肉量減少による基礎代謝低下や将来の歩行障害を予防する食事・運動介入が必要です。`;
+        } else {
+          badge.className = "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+          badge.innerText = "標準域（正常）";
+          text.innerText = `女性基準（5.7 kg/m²以上）を満たしています（SMI: ${roundedSmi}）。この力強い筋肉量を維持できるよう支援しましょう。`;
+        }
+      }
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('globalSearch').value.toLowerCase().trim();
+      executeSearch(query);
+    }
+
+    function syncAndSearch(val) {
+      document.getElementById('globalSearch').value = val;
+      executeSearch(val.toLowerCase().trim());
+    }
+
+    function executeSearch(q) {
+      if (!q) {
+        document.querySelectorAll('section, details').forEach(el => el.style.display = '');
+        return;
+      }
+      document.querySelectorAll('#scriptAccordionList details, #sec-deep-evidence .grid > div').forEach(el => {
+        if (el.innerText.toLowerCase().includes(q)) {
+          el.style.display = '';
+          if (el.tagName === 'DETAILS') el.open = true;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    function copyDirectText(text, successMsg) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      showToast(successMsg || "コピーしました");
+    }
+
+    function copyScriptText(btn) {
+      const container = btn.closest('details');
+      const textEl = container.querySelector('.italic');
+      if (textEl) {
+        copyDirectText(textEl.innerText, "ポジティブトークをコピーしました");
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('appToast');
+      document.getElementById('toastMsg').innerText = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      calculateSMI();
+    });
+  </script>
+</body>
+</html>
