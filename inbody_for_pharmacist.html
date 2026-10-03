@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="theme-color" content="#ffffff"/>
-  <title>InBody指導マニュアル for Pharmacist v12.3 ｜ 福岡市薬剤師会 広報委員会</title>
+  <title>InBody指導マニュアル for Pharmacist v12.4 ｜ 福岡市薬剤師会 広報委員会</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -50,7 +50,7 @@
     .bar-transition {
       transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    /* スライドモーダルアニメーション */
+    /* モーダルアニメーション */
     .modal-backdrop {
       background-color: rgba(15, 23, 42, 0.65);
       backdrop-filter: blur(4px);
@@ -63,12 +63,16 @@
       0% { opacity: 0; transform: scale(0.95) translateY(10px); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
+    /* 人体シルエット部位トランジション */
+    .body-part {
+      transition: fill 0.35s ease, stroke 0.35s ease;
+    }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
 
   <!-- ヘッダー -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs px-4 py-2.5">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs px-3.5 py-2.5">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-2">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2.5">
@@ -78,7 +82,7 @@
           <div>
             <div class="flex items-center gap-2">
               <span class="text-[10px] font-black tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full uppercase">福岡市薬剤師会 広報委員会</span>
-              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">v12.3 スライド連動完全版</span>
+              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">v12.4 スマホ最適化＆人体図版</span>
             </div>
             <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight mt-0.5">
               InBody指導マニュアル <span class="text-sky-600 font-mono text-sm sm:text-base">for Pharmacist</span>
@@ -178,9 +182,9 @@
         <div>
           <h2 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
             <span class="bg-amber-600 text-white text-xs px-2.5 py-0.5 rounded-md shadow-2xs">STEP 1</span>
-            InBody470 実機 ＆ 立位測定姿勢の解剖的チェック（視覚解説）
+            InBody470 実機 ＆ 立位測定姿勢の解剖的チェック（太線・大型ピン仕様）
           </h2>
-          <p class="text-xs text-slate-500 mt-0.5">説明会スライドP.3・P.9を忠実に再現。測定者が立つ姿勢のチェックポイントをクリックで確認</p>
+          <p class="text-xs text-slate-500 mt-0.5">説明会スライドP.3・P.9を忠実に再現。大きな番号ボタン（①〜④）を押すと部位解説が切り替わります</p>
         </div>
         <button onclick="openSlideModal('p9')" class="text-xs font-bold text-amber-800 bg-amber-100 hover:bg-amber-200 px-2.5 py-1 rounded-full border border-amber-300 transition flex items-center gap-1 shadow-2xs">
           <span>🔍 スライドP.9原本を開く</span>
@@ -190,54 +194,68 @@
       <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
           
-          <!-- 左側：立位測定姿勢イラスト -->
-          <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-amber-50/30 p-4 rounded-xl border border-slate-200 flex flex-col items-center relative">
-            <span class="text-[11px] font-black text-slate-700 mb-2">🧍 InBody470 立位測定フォーム（タップして部位解説）</span>
+          <!-- 左側：太線・押しやすい大型ピン付き立位姿勢SVG -->
+          <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-amber-50/40 p-3 sm:p-4 rounded-xl border border-slate-200 flex flex-col items-center relative">
+            <span class="text-xs font-black text-slate-800 mb-2 flex items-center gap-1">
+              <span>🧍</span> InBody470 立位測定フォーム（タップして部位解説）
+            </span>
 
             <svg class="w-64 h-80 select-none" viewBox="0 0 260 320">
-              <!-- InBody470 マシン支柱・ベース -->
-              <rect x="115" y="40" width="30" height="230" rx="4" fill="#cbd5e1" stroke="#94a3b8" stroke-width="2"/>
-              <ellipse cx="130" cy="275" rx="90" ry="22" fill="#e2e8f0" stroke="#94a3b8" stroke-width="2"/>
-              <ellipse cx="130" cy="272" rx="80" ry="18" fill="#f1f5f9"/>
+              <!-- InBody470 マシンベース・支柱 -->
+              <rect x="115" y="45" width="30" height="225" rx="5" fill="#94a3b8" stroke="#64748b" stroke-width="2.5"/>
+              <ellipse cx="130" cy="275" rx="92" ry="24" fill="#cbd5e1" stroke="#64748b" stroke-width="2.5"/>
+              <ellipse cx="130" cy="272" rx="82" ry="19" fill="#f8fafc"/>
+              
               <!-- 足電極（左右） -->
-              <ellipse cx="95" cy="272" rx="16" ry="8" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-              <circle cx="85" cy="273" r="5" fill="#f59e0b" class="cursor-pointer" onclick="showPostureTip('heel')"/>
-              <ellipse cx="165" cy="272" rx="16" ry="8" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
-              <circle cx="175" cy="273" r="5" fill="#f59e0b" class="cursor-pointer" onclick="showPostureTip('heel')"/>
+              <ellipse cx="94" cy="272" rx="18" ry="9" fill="#ffffff" stroke="#0284c7" stroke-width="2.5"/>
+              <ellipse cx="166" cy="272" rx="18" ry="9" fill="#ffffff" stroke="#0284c7" stroke-width="2.5"/>
 
-              <!-- 人体モデル -->
-              <circle cx="130" cy="35" r="18" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
-              <path d="M 115 55 L 145 55 L 148 150 L 112 150 Z" fill="#64748b"/>
-              <path d="M 113 150 L 126 150 L 124 220 L 110 220 Z" fill="#475569"/>
-              <path d="M 134 150 L 147 150 L 150 220 L 136 220 Z" fill="#475569"/>
-              <rect x="108" y="220" width="14" height="48" fill="#64748b"/>
-              <rect x="138" y="220" width="14" height="48" fill="#64748b"/>
+              <!-- 人体モデル（太線・しっかりしたシルエット） -->
+              <!-- 頭 -->
+              <circle cx="130" cy="35" r="20" fill="#64748b" stroke="#334155" stroke-width="3"/>
+              <!-- 胴体 -->
+              <path d="M 112 55 L 148 55 L 152 150 L 108 150 Z" fill="#64748b" stroke="#334155" stroke-width="2"/>
+              <!-- 脚（左右・隙間あり） -->
+              <path d="M 110 150 L 126 150 L 122 268 L 100 268 Z" fill="#475569" stroke="#334155" stroke-width="2"/>
+              <path d="M 134 150 L 150 150 L 160 268 L 138 268 Z" fill="#475569" stroke="#334155" stroke-width="2"/>
 
-              <!-- 腕 -->
-              <line x1="115" y1="58" x2="68" y2="145" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
-              <circle cx="68" cy="145" r="9" fill="#0284c7" class="cursor-pointer" onclick="showPostureTip('hand')"/>
-              <line x1="145" y1="58" x2="192" y2="145" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
-              <circle cx="192" cy="145" r="9" fill="#0284c7" class="cursor-pointer" onclick="showPostureTip('hand')"/>
+              <!-- 腕（太く伸ばした線） -->
+              <line x1="114" y1="62" x2="62" y2="148" stroke="#475569" stroke-width="15" stroke-linecap="round"/>
+              <circle cx="62" cy="148" r="11" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
+              
+              <line x1="146" y1="62" x2="198" y2="148" stroke="#475569" stroke-width="15" stroke-linecap="round"/>
+              <circle cx="198" cy="148" r="11" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
 
-              <!-- クリッカブル注目ピン -->
+              <!-- 【大型クリッカブル番号ピン（直径30px相当・タップしやすい）】 -->
+              <!-- ① 脇を離すピン -->
               <g class="cursor-pointer" onclick="showPostureTip('armpit')">
-                <circle cx="95" cy="100" r="10" fill="#f43f5e"/>
-                <text x="95" y="103" font-size="10" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="middle">①</text>
+                <circle cx="90" cy="98" r="15" fill="#f43f5e" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="90" y="102" font-size="13" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">①</text>
               </g>
+              <!-- ② 手電極ピン -->
               <g class="cursor-pointer" onclick="showPostureTip('hand')">
-                <circle cx="50" cy="145" r="10" fill="#0284c7"/>
-                <text x="50" y="148" font-size="10" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="middle">②</text>
+                <circle cx="42" cy="148" r="15" fill="#0284c7" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="42" y="152" font-size="13" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">②</text>
               </g>
+              <!-- ③ 太もも離しピン -->
               <g class="cursor-pointer" onclick="showPostureTip('thigh')">
-                <circle cx="130" cy="180" r="10" fill="#10b981"/>
-                <text x="130" y="183" font-size="10" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="middle">③</text>
+                <circle cx="130" cy="180" r="15" fill="#10b981" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="130" y="184" font-size="13" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">③</text>
               </g>
+              <!-- ④ かかと電極ピン -->
               <g class="cursor-pointer" onclick="showPostureTip('heel')">
-                <circle cx="130" cy="255" r="10" fill="#f59e0b"/>
-                <text x="130" y="258" font-size="10" fill="white" font-weight="bold" text-anchor="middle" dominant-baseline="middle">④</text>
+                <circle cx="130" cy="252" r="15" fill="#f59e0b" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="130" y="256" font-size="13" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">④</text>
               </g>
             </svg>
-            <span class="text-[10px] text-slate-500 mt-1">※①〜④の番号ピンをクリックすると解説が切り替わります</span>
+
+            <!-- 番号クイックボタンバー（指で直接選べるボタンも併設） -->
+            <div class="grid grid-cols-4 gap-1.5 w-full mt-2 font-bold text-[10px]">
+              <button onclick="showPostureTip('armpit')" class="py-1 px-1 rounded-lg bg-rose-100 text-rose-800 border border-rose-300 text-center">① 脇離し</button>
+              <button onclick="showPostureTip('hand')" class="py-1 px-1 rounded-lg bg-sky-100 text-sky-800 border border-sky-300 text-center">② 手電極</button>
+              <button onclick="showPostureTip('thigh')" class="py-1 px-1 rounded-lg bg-emerald-100 text-emerald-800 border border-emerald-300 text-center">③ 内もも</button>
+              <button onclick="showPostureTip('heel')" class="py-1 px-1 rounded-lg bg-amber-100 text-amber-800 border border-amber-300 text-center">④ かかと</button>
+            </div>
           </div>
 
           <!-- 右側：姿勢解説・公式ルール詳細 -->
@@ -261,7 +279,7 @@
               <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1">
                 <div class="flex items-center justify-between">
                   <span class="font-black text-slate-800 flex items-center gap-1">
-                    <span>⚖️️</span> 体積差約1.2倍
+                    <span>⚖</span> 体積差約1.2倍
                   </span>
                   <button onclick="openSlideModal('p20')" class="text-[9px] text-amber-700 font-bold hover:underline">スライドP.20 ➔</button>
                 </div>
@@ -337,20 +355,19 @@
       </div>
 
       <!-- メインエリア：実物用紙再現 ＆ 詳細解説パネル -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         
-        <!-- 左側：InBody470結果用紙再現 -->
-        <div class="lg:col-span-7 bg-slate-100 p-2 sm:p-3 rounded-2xl border border-slate-300 shadow-inner">
-          <div class="paper-sheet rounded-xl p-3.5 sm:p-5 text-slate-800 space-y-4">
+        <!-- 左側：InBody470結果用紙再現（コンパクト＆太字強調） -->
+        <div id="target-paper-sheet" class="lg:col-span-7 bg-slate-100 p-2 sm:p-3 rounded-2xl border border-slate-300 shadow-inner">
+          <div class="paper-sheet rounded-xl p-3 sm:p-4 text-slate-800 space-y-3.5">
             
             <!-- 用紙ヘッダー -->
-            <div class="flex justify-between items-end border-b-2 border-slate-800 pb-1.5 font-mono">
+            <div class="flex justify-between items-end border-b-2 border-slate-800 pb-1 font-mono">
               <div>
-                <span class="text-xl font-black tracking-tighter text-slate-900 block">InBody<span class="text-xs font-normal ml-1 text-slate-500">[InBody470]</span></span>
-                <span class="text-[10px] text-slate-600" id="paper-patient-name">ID: Jane Doe / 51歳 / 女性 / 156.9cm</span>
+                <span class="text-xl font-black tracking-tighter text-slate-900 block leading-tight">InBody<span class="text-xs font-normal ml-1 text-slate-500">[InBody470]</span></span>
+                <span class="text-[10px] text-slate-600 font-bold" id="paper-patient-name">ID: Jane Doe / 51歳 / 女性 / 156.9cm</span>
               </div>
               <div class="text-right text-[9px] text-slate-500">
-                <span>Website: www.inbody.co.jp</span><br/>
                 <span id="paper-test-date">2026.10.02 09:46</span>
               </div>
             </div>
@@ -358,25 +375,25 @@
             <!-- ① 体成分分析 -->
             <div onclick="clickPaperZone('comp')" id="paper-zone-comp" class="p-2 rounded-lg border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1">
               <div class="flex justify-between items-center text-[10px] font-black border-b border-slate-200 pb-0.5">
-                <span>① 体成分分析 (Body Composition Analysis)</span>
+                <span class="text-slate-800">① 体成分分析 (Body Composition)</span>
                 <button onclick="event.stopPropagation(); openSlideModal('p12')" class="text-[9px] text-sky-600 hover:underline">📄 スライドP.12 ➔</button>
               </div>
-              <div class="grid grid-cols-4 gap-1 text-center text-[9px] font-mono pt-1">
+              <div class="grid grid-cols-4 gap-1 text-center text-[9px] font-mono pt-0.5">
                 <div class="bg-sky-50 border border-sky-200 p-1 rounded">
-                  <span class="text-slate-500 block text-[8px]">体水分量 (L)</span>
-                  <strong class="text-sky-900 text-[11px]" id="val-tbw">27.5</strong>
+                  <span class="text-slate-500 block text-[8px]">体水分 (L)</span>
+                  <strong class="text-sky-900 text-xs font-black" id="val-tbw">27.5</strong>
                 </div>
                 <div class="bg-rose-50 border border-rose-200 p-1 rounded">
                   <span class="text-slate-500 block text-[8px]">タンパク質 (kg)</span>
-                  <strong class="text-rose-900 text-[11px]" id="val-protein">7.2</strong>
+                  <strong class="text-rose-900 text-xs font-black" id="val-protein">7.2</strong>
                 </div>
                 <div class="bg-amber-50 border border-amber-200 p-1 rounded">
-                  <span class="text-slate-500 block text-[8px]">ミネラル量 (kg)</span>
-                  <strong class="text-amber-900 text-[11px]" id="val-mineral">2.63</strong>
+                  <span class="text-slate-500 block text-[8px]">ミネラル (kg)</span>
+                  <strong class="text-amber-900 text-xs font-black" id="val-mineral">2.63</strong>
                 </div>
                 <div class="bg-yellow-50 border border-yellow-200 p-1 rounded">
-                  <span class="text-slate-500 block text-[8px]">体脂肪量 (kg)</span>
-                  <strong class="text-yellow-900 text-[11px]" id="val-fat-mass">21.8</strong>
+                  <span class="text-slate-500 block text-[8px]">体脂肪 (kg)</span>
+                  <strong class="text-yellow-900 text-xs font-black" id="val-fat-mass">21.8</strong>
                 </div>
               </div>
             </div>
@@ -384,22 +401,23 @@
             <!-- ② 筋肉-脂肪分析（C/I/D） -->
             <div onclick="clickPaperZone('graph')" id="paper-zone-graph" class="p-2 rounded-lg border-2 border-sky-500 bg-sky-50/50 cursor-pointer transition space-y-1.5 zone-active-paper">
               <div class="flex justify-between items-center text-[10px] font-black border-b border-slate-200 pb-0.5">
-                <span class="text-sky-950">② 筋肉-脂肪 (Soft Lean-Fat Analysis)</span>
+                <span class="text-sky-950 font-black">② 筋肉-脂肪 (Soft Lean-Fat Analysis)</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); openSlideModal('p14')" class="text-[9px] text-sky-700 hover:underline">📄 スライドP.14 ➔</button>
-                  <span class="text-[9px] bg-sky-600 text-white px-1.5 py-0.2 rounded font-bold" id="badge-shape-type">C型（低筋高脂）</span>
+                  <span class="text-[9px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-black shadow-2xs" id="badge-shape-type">C型（低筋高脂）</span>
                 </div>
               </div>
               
-              <div class="relative py-1 space-y-1.5 text-[9px] font-mono">
-                <div class="absolute top-0 bottom-0 left-[50%] w-0.5 border-r border-dashed border-rose-500 z-10 pointer-events-none">
-                  <span class="text-[7px] text-rose-600 absolute -top-2 -left-3 font-bold bg-white px-0.5">100%</span>
+              <div class="relative py-1 space-y-2 text-[9px] font-mono">
+                <!-- 100% 理想基準破線 -->
+                <div class="absolute top-0 bottom-0 left-[50%] w-0.5 border-r-2 border-dashed border-rose-500 z-10 pointer-events-none">
+                  <span class="text-[8px] text-rose-600 absolute -top-2.5 -left-3.5 font-black bg-white px-0.5 rounded border border-rose-300">100%</span>
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-slate-700">
+                  <div class="flex justify-between text-slate-700 mb-0.5 font-bold">
                     <span>体重 (kg)</span>
-                    <span id="text-bar-weight">59.1 kg (100%)</span>
+                    <span id="text-bar-weight" class="text-[10px] font-black">59.1 kg (100%)</span>
                   </div>
                   <div class="w-full bg-slate-200 h-3.5 rounded relative overflow-hidden">
                     <div id="bar-weight" class="bg-slate-700 h-full rounded bar-transition" style="width: 50%;"></div>
@@ -407,9 +425,9 @@
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-sky-800 font-bold">
+                  <div class="flex justify-between text-sky-900 mb-0.5 font-bold">
                     <span>筋肉量 (kg)</span>
-                    <span id="text-bar-muscle">35.1 kg (82% 凹)</span>
+                    <span id="text-bar-muscle" class="text-[10px] font-black text-rose-600 bg-rose-50 px-1 rounded border border-rose-200">35.1 kg (82% 凹)</span>
                   </div>
                   <div class="w-full bg-slate-200 h-3.5 rounded relative overflow-hidden">
                     <div id="bar-muscle" class="bg-rose-500 h-full rounded bar-transition" style="width: 38%;"></div>
@@ -417,9 +435,9 @@
                 </div>
 
                 <div>
-                  <div class="flex justify-between text-amber-800 font-bold">
+                  <div class="flex justify-between text-amber-900 mb-0.5 font-bold">
                     <span>体脂肪量 (kg)</span>
-                    <span id="text-bar-fat">21.8 kg (145% 凸)</span>
+                    <span id="text-bar-fat" class="text-[10px] font-black text-amber-700 bg-amber-50 px-1 rounded border border-amber-200">21.8 kg (145% 凸)</span>
                   </div>
                   <div class="w-full bg-slate-200 h-3.5 rounded relative overflow-hidden">
                     <div id="bar-fat" class="bg-amber-500 h-full rounded bar-transition" style="width: 78%;"></div>
@@ -431,102 +449,145 @@
             <!-- ③ 肥満指標 -->
             <div onclick="clickPaperZone('obesity')" id="paper-zone-obesity" class="p-2 rounded-lg border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1">
               <div class="flex justify-between items-center text-[10px] font-black border-b border-slate-200 pb-0.5">
-                <span>③ 肥満指標 (Obesity Index Analysis)</span>
+                <span class="text-slate-800">③ 肥満指標 (Obesity Index Analysis)</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); openSlideModal('p22')" class="text-[9px] text-sky-600 hover:underline">📄 スライドP.22 ➔</button>
-                  <span class="text-[9px] text-slate-500" id="badge-obesity-diag">隠れ肥満該当</span>
+                  <span class="text-[9px] font-bold text-rose-700 bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200" id="badge-obesity-diag">隠れ肥満該当</span>
                 </div>
               </div>
-              <div class="grid grid-cols-2 gap-2 text-[9px] font-mono pt-1">
+              <div class="grid grid-cols-2 gap-2 text-[9px] font-mono pt-0.5">
                 <div class="bg-slate-50 p-1.5 rounded border border-slate-200 flex justify-between items-center">
-                  <span>BMI (kg/m²)</span>
-                  <strong class="text-xs" id="val-bmi">24.0 (標準)</strong>
+                  <span class="text-slate-600">BMI (kg/m²)</span>
+                  <strong class="text-xs font-black text-slate-900" id="val-bmi">24.0 (標準)</strong>
                 </div>
                 <div class="bg-slate-50 p-1.5 rounded border border-slate-200 flex justify-between items-center">
-                  <span>体脂肪率 (%)</span>
-                  <strong class="text-xs text-rose-600" id="val-fat-pct">36.9% (高)</strong>
+                  <span class="text-slate-600">体脂肪率 (%)</span>
+                  <strong class="text-xs font-black text-rose-600" id="val-fat-pct">36.9% (高)</strong>
                 </div>
               </div>
             </div>
 
-            <!-- ④ 部位別筋肉量 -->
+            <!-- ④ 部位別筋肉量（★公式人体シルエットSVG図解を完全実装） -->
             <div onclick="clickPaperZone('segmental')" id="paper-zone-segmental" class="p-2.5 rounded-lg border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-2">
               <div class="flex justify-between items-center text-[10px] font-black border-b border-slate-200 pb-0.5">
-                <span>④ 部位別筋肉量 (Segmental Lean Analysis)</span>
+                <span class="text-slate-900">④ 部位別筋肉量 (Segmental Lean) ＆ 人体バランス図</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); openSlideModal('p24')" class="text-[9px] text-rose-600 hover:underline">📄 スライドP.24 ➔</button>
-                  <span class="text-[9px] text-rose-600 font-bold" id="badge-segmental-status">両脚が「低」⚠️</span>
+                  <span class="text-[9px] bg-rose-100 text-rose-800 px-2 py-0.5 rounded-full font-black border border-rose-300" id="badge-segmental-status">両脚が「低」⚠️</span>
                 </div>
               </div>
 
-              <div class="grid grid-cols-3 gap-1.5 text-center text-[9px] font-mono items-center">
-                <div class="bg-slate-50 border p-1 rounded" id="box-arm-left">
-                  <span class="text-[8px] text-slate-500 block">左腕</span>
-                  <strong class="block text-[10px]" id="val-arm-l">1.94kg</strong>
-                  <span class="text-[8px] px-1 rounded bg-slate-200" id="eval-arm-l">標準 (98%)</span>
-                </div>
-                <div class="bg-slate-50 border p-1 rounded" id="box-trunk">
-                  <span class="text-[8px] text-slate-500 block">体幹</span>
-                  <strong class="block text-[10px]" id="val-trunk">17.7kg</strong>
-                  <span class="text-[8px] px-1 rounded bg-slate-200" id="eval-trunk">標準 (95%)</span>
-                </div>
-                <div class="bg-slate-50 border p-1 rounded" id="box-arm-right">
-                  <span class="text-[8px] text-slate-500 block">右腕</span>
-                  <strong class="block text-[10px]" id="val-arm-r">2.02kg</strong>
-                  <span class="text-[8px] px-1 rounded bg-slate-200" id="eval-arm-r">標準 (102%)</span>
+              <!-- 人体図 ＆ 各部位の数値マッピング -->
+              <div class="grid grid-cols-12 gap-2 items-center bg-slate-50 p-2 rounded-xl border border-slate-200 font-mono text-[9px]">
+                
+                <!-- 中央：人体シルエットSVG -->
+                <div class="col-span-5 flex justify-center items-center py-1 bg-white rounded-lg border border-slate-200">
+                  <svg class="w-24 h-36 select-none" viewBox="0 0 100 150">
+                    <!-- 頭 -->
+                    <circle cx="50" cy="15" r="10" fill="#94a3b8"/>
+                    <!-- 体幹 -->
+                    <rect id="svg-trunk" x="40" y="28" width="20" height="48" rx="3" fill="#0284c7" class="body-part"/>
+                    <!-- 左腕（向かって右） -->
+                    <rect id="svg-arm-l" x="18" y="32" width="16" height="42" rx="4" fill="#0284c7" class="body-part"/>
+                    <!-- 右腕（向かって左） -->
+                    <rect id="svg-arm-r" x="66" y="32" width="16" height="42" rx="4" fill="#0284c7" class="body-part"/>
+                    <!-- 左脚（向かって右） -->
+                    <rect id="svg-leg-l" x="38" y="80" width="10" height="60" rx="3" fill="#f43f5e" class="body-part"/>
+                    <!-- 右脚（向かって左） -->
+                    <rect id="svg-leg-r" x="52" y="80" width="10" height="60" rx="3" fill="#f43f5e" class="body-part"/>
+                  </svg>
                 </div>
 
-                <div class="bg-slate-50 border p-1 rounded col-span-3 grid grid-cols-2 gap-2 mt-1" id="box-legs">
-                  <div class="bg-rose-50 border border-rose-200 p-1 rounded" id="box-leg-left">
-                    <span class="text-[8px] text-slate-500 block">左脚</span>
-                    <strong class="block text-[10px] text-rose-700" id="val-leg-l">5.02kg</strong>
-                    <span class="text-[8px] px-1 rounded bg-rose-200 text-rose-800 font-bold" id="eval-leg-l">低 (80.6%)</span>
+                <!-- 右側：5部位の実測値 ＆ 判定バッジ -->
+                <div class="col-span-7 space-y-1.5">
+                  <div class="grid grid-cols-2 gap-1 text-center">
+                    <div class="bg-white p-1 rounded border" id="card-arm-l">
+                      <span class="text-[8px] text-slate-500 block">左腕</span>
+                      <strong class="text-[10px] block font-black" id="val-arm-l">1.94kg</strong>
+                      <span class="text-[8px] font-bold px-1 rounded bg-slate-100" id="eval-arm-l">標準 (98%)</span>
+                    </div>
+                    <div class="bg-white p-1 rounded border" id="card-arm-r">
+                      <span class="text-[8px] text-slate-500 block">右腕</span>
+                      <strong class="text-[10px] block font-black" id="val-arm-r">2.02kg</strong>
+                      <span class="text-[8px] font-bold px-1 rounded bg-slate-100" id="eval-arm-r">標準 (102%)</span>
+                    </div>
                   </div>
-                  <div class="bg-rose-50 border border-rose-200 p-1 rounded" id="box-leg-right">
-                    <span class="text-[8px] text-slate-500 block">右脚</span>
-                    <strong class="block text-[10px] text-rose-700" id="val-leg-r">5.20kg</strong>
-                    <span class="text-[8px] px-1 rounded bg-rose-200 text-rose-800 font-bold" id="eval-leg-r">低 (83.6%)</span>
+
+                  <div class="bg-white p-1 rounded border text-center" id="card-trunk">
+                    <span class="text-[8px] text-slate-500 block">体幹</span>
+                    <strong class="text-[10px] font-black" id="val-trunk">17.7kg</strong>
+                    <span class="text-[8px] font-bold px-1 rounded bg-slate-100" id="eval-trunk">標準 (95%)</span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-1 text-center">
+                    <div class="bg-rose-50 border border-rose-300 p-1 rounded" id="card-leg-l">
+                      <span class="text-[8px] text-slate-500 block">左脚</span>
+                      <strong class="text-[10px] text-rose-700 block font-black" id="val-leg-l">5.02kg</strong>
+                      <span class="text-[8px] font-black px-1 rounded bg-rose-200 text-rose-900" id="eval-leg-l">低 (80.6%)</span>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-300 p-1 rounded" id="card-leg-r">
+                      <span class="text-[8px] text-slate-500 block">右脚</span>
+                      <strong class="text-[10px] text-rose-700 block font-black" id="val-leg-r">5.20kg</strong>
+                      <span class="text-[8px] font-black px-1 rounded bg-rose-200 text-rose-900" id="eval-leg-r">低 (83.6%)</span>
+                    </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
             <!-- ⑤ 内臓脂肪・点数・研究項目 -->
             <div onclick="clickPaperZone('research')" id="paper-zone-research" class="p-2 rounded-lg border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1.5">
               <div class="flex justify-between items-center text-[10px] font-black border-b border-slate-200 pb-0.5">
-                <span>⑤ 内臓脂肪・点数・研究項目 (Research)</span>
+                <span class="text-slate-800">⑤ 内臓脂肪・点数・研究項目 (Research)</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="event.stopPropagation(); openSlideModal('p26')" class="text-[9px] text-indigo-700 hover:underline">📄 スライドP.26 ➔</button>
                   <span class="text-[9px] text-indigo-700 font-bold">骨量・代謝・SMI</span>
                 </div>
               </div>
               <div class="grid grid-cols-3 gap-1.5 text-center text-[9px] font-mono">
-                <div class="bg-slate-50 p-1 rounded border">
+                <div class="bg-slate-50 p-1.5 rounded border">
                   <span class="text-[8px] text-slate-500 block">InBody点数</span>
-                  <strong class="text-sm font-black" id="val-score">68<span class="text-[8px] font-normal">/100点</span></strong>
+                  <strong class="text-base font-black text-slate-900" id="val-score">68<span class="text-[8px] font-normal">/100点</span></strong>
                 </div>
-                <div class="bg-slate-50 p-1 rounded border">
+                <div class="bg-slate-50 p-1.5 rounded border">
                   <span class="text-[8px] text-slate-500 block">内臓脂肪Lv</span>
-                  <strong class="text-sm font-black text-rose-600" id="val-vfl">Lv.12</strong>
+                  <strong class="text-base font-black text-rose-600" id="val-vfl">Lv.12</strong>
                 </div>
-                <div class="bg-slate-50 p-1 rounded border">
+                <div class="bg-slate-50 p-1.5 rounded border">
                   <span class="text-[8px] text-slate-500 block">骨格筋指数(SMI)</span>
-                  <strong class="text-sm font-black text-indigo-900" id="val-smi">5.8<span class="text-[8px] font-normal"> kg/m²</span></strong>
+                  <strong class="text-base font-black text-indigo-900" id="val-smi">5.8<span class="text-[8px] font-normal"> kg/m²</span></strong>
                 </div>
               </div>
-              <div class="flex justify-between text-[8px] text-slate-500 px-1 font-mono">
-                <span>骨ミネラル量(BMC): <strong id="val-bmc">2.18 kg</strong></span>
-                <span>基礎代謝量: <strong id="val-bmr">1176 kcal</strong></span>
-                <span>推定腹囲: <strong id="val-waist">91 cm</strong></span>
+              <div class="flex justify-between text-[8px] text-slate-600 px-1 font-mono font-bold">
+                <span>骨ミネラル(BMC): <strong id="val-bmc" class="text-slate-900">2.18 kg</strong></span>
+                <span>基礎代謝: <strong id="val-bmr" class="text-slate-900">1176 kcal</strong></span>
+                <span>腹囲: <strong id="val-waist" class="text-slate-900">91 cm</strong></span>
               </div>
             </div>
 
           </div>
         </div>
 
-        <!-- 右側：選択したゾーンの詳細解説パネル -->
-        <div class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-between space-y-4" id="paper-detail-panel">
-          <!-- JSで書き換え -->
+        <!-- 右側：選択したゾーンの詳細解説パネル（スマホでも分断されない連動ヘッダー付き） -->
+        <div id="target-detail-panel" class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-2xl border-2 border-sky-300 shadow-sm space-y-3.5">
+          <!-- 上部連動ナビゲーションバー（スマホで画面が離れても今何を見ているか即座にわかる） -->
+          <div class="bg-sky-50 border border-sky-200 rounded-xl p-2.5 flex items-center justify-between text-xs font-bold text-sky-950">
+            <div>
+              <span class="text-[9px] text-sky-600 block uppercase font-mono tracking-wider">Currently Analyzing</span>
+              <span id="current-analyzing-title" class="font-black text-xs sm:text-sm">パターン 1：C型（隠れ肥満）</span>
+            </div>
+            <!-- スマホ用双方向ジャンプボタン -->
+            <a href="#target-paper-sheet" class="lg:hidden px-2.5 py-1 rounded-lg bg-white border border-sky-300 text-sky-800 text-[10px] font-bold shadow-2xs hover:bg-sky-100 transition flex items-center gap-1">
+              <span>📄 用紙の図を見る</span>
+              <span>↑</span>
+            </a>
+          </div>
+
+          <!-- 動的解説コンテンツ本体 -->
+          <div id="paper-detail-panel" class="space-y-3">
+            <!-- JSで書き換え -->
+          </div>
         </div>
 
       </div>
@@ -1141,7 +1202,7 @@
   <!-- フッター -->
   <footer class="mt-8 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
     <p class="font-bold text-slate-800 text-sm mb-1">福岡市薬剤師会 広報委員会</p>
-    <p class="text-[11px]">InBody指導マニュアル for Pharmacist v12.3 ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
+    <p class="text-[11px]">InBody指導マニュアル for Pharmacist v12.4 ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
   </footer>
 
   <!-- ==================== スライド原本全画面ポップアップモーダル ==================== -->
@@ -1440,12 +1501,12 @@
       document.getElementById('modalSlideContent').innerHTML = data.html;
 
       document.getElementById('slideModal').classList.remove('hidden');
-      document.body.style.overflow = 'hidden'; // 背景スクロール固定
+      document.body.style.overflow = 'hidden';
     }
 
     function closeSlideModal() {
       document.getElementById('slideModal').classList.add('hidden');
-      document.body.style.overflow = ''; // 背景スクロール解除
+      document.body.style.overflow = '';
     }
 
     function closeSlideModalOnBackdrop(e) {
@@ -1454,7 +1515,6 @@
       }
     }
 
-    // Escapeキーで閉じる
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeSlideModal();
     });
@@ -1484,45 +1544,49 @@
       if (!tip) return;
       document.getElementById('posture-detail-box').innerHTML = `
         <div class="flex items-center justify-between border-b border-amber-200 pb-1">
-          <strong class="text-amber-950 font-black text-xs">${tip.title}</strong>
+          <strong class="text-amber-950 font-black text-xs sm:text-sm">${tip.title}</strong>
           <button onclick="openSlideModal('p9')" class="text-[9px] bg-white px-2 py-0.5 rounded border border-amber-300 font-bold text-amber-800 hover:bg-amber-100 transition">スライドP.9原本 ➔</button>
         </div>
-        <p class="text-slate-700 text-[11px] leading-relaxed pt-1">${tip.desc}</p>
+        <p class="text-slate-700 text-xs leading-relaxed pt-1">${tip.desc}</p>
       `;
     }
 
     // 3. 紙面全体リアルタイム同時連動データ
     const liveCases = {
       C_skinny: {
-        name: "パターン 1：C型（隠れ肥満・若年女性/デスクワーク）",
+        name: "パターン 1：C型（隠れ肥満）",
         id: "ID: Jane Doe / 51歳 / 女性 / 156.9cm",
         date: "2026.10.02 09:46",
         tbw: "27.5", protein: "7.2", mineral: "2.63", fatMass: "21.8",
         shapeType: "C型（低筋高脂）",
         weightPct: 50, weightTxt: "59.1 kg (100% / 標準)",
-        musclePct: 38, muscleTxt: "35.1 kg (82% / 不足凹)",
-        fatPct: 78, fatTxt: "21.8 kg (145% / 過多凸)",
-        bmi: "24.0 (標準)", fatPctVal: "36.9% (高)",
+        musclePct: 38, muscleTxt: "35.1 kg (82% 凹)",
+        fatPct: 78, fatTxt: "21.8 kg (145% 凸)",
+        bmi: "24.0 (標準)", fatPctVal: "36.9% (高⚠️)",
         obesityDiag: "隠れ肥満該当",
+        // 部位別
         armL: "1.94kg", armLEval: "標準 (98%)",
         trunk: "17.7kg", trunkEval: "標準 (95%)",
         armR: "2.02kg", armREval: "標準 (102%)",
         legL: "5.02kg", legLEval: "低 (80.6%)",
         legR: "5.20kg", legREval: "低 (83.6%)",
+        // SVGパーツ色
+        trunkColor: "#0284c7", armLColor: "#0284c7", armRColor: "#0284c7",
+        legLColor: "#f43f5e", legRColor: "#f43f5e", // 脚が赤（低）
         segBadge: "両脚が「低」⚠️",
         score: "68", vfl: "Lv.12", smi: "5.8",
         bmc: "2.18 kg", bmr: "1176 kcal", waist: "91 cm",
         activeZone: "graph"
       },
       I_healthy: {
-        name: "パターン 2：I型（標準体重健康型・理想バランス）",
+        name: "パターン 2：I型（標準健康）",
         id: "ID: Taro Yamada / 42歳 / 男性 / 171.0cm",
         date: "2026.10.02 10:15",
         tbw: "38.2", protein: "10.4", mineral: "3.55", fatMass: "12.8",
         shapeType: "I型（標準均衡）",
         weightPct: 50, weightTxt: "64.9 kg (100% / 標準)",
-        musclePct: 50, muscleTxt: "52.1 kg (100% / 標準揃い)",
-        fatPct: 50, fatTxt: "12.8 kg (100% / 標準揃い)",
+        musclePct: 50, muscleTxt: "52.1 kg (100% 整列)",
+        fatPct: 50, fatTxt: "12.8 kg (100% 整列)",
         bmi: "22.2 (適正)", fatPctVal: "19.7% (標準)",
         obesityDiag: "適正・健康体型",
         armL: "2.85kg", armLEval: "標準 (100%)",
@@ -1530,41 +1594,45 @@
         armR: "2.88kg", armREval: "標準 (101%)",
         legL: "8.52kg", legLEval: "標準 (99%)",
         legR: "8.60kg", legREval: "標準 (100%)",
+        trunkColor: "#0284c7", armLColor: "#0284c7", armRColor: "#0284c7",
+        legLColor: "#0284c7", legRColor: "#0284c7", // 全て青（標準）
         segBadge: "全身が「標準」調和⭕",
         score: "80", vfl: "Lv.6", smi: "6.8",
         bmc: "2.95 kg", bmr: "1520 kcal", waist: "81 cm",
         activeZone: "graph"
       },
       D_athlete: {
-        name: "パターン 3：D型（標準体重強靭型・アスリート）",
+        name: "パターン 3：D型（強靭理想）",
         id: "ID: Kenji Sato / 34歳 / 男性 / 178.0cm",
         date: "2026.10.02 11:30",
         tbw: "51.8", protein: "14.2", mineral: "4.80", fatMass: "9.2",
         shapeType: "D型（強靭突出）",
-        weightPct: 60, weightTxt: "80.0 kg (107% / 筋肉過体重)",
-        musclePct: 85, muscleTxt: "70.8 kg (128% / 突出凸)",
-        fatPct: 35, fatTxt: "9.2 kg (65% / 引き締まり)",
-        bmi: "25.2 (筋肉型過体重)", fatPctVal: "11.5% (標準低値)",
+        weightPct: 60, weightTxt: "80.0 kg (107% 筋肉過体重)",
+        musclePct: 85, muscleTxt: "70.8 kg (128% 突出凸)",
+        fatPct: 35, fatTxt: "9.2 kg (65% 絞り)",
+        bmi: "25.2 (筋肉型過体重)", fatPctVal: "11.5% (引き締まり)",
         obesityDiag: "アスリート型（減量不要）",
         armL: "4.10kg", armLEval: "高 (132%)",
         trunk: "34.2kg", trunkEval: "高 (125%)",
         armR: "4.15kg", armREval: "高 (133%)",
         legL: "11.2kg", legLEval: "高 (130%)",
         legR: "11.3kg", legREval: "高 (131%)",
+        trunkColor: "#10b981", armLColor: "#10b981", armRColor: "#10b981",
+        legLColor: "#10b981", legRColor: "#10b981", // 全て緑（高・強靭）
         segBadge: "全身が「高」強靭💪",
         score: "92", vfl: "Lv.4", smi: "9.4",
         bmc: "4.10 kg", bmr: "1980 kcal", waist: "79 cm",
         activeZone: "graph"
       },
       frail_senior: {
-        name: "パターン 4：低体重虚弱型（高齢シニア・フレイル）",
+        name: "パターン 4：低体重虚弱（シニア）",
         id: "ID: Hanako Suzuki / 79歳 / 女性 / 148.2cm",
         date: "2026.10.02 14:00",
         tbw: "21.4", protein: "5.6", mineral: "1.82", fatMass: "14.2",
         shapeType: "低体重C型（筋枯渇）",
-        weightPct: 35, weightTxt: "43.0 kg (85% / 低体重)",
-        musclePct: 25, muscleTxt: "28.8 kg (70% / 著明な凹)",
-        fatPct: 55, fatTxt: "14.2 kg (110% / 平坦〜軽度高)",
+        weightPct: 35, weightTxt: "43.0 kg (85% 低体重)",
+        musclePct: 25, muscleTxt: "28.8 kg (70% 著明凹)",
+        fatPct: 55, fatTxt: "14.2 kg (110% 平坦)",
         bmi: "19.6 (標準低値)", fatPctVal: "33.0% (軽度高)",
         obesityDiag: "サルコペニア肥満傾向",
         armL: "1.45kg", armLEval: "低 (82%)",
@@ -1572,28 +1640,32 @@
         armR: "1.48kg", armREval: "低 (83%)",
         legL: "3.60kg", legLEval: "低 (73% 萎縮)",
         legR: "3.65kg", legREval: "低 (74% 萎縮)",
+        trunkColor: "#f43f5e", armLColor: "#f43f5e", armRColor: "#f43f5e",
+        legLColor: "#f43f5e", legRColor: "#f43f5e", // 全て赤（四肢・体幹低）
         segBadge: "四肢・体幹すべて「低」⚠️",
         score: "58", vfl: "Lv.7", smi: "4.8",
         bmc: "1.65 kg", bmr: "980 kcal", waist: "76 cm",
         activeZone: "segmental"
       },
       metabolic_fat: {
-        name: "パターン 5：過体重肥満型（働き盛り・内臓脂肪メタボ）",
+        name: "パターン 5：過体重肥満（メタボ）",
         id: "ID: Ichiro Tanaka / 48歳 / 男性 / 172.5cm",
         date: "2026.10.02 15:20",
         tbw: "44.2", protein: "11.8", mineral: "3.92", fatMass: "26.5",
         shapeType: "過体重肥満（大凸）",
-        weightPct: 75, weightTxt: "86.4 kg (135% / 過体重)",
-        musclePct: 52, muscleTxt: "59.9 kg (102% / 標準)",
-        fatPct: 90, fatTxt: "26.5 kg (185% / 大突出)",
-        bmi: "29.0 (高度肥満)", fatPctVal: "30.6% (肥満)",
+        weightPct: 75, weightTxt: "86.4 kg (135% 過体重)",
+        musclePct: 52, muscleTxt: "59.9 kg (102% 標準)",
+        fatPct: 90, fatTxt: "26.5 kg (185% 大突出)",
+        bmi: "29.0 (高度肥満)", fatPctVal: "30.6% (肥満⚠️)",
         obesityDiag: "メタボ内臓脂肪型",
         armL: "3.20kg", armLEval: "標準 (104%)",
         trunk: "29.8kg", trunkEval: "高 (112%)",
         armR: "3.25kg", armREval: "標準 (105%)",
         legL: "8.90kg", legLEval: "標準 (94%)",
         legR: "8.95kg", legREval: "標準 (95%)",
-        segBadge: "体重に対し脚支持力限界",
+        trunkColor: "#0284c7", armLColor: "#0284c7", armRColor: "#0284c7",
+        legLColor: "#f59e0b", legRColor: "#f59e0b", // 脚支持限界（黄色）
+        segBadge: "体重に対し脚支持限界",
         score: "62", vfl: "Lv.14", smi: "7.6",
         bmc: "3.40 kg", bmr: "1720 kcal", waist: "94 cm",
         activeZone: "research"
@@ -1608,6 +1680,7 @@
       const c = liveCases[caseKey];
       if (!c) return;
 
+      // ボタン選択状態
       ['C_skinny', 'I_healthy', 'D_athlete', 'frail_senior', 'metabolic_fat'].forEach(k => {
         const btn = document.getElementById(`btn-live-${k}`);
         if (k === caseKey) {
@@ -1617,6 +1690,10 @@
         }
       });
 
+      // 連動ヘッダーの症例名更新
+      document.getElementById('current-analyzing-title').innerText = c.name;
+
+      // 用紙テキスト更新
       document.getElementById('paper-patient-name').innerText = c.id;
       document.getElementById('paper-test-date').innerText = c.date;
 
@@ -1637,6 +1714,7 @@
       document.getElementById('val-fat-pct').innerText = c.fatPctVal;
       document.getElementById('badge-obesity-diag').innerText = c.obesityDiag;
 
+      // 人体図と部位別
       document.getElementById('val-arm-l').innerText = c.armL;
       document.getElementById('eval-arm-l').innerText = c.armLEval;
       document.getElementById('val-trunk').innerText = c.trunk;
@@ -1649,6 +1727,14 @@
       document.getElementById('eval-leg-r').innerText = c.legREval;
       document.getElementById('badge-segmental-status').innerText = c.segBadge;
 
+      // SVG人体シルエットの色をリアルタイム同期！
+      document.getElementById('svg-trunk').setAttribute('fill', c.trunkColor);
+      document.getElementById('svg-arm-l').setAttribute('fill', c.armLColor);
+      document.getElementById('svg-arm-r').setAttribute('fill', c.armRColor);
+      document.getElementById('svg-leg-l').setAttribute('fill', c.legLColor);
+      document.getElementById('svg-leg-r').setAttribute('fill', c.legRColor);
+
+      // 下段項目
       document.getElementById('val-score').innerHTML = `${c.score}<span class="text-[8px] font-normal">/100点</span>`;
       document.getElementById('val-vfl').innerText = c.vfl;
       document.getElementById('val-smi').innerHTML = `${c.smi}<span class="text-[8px] font-normal"> kg/m²</span>`;
@@ -1659,10 +1745,10 @@
       clickPaperZone(c.activeZone);
     }
 
-    // 4. 紙面ゾーン詳細データ
+    // 4. 紙面ゾーン詳細データ（症例と連動）
     const paperZoneDetails = {
       comp: {
-        title: "ZONE ① 体成分分析（4区画モデル ＆ ミネラル量）",
+        zoneName: "ZONE ① 体成分分析（4区画モデル）",
         sub: "体水分(L) ＋ タンパク質(kg) ＋ ミネラル量(kg) ＋ 体脂肪量(kg) ＝ 体重",
         basic: "人体の構成成分を化学的に分析。タンパク質不足は低栄養、ミネラル量不足は骨粗鬆症や骨折の危険性に直結します。",
         combine: "【複数ゾーン掛け合わせ】<br/>・<strong>ミネラル量低 × 体重低：</strong>若年女性の最大骨量未達、または高齢者の骨粗鬆症ハイリスク。<br/>・<strong>体水分不均衡：</strong>むくみにより筋肉量が見かけ上多く算出される偽陽性に注意。",
@@ -1670,7 +1756,7 @@
         slideKey: "p12"
       },
       graph: {
-        title: "ZONE ② 筋肉-脂肪グラフ（全体の体型シルエット：C/I/D型）",
+        zoneName: "ZONE ② 筋肉-脂肪グラフ（全体の体型シルエット：C/I/D型）",
         sub: "中央の「100%理想基準線」に対して筋肉量が凹んでいるか・突出しているか",
         basic: "中央の100%基準線に対し、筋肉が凹んでいれば『C型（低筋高脂）』、垂直に揃っていれば『I型』、突出していれば『D型（強靭）』。",
         combine: "【複数ゾーン掛け合わせ】<br/>・<strong>C型 × ZONE ⑤(内臓脂肪Lv高)：</strong>典型的なインスリン抵抗性型・隠れ肥満。<br/>・<strong>C型 × ZONE ④(両脚低)：</strong>代謝低下に加え、歩行ふらつきによる夜間転倒リスク。<br/>・<strong>処方薬連動：</strong>SGLT2阻害薬やGLP-1受容体作動薬服用中の筋肉減少追跡。",
@@ -1678,7 +1764,7 @@
         slideKey: "p14"
       },
       obesity: {
-        title: "ZONE ③ 肥満指標（BMI × 体脂肪率）",
+        zoneName: "ZONE ③ 肥満指標（BMI × 体脂肪率）",
         sub: "見かけの体格（BMI）と実際の脂質の比率（体脂肪率）の乖離を見抜く",
         basic: "BMI標準（18.5〜25.0）でも体脂肪率が高いのが『隠れ肥満』。BMIが高くても体脂肪率が低ければ筋肉型アスリートです。",
         combine: "【複数ゾーン掛け合わせ】<br/>・<strong>BMI標準 × 体脂肪率35%超：</strong>無理な食事制限やデスクワークに多発。筋肉不足による冷え・食後血糖急上昇の温床。",
@@ -1686,7 +1772,7 @@
         slideKey: "p22"
       },
       segmental: {
-        title: "ZONE ④ 部位別筋肉量（左右腕・体幹・左右脚）",
+        zoneName: "ZONE ④ 部位別筋肉量（左右腕・体幹・左右脚 人体バランス）",
         sub: "現在の体重を支え切れているかを評価（公式2段評価ロジック）",
         basic: "実測値(kg)だけでなく下の％表記に注目。過体重の人は筋肉が多くても体を支えきれなければ『低』、やせ型の人は少なくても支えられれば『標準』と判定されます。",
         combine: "【複数ゾーン掛け合わせ】<br/>・<strong>体幹標準 × 下肢低：</strong>上半身の重みを支える土台が弱く、変形性膝関節症・腰痛・歩行ふらつきの直結リスク。<br/>・<strong>× 睡眠薬・降圧薬(FRIDs)：</strong>夜間排尿時のふらつきによる大腿骨近位部骨折の超ハイリスク群。",
@@ -1694,7 +1780,7 @@
         slideKey: "p24"
       },
       research: {
-        title: "ZONE ⑤ 内臓脂肪・研究項目（骨ミネラル量BMC・SMI・点数）",
+        zoneName: "ZONE ⑤ 内臓脂肪・研究項目（骨ミネラル量BMC・SMI・点数）",
         sub: "内臓脂肪Lv(目標≦10)、骨ミネラル量(BMC kg)、四肢骨格筋指数(SMI)",
         basic: "骨ミネラル量（BMC）は除脂肪量から筋肉量を除いた骨塩総量。SMI（四肢骨格筋量÷身長²）はAWGS 2019基準でサルコペニアを早期判定します。",
         combine: "【複数ゾーン掛け合わせ】<br/>・<strong>低SMI × 血清Cr低値：</strong>筋肉枯渇によるCr産生低下 ➔ 推算eGFR過大評価（DOAC等の中毒防止・シスタチンC提案）。<br/>・<strong>低BMC × 長期服薬（PPI・ステロイド）：</strong>薬剤性骨粗鬆症リスクの早期察知と医師共有。<br/>・<strong>点数空白（--）：</strong>体水分均衡破綻（浮腫・心不全疑い）。",
@@ -1721,28 +1807,35 @@
         <div class="space-y-3">
           <div class="border-b border-slate-200 pb-2 flex items-center justify-between">
             <div>
-              <h4 class="font-black text-sky-950 text-sm">${d.title}</h4>
-              <span class="text-[11px] text-slate-500 font-bold block mt-0.5">${d.sub}</span>
+              <span class="text-[10px] text-sky-700 font-bold block uppercase tracking-wider">Zone Analysis</span>
+              <h4 class="font-black text-sky-950 text-sm sm:text-base">${d.zoneName}</h4>
+              <span class="text-[10px] text-slate-500 font-bold block mt-0.5">${d.sub}</span>
             </div>
-            <button onclick="openSlideModal('${d.slideKey}')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 text-[10px] font-bold border border-sky-300 transition flex items-center gap-1 shrink-0">
+            <button onclick="openSlideModal('${d.slideKey}')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 text-[10px] font-bold border border-sky-300 transition flex items-center gap-1 shrink-0 shadow-2xs">
               <span>📄 スライド原本</span>
               <span>➔</span>
             </button>
           </div>
 
           <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-1 text-xs">
-            <strong class="text-slate-900 block font-bold text-xs">🔍 基本的な見立て：</strong>
+            <strong class="text-slate-900 block font-bold text-xs flex items-center gap-1">
+              <span>🔍</span> 基本的な見立て：
+            </strong>
             <p class="leading-relaxed text-[11px] text-slate-700">${d.basic}</p>
           </div>
 
           <div class="bg-sky-50/80 p-3 rounded-xl border border-sky-200 space-y-1 text-xs">
-            <strong class="text-sky-900 block font-bold text-xs">🧩 複数ゾーン掛け合わせ考察（深読み）：</strong>
+            <strong class="text-sky-900 block font-bold text-xs flex items-center gap-1">
+              <span>🧩</span> 複数ゾーン掛け合わせ考察（深読み）：
+            </strong>
             <p class="leading-relaxed text-[11px] text-slate-800">${d.combine}</p>
           </div>
 
           <div class="bg-emerald-50/80 p-3 rounded-xl border border-emerald-200 space-y-1 text-xs italic">
-            <strong class="text-emerald-950 block font-bold text-xs not-italic">🗣️ 相談者へ伝える言葉かけ：</strong>
-            ${d.talk}
+            <strong class="text-emerald-950 block font-bold text-xs not-italic flex items-center gap-1">
+              <span>🗣️</span> 相談者へ伝える言葉かけ：
+            </strong>
+            <p class="text-slate-800 leading-relaxed text-[11px]">${d.talk}</p>
           </div>
         </div>
       `;
