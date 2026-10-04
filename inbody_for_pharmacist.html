@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="theme-color" content="#ffffff"/>
-  <title>InBody指導マニュアル for Pharmacist v13.6 ｜ 福岡市薬剤師会 広報委員会</title>
+  <title>InBody指導マニュアル for Pharmacist v13.7 ｜ 福岡市薬剤師会 広報委員会</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,7 +31,7 @@
     }
   </script>
 
-  <!-- 統合・最適化デザインシステム (Clean CSS Engine v13.6) -->
+  <!-- 統合・最適化デザインシステム (Clean CSS Engine v13.7) -->
   <style>
     :root {
       --ink: #0f172a;
@@ -114,19 +114,79 @@
         display: flex;
       }
     }
-  
-/* v13.6 accessibility tuning: UI micro-text is readable; original-sheet fidelity stays at 10px. */
-.text-\[10px\]{font-size:11px !important;line-height:1.45;}
-.paper-sheet .text-\[10px\]{font-size:10px !important;}
-@media (min-width:768px){.text-\[10px\]{font-size:12px !important;}}
 
-@media print {
-  .no-print, nav, header button, #mobile-case-hud { display:none !important; }
-  body { background:#fff !important; color:#111827 !important; }
-  .shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl { box-shadow:none !important; }
-  a { color:inherit !important; text-decoration:none !important; }
-}
-</style>
+    /* v13.7 accessibility tuning */
+    .text-\[10px\] { font-size: 11px !important; line-height: 1.45; }
+    .paper-sheet .text-\[10px\] { font-size: 10px !important; }
+    @media (min-width: 768px) { .text-\[10px\] { font-size: 12px !important; } }
+
+    /* V13.6 Signal Check Styles */
+    .v136-hero{background:linear-gradient(135deg,#ffffff 0%,#f0f9ff 52%,#ecfdf5 100%);border:1px solid #bae6fd;border-radius:24px;padding:18px;box-shadow:0 10px 28px rgba(15,23,42,.07)}
+    .v136-kicker{font-size:10px;font-weight:900;letter-spacing:.14em;color:#0369a1;text-transform:uppercase}
+    .v136-title{font-size:20px;line-height:1.35;font-weight:950;color:#0f172a;margin-top:3px}
+    .v136-sub{font-size:12px;line-height:1.75;color:#475569;margin-top:6px}
+    .v136-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:14px}
+    .v136-flow span{display:flex;align-items:center;justify-content:center;min-height:38px;border-radius:11px;background:#fff;border:1px solid #dbeafe;font-size:10px;font-weight:900;color:#334155;text-align:center;padding:4px}
+    .v136-flow span:nth-child(2){color:#0369a1}.v136-flow span:nth-child(3){color:#047857}.v136-flow span:nth-child(4){color:#7c3aed}.v136-flow span:nth-child(5){color:#c2410c}
+    .v136-signal-wrap{background:#fff;border:1px solid #cbd5e1;border-radius:22px;padding:15px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
+    .v136-signal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .v136-signal-btn{min-height:72px;text-align:left;border:1px solid #dbe3ec;border-radius:14px;background:#f8fafc;padding:10px;cursor:pointer;transition:.18s ease}
+    .v136-signal-btn:hover{border-color:#7dd3fc;background:#f0f9ff}.v136-signal-btn.active{border:2px solid #0284c7;background:#eff6ff;box-shadow:0 4px 14px rgba(2,132,199,.12)}
+    .v136-signal-btn .sig-top{display:flex;align-items:center;justify-content:space-between;gap:5px}.v136-signal-btn .sig-name{font-size:12px;font-weight:900;color:#0f172a}.v136-signal-btn .sig-zone{font-size:10px;color:#64748b;margin-top:3px;line-height:1.4}
+    .v136-priority{font-size:9px;font-weight:900;padding:3px 6px;border-radius:999px;white-space:nowrap}.v136-red{background:#fee2e2;color:#b91c1c}.v136-yellow{background:#fef3c7;color:#92400e}.v136-green{background:#dcfce7;color:#166534}
+    .v136-detail{margin-top:12px;border-radius:17px;background:#f8fafc;border:1px solid #dbe5ef;padding:13px}
+    .v136-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid #e2e8f0;padding-bottom:9px}.v136-detail-title{font-size:15px;font-weight:950;color:#0f172a}.v136-detail-zone{font-size:10px;color:#0369a1;font-weight:800;margin-top:2px}
+    .v136-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.v136-box{background:#fff;border:1px solid #e2e8f0;border-radius:13px;padding:10px}.v136-box h4{font-size:11px;font-weight:900;margin:0 0 4px}.v136-box p,.v136-box li{font-size:11px;line-height:1.7;color:#475569}.v136-box ul{padding-left:1.1em;margin:0}.v136-talk{background:#ecfdf5!important;border-color:#a7f3d0!important}.v136-talk h4{color:#047857}.v136-pharm{background:#f5f3ff!important;border-color:#ddd6fe!important}.v136-pharm h4{color:#6d28d9}.v136-caution{background:#fff7ed!important;border-color:#fed7aa!important}.v136-caution h4{color:#c2410c}.v136-action{background:#eff6ff!important;border-color:#bfdbfe!important}.v136-action h4{color:#0369a1}
+    .v136-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.v136-quick button{min-height:52px;border-radius:13px;border:1px solid #dbe3ec;background:#fff;font-size:11px;font-weight:900;color:#334155;transition:all 0.15s ease;}.v136-quick button.active{border-color:#0284c7;background:#eff6ff;color:#075985}
+    .v136-rule{margin-top:11px;padding:11px 12px;border-radius:14px;background:#f8fafc;border:1px dashed #cbd5e1;font-size:11px;line-height:1.65;color:#475569}.v136-rule strong{color:#0f172a}
+    @media(max-width:640px){.v136-flow{grid-template-columns:1fr;gap:4px}.v136-flow span{min-height:28px}.v136-signal-grid{grid-template-columns:1fr}.v136-columns{grid-template-columns:1fr}.v136-quick{grid-template-columns:1fr}}
+
+    /* V13.7 Judgment Navigator Styles */
+    .v137-hero{background:linear-gradient(135deg,#fff 0%,#f8fafc 48%,#f0fdf4 100%);border:1px solid #cbd5e1;border-radius:24px;padding:18px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+    .v137-kicker{font-size:10px;font-weight:900;letter-spacing:.14em;color:#047857;text-transform:uppercase}
+    .v137-title{font-size:20px;line-height:1.4;font-weight:950;color:#0f172a;margin-top:3px}
+    .v137-sub{font-size:12px;line-height:1.75;color:#475569;margin-top:6px}
+    .v137-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+    .v137-step{background:#fff;border:1px solid #dbe3ec;border-radius:14px;padding:10px;min-height:76px}
+    .v137-step strong{display:block;font-size:11px;color:#0f172a}
+    .v137-step span{display:block;font-size:10px;line-height:1.55;color:#64748b;margin-top:3px}
+    .v137-panel{background:#fff;border:1px solid #cbd5e1;border-radius:22px;padding:15px;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+    .v137-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+    .v137-tab{min-height:50px;border:1px solid #dbe3ec;border-radius:13px;background:#f8fafc;font-size:11px;font-weight:900;color:#334155;padding:7px;transition:all 0.15s ease;}
+    .v137-tab.active{border:2px solid #047857;background:#ecfdf5;color:#065f46}
+    .v137-card{margin-top:10px;border-radius:16px;border:1px solid #dbe3ec;background:#f8fafc;padding:13px}
+    .v137-card h4{font-size:12px;font-weight:950;color:#0f172a;margin:0 0 5px}
+    .v137-card p,.v137-card li{font-size:11px;line-height:1.75;color:#475569}
+    .v137-card ul{margin:0;padding-left:1.15em}
+    .v137-redbox{background:#fff1f2;border-color:#fecdd3}.v137-redbox h4{color:#be123c}
+    .v137-greenbox{background:#ecfdf5;border-color:#a7f3d0}.v137-greenbox h4{color:#047857}
+    .v137-yellowbox{background:#fffbeb;border-color:#fde68a}.v137-yellowbox h4{color:#92400e}
+    .v137-bluebox{background:#eff6ff;border-color:#bfdbfe}.v137-bluebox h4{color:#0369a1}
+    .v137-purplebox{background:#f5f3ff;border-color:#ddd6fe}.v137-purplebox h4{color:#6d28d9}
+    .v137-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:9px}
+    .v137-check{display:flex;gap:8px;align-items:flex-start;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:9px;margin-top:6px}
+    .v137-check input{margin-top:2px}
+    .v137-check span{font-size:11px;line-height:1.6;color:#475569}
+    .v137-rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
+    .v137-rulebox{border-radius:13px;padding:10px;border:1px solid #dbe3ec;background:#fff}
+    .v137-rulebox b{display:block;font-size:11px;color:#0f172a;margin-bottom:3px}
+    .v137-rulebox span{font-size:10px;line-height:1.6;color:#64748b}
+    .v137-v14{border:1px dashed #94a3b8;background:#f8fafc;border-radius:16px;padding:12px;margin-top:10px}
+    .v137-v14 strong{font-size:11px;color:#334155}
+    .v137-v14 p{font-size:10px;line-height:1.65;color:#64748b;margin-top:3px}
+    @media(max-width:700px){
+      .v137-grid{grid-template-columns:1fr}
+      .v137-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .v137-two,.v137-rules{grid-template-columns:1fr}
+    }
+
+    @media print {
+      .no-print, nav, header button, #mobile-case-hud, #reading-progress { display:none !important; }
+      body { background:#fff !important; color:#111827 !important; padding-bottom: 0 !important; }
+      .shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl, .shadow-2xs { box-shadow:none !important; }
+      a { color:inherit !important; text-decoration:none !important; }
+    }
+  </style>
 </head>
 <body class="antialiased min-h-screen">
   <div id="reading-progress"></div>
@@ -142,7 +202,7 @@
           <div>
             <div class="flex items-center gap-2">
               <span class="text-[10px] font-black tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full uppercase">福岡市薬剤師会 広報委員会</span>
-              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">v13.6 UI調律版</span>
+              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">v13.7 判断ナビ版</span>
             </div>
             <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight mt-0.5">
               InBody指導マニュアル <span class="text-sky-600 font-mono text-sm sm:text-base">for Pharmacist</span>
@@ -169,29 +229,37 @@
     </div>
   </header>
 
-  <!-- 5大ステップナビゲーション -->
+  <!-- 上部ナビゲーション（7大ステップ／スマホ対応横スクロールレール） -->
   <nav class="sticky top-[58px] md:top-[61px] z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 py-2 px-3 shadow-xs">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-5 gap-1.5 sm:gap-2.5 text-center font-bold text-xs">
-        <a href="#phase-posture" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-amber-500 hover:text-amber-800 hover:bg-amber-50/50 transition flex flex-col items-center justify-center">
+    <div class="max-w-6xl mx-auto overflow-x-auto no-scrollbar">
+      <div class="flex sm:grid sm:grid-cols-7 gap-1.5 sm:gap-2 text-center font-bold text-xs min-w-[620px] sm:min-w-0">
+        <a href="#phase-posture" class="flex-1 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-amber-500 hover:text-amber-800 hover:bg-amber-50/50 transition flex flex-col items-center justify-center">
           <span class="text-[9px] text-amber-600 font-black tracking-widest uppercase">STEP 1</span>
-          <span class="text-[11px] sm:text-xs font-black">① 実機立位姿勢</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">① 測定姿勢</span>
         </a>
-        <a href="#phase-live-paper" class="py-2 px-1 rounded-xl bg-sky-50 border-2 border-sky-400 text-sky-950 shadow-2xs hover:bg-sky-100/60 transition flex flex-col items-center justify-center">
+        <a href="#v136-signal-check" class="flex-1 py-2 px-1 rounded-xl bg-sky-50 border-2 border-sky-400 text-sky-950 shadow-2xs hover:bg-sky-100 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-sky-600 font-black tracking-widest uppercase">V13.6</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">🔎 30秒相談</span>
+        </a>
+        <a href="#v137-judgment" class="flex-1 py-2 px-1 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-emerald-950 shadow-2xs hover:bg-emerald-100 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-emerald-700 font-black tracking-widest uppercase">V13.7</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">🧭 判断ナビ</span>
+        </a>
+        <a href="#phase-live-paper" class="flex-1 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-sky-400 hover:text-sky-900 transition flex flex-col items-center justify-center">
           <span class="text-[9px] text-sky-600 font-black tracking-widest uppercase">STEP 2</span>
-          <span class="text-[11px] sm:text-xs font-black">② 結果シート連動</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">② 用紙連動</span>
         </a>
-        <a href="#phase-persona" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-teal-500 hover:text-teal-800 hover:bg-teal-50/50 transition flex flex-col items-center justify-center">
+        <a href="#phase-persona" class="flex-1 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-teal-500 hover:text-teal-800 hover:bg-teal-50/50 transition flex flex-col items-center justify-center">
           <span class="text-[9px] text-teal-600 font-black tracking-widest uppercase">STEP 3</span>
-          <span class="text-[11px] sm:text-xs font-black">③ 目的別５大考察</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">③ 目的別考察</span>
         </a>
-        <a href="#phase-qol-talks" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-emerald-500 hover:text-emerald-800 hover:bg-emerald-50/50 transition flex flex-col items-center justify-center">
+        <a href="#phase-qol-talks" class="flex-1 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-emerald-500 hover:text-emerald-800 hover:bg-emerald-50/50 transition flex flex-col items-center justify-center">
           <span class="text-[9px] text-emerald-600 font-black tracking-widest uppercase">STEP 4</span>
-          <span class="text-[11px] sm:text-xs font-black">④ QOL・トーク8編</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">④ QOLトーク</span>
         </a>
-        <a href="#phase-rx" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-indigo-500 hover:text-indigo-800 hover:bg-indigo-50/50 transition flex flex-col items-center justify-center">
+        <a href="#phase-rx" class="flex-1 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-indigo-500 hover:text-indigo-800 hover:bg-indigo-50/50 transition flex flex-col items-center justify-center">
           <span class="text-[9px] text-indigo-600 font-black tracking-widest uppercase">STEP 5</span>
-          <span class="text-[11px] sm:text-xs font-black">⑤ 薬学・医師連携</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">⑤ 薬学・連携</span>
         </a>
       </div>
     </div>
@@ -373,6 +441,149 @@
       </div>
     </section>
 
+    <!-- ==================== V13.6: SIGNAL CHECK / 30秒対面相談 ==================== -->
+    <section id="v136-signal-check" class="scroll-mt-32 space-y-4">
+      <div class="v136-hero">
+        <div class="v136-kicker">V13.6 · PHARMACIST INTERACTION ENGINE</div>
+        <div class="v136-title">「全部を読む」から、<span class="text-sky-700">今日ひとつ話す</span>へ。</div>
+        <p class="v136-sub">InBody 470の結果用紙を薬剤師自身の目でざっと見て、「ここが気になる」と感じた場所を1つ選びます。V13.6は、その気づきを<strong>質問 → 説明 → 次の一歩</strong>につなげるための現場支援です。</p>
+        <div class="v136-flow"><span>① 見る</span><span>② 気づく</span><span>③ 選ぶ</span><span>④ 聞く・伝える</span><span>⑤ 次回につなぐ</span></div>
+      </div>
+
+      <div class="v136-signal-wrap">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div>
+            <div class="text-[10px] font-black tracking-widest text-sky-700 uppercase">SIGNAL CHECK</div>
+            <h3 class="text-sm sm:text-base font-black text-slate-900">まず、結果用紙のどこが気になりましたか？</h3>
+          </div>
+          <span class="text-[10px] font-bold bg-slate-100 border border-slate-200 rounded-full px-2.5 py-1 text-slate-600">1つ選べばOK</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed mb-3">初回は全部を判定する必要はありません。目に留まった1か所から始め、必要なら別のシグナルを追加します。</p>
+        <div id="v136-signal-grid" class="v136-signal-grid"></div>
+        <div id="v136-signal-detail" class="v136-detail"></div>
+        <div class="v136-rule"><strong>30秒モードの原則：</strong>複数の変化があっても、最初の会話では「今日いちばん話す価値が高い1テーマ」に絞ります。ほかの変化は黄色の「もう一歩、確認したい」に回します。</div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div><div class="text-[10px] font-black tracking-widest text-emerald-700 uppercase">30-SECOND TALK</div><h3 class="text-sm sm:text-base font-black text-slate-900">🟢 🔴 🟡 で、話す順番を決める</h3></div>
+          <span class="text-[10px] font-bold text-slate-500">短時間でも完結</span>
+        </div>
+        <div class="v136-quick">
+          <button onclick="v136SetTalk('green')" id="v136-talk-green" class="active">🟢 できていること<br><span class="font-normal text-slate-500">事実を認める</span></button>
+          <button onclick="v136SetTalk('red')" id="v136-talk-red">🔴 今日、話したい<br><span class="font-normal text-slate-500">最優先を1つ</span></button>
+          <button onclick="v136SetTalk('yellow')" id="v136-talk-yellow">🟡 もう一歩確認<br><span class="font-normal text-slate-500">背景を聞く</span></button>
+        </div>
+        <div id="v136-talk-panel" class="mt-3 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs sm:text-sm text-slate-700 leading-relaxed"></div>
+      </div>
+    </section>
+
+    <!-- ==================== V13.7: PHARMACIST JUDGMENT NAVIGATOR ==================== -->
+    <section id="v137-judgment" class="scroll-mt-32 space-y-4">
+      <div class="v137-hero">
+        <div class="v137-kicker">V13.7 · PHARMACIST JUDGMENT NAVIGATOR</div>
+        <div class="v137-title">「気になる」を、<span class="text-emerald-700">今日の対話</span>に変える。</div>
+        <p class="v137-sub">
+          V13.6のSignal Checkを一段進め、<strong>何を見るか → 測定条件を確かめる → 何を優先するか → 何を聞くか → どこまで伝えるか</strong>を薬剤師自身が判断できるようにします。
+          これは診断を自動化する機能ではなく、目の前のInBody 470結果用紙から「次の一言」を組み立てるためのナビゲーションです。
+        </p>
+        <div class="v137-grid">
+          <div class="v137-step"><strong>① SIGNAL</strong><span>まず「どこが気になったか」を1つ選ぶ。全部を同時に処理しない。</span></div>
+          <div class="v137-step"><strong>② CONTEXT</strong><span>測定条件・前回比較・本人の自覚を確認。数字だけで意味を決めない。</span></div>
+          <div class="v137-step"><strong>③ PRIORITY</strong><span>今日いちばん話す価値の高いテーマを1つに絞る。</span></div>
+        </div>
+      </div>
+
+      <div class="v137-panel">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div>
+            <div class="text-[10px] font-black tracking-widest text-emerald-700 uppercase">JUDGMENT NAVIGATOR</div>
+            <h3 class="text-sm sm:text-base font-black text-slate-900">選んだSignalを、どう扱う？</h3>
+          </div>
+          <span class="text-[10px] font-bold text-slate-500">V13.6を補強</span>
+        </div>
+
+        <div class="v137-tabs">
+          <button class="v137-tab active" id="v137-tab-context" onclick="v137SelectTab('context')">① 条件を確認</button>
+          <button class="v137-tab" id="v137-tab-priority" onclick="v137SelectTab('priority')">② 優先順位</button>
+          <button class="v137-tab" id="v137-tab-talk" onclick="v137SelectTab('talk')">③ 話し方</button>
+          <button class="v137-tab" id="v137-tab-safe" onclick="v137SelectTab('safe')">④ 言い切らない</button>
+        </div>
+
+        <div id="v137-tab-panel" class="v137-card"></div>
+      </div>
+
+      <div class="v137-panel">
+        <div class="flex items-center justify-between gap-2">
+          <div>
+            <div class="text-[10px] font-black tracking-widest text-sky-700 uppercase">MULTI-SIGNAL RULE</div>
+            <h3 class="text-sm sm:text-base font-black text-slate-900">複数の変化が見えたときの「1テーマ化」</h3>
+          </div>
+          <span class="text-[10px] bg-sky-50 text-sky-800 border border-sky-200 rounded-full px-2.5 py-1 font-bold">30秒対応</span>
+        </div>
+
+        <div class="v137-rules">
+          <div class="v137-rulebox"><b>🔴 まず安全・急な変化</b><span>急な体重変化、強い症状、明らかな体調変化など、確認を急ぐものを先に。</span></div>
+          <div class="v137-rulebox"><b>🟡 次に背景</b><span>食事・活動・睡眠・測定条件・服薬変更など、結果の背景を確認。</span></div>
+          <div class="v137-rulebox"><b>🟢 最後に強み</b><span>維持・改善できている事実を拾い、本人が続けられた行動を言語化。</span></div>
+        </div>
+
+        <div class="v137-two">
+          <div class="v137-card v137-redbox">
+            <h4>🔴 30秒モードの原則</h4>
+            <p>複数の赤があっても、最初から全部を説明しません。<strong>「今日確認する1つ」</strong>を選び、必要な場合だけ医療相談につなげます。</p>
+          </div>
+          <div class="v137-card v137-greenbox">
+            <h4>🟢 赤がない場合</h4>
+            <p>「問題なし」で終わらせず、<strong>できている事実 → 続けられた理由 → 次回も見たい指標</strong>の順で会話を作ります。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="v137-panel">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div>
+            <div class="text-[10px] font-black tracking-widest text-purple-700 uppercase">LEARNING MODE</div>
+            <h3 class="text-sm sm:text-base font-black text-slate-900">薬剤師の経験に合わせて使い方を変える</h3>
+          </div>
+        </div>
+
+        <div class="v137-two">
+          <div class="v137-card v137-bluebox">
+            <h4>🌱 BEGINNER｜見る場所を借りる</h4>
+            <p>Signal Checkの候補を順に確認し、「どこを見れば会話が始まるか」を覚える。</p>
+          </div>
+          <div class="v137-card v137-purplebox">
+            <h4>🧭 INTERMEDIATE｜判断を自分で行う</h4>
+            <p>先に自分で1テーマを選び、あとからV13.7で確認する。アプリを「答え」ではなく「答え合わせ」にする。</p>
+          </div>
+        </div>
+        <div class="v137-card v137-greenbox">
+          <h4>🎓 EXPERIENCED｜必要なときだけ呼び出す</h4>
+          <p>結果用紙を自分で読み、必要な項目だけ開く。最終判断と患者さんへの説明は薬剤師が担います。</p>
+        </div>
+      </div>
+
+      <div class="v137-panel">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div>
+            <div class="text-[10px] font-black tracking-widest text-rose-700 uppercase">SAFETY GUARDRAIL</div>
+            <h3 class="text-sm sm:text-base font-black text-slate-900">V13.7で「やらないこと」を明文化</h3>
+          </div>
+        </div>
+
+        <label class="v137-check cursor-pointer select-none"><input type="checkbox" aria-label="病名をつけない"><span><strong>単一の数値だけで病名をつけない。</strong> InBodyは対話のきっかけであり、診断そのものではない。</span></label>
+        <label class="v137-check cursor-pointer select-none"><input type="checkbox" aria-label="因果関係を決めつけない"><span><strong>薬剤との因果関係を決めつけない。</strong> 「薬が原因」ではなく、服薬変更・症状・生活変化を確認する。</span></label>
+        <label class="v137-check cursor-pointer select-none"><input type="checkbox" aria-label="体重減少を無条件に褒めない"><span><strong>体重減少を無条件に褒めない。</strong> 意図した変化か、食欲や体調に問題がないかを先に確認する。</span></label>
+        <label class="v137-check cursor-pointer select-none"><input type="checkbox" aria-label="測定条件の違いを無視しない"><span><strong>測定条件の違いを無視しない。</strong> 前回値との比較では、条件の違いが結果に影響しうることを意識する。</span></label>
+
+        <div class="v137-v14">
+          <strong>🔭 V14への橋渡し</strong>
+          <p>V13.7で整理した「SIGNAL → CONTEXT → PRIORITY → TALK → NEXT」が、将来のカメラ読み取り時のAI判定フローになります。V14ではAIが最初の候補を提示しても、薬剤師が確認・修正してから対話へ進む設計を基本とします。</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ==================== STEP 2: InBody470 実物結果シートパターン連動＆解説 ==================== -->
     <section id="phase-live-paper" class="scroll-mt-32 space-y-4">
       <div class="border-b-2 border-sky-500 pb-2 flex items-center justify-between">
@@ -450,7 +661,7 @@
         </div>
 
         <!-- 時間別アクションパネル -->
-        <div id="v132-panel" class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40 text-xs transition">
+        <div id="v132-panel" class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40 text-xs sm:text-sm transition">
           <!-- JSで切り替え -->
         </div>
       </div>
@@ -505,7 +716,7 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
         
         <!-- 左側：InBody470結果用紙再現 -->
-        <div id="target-paper-sheet" class="lg:col-span-7 bg-slate-100 p-2.5 sm:p-3.5 rounded-2xl border border-slate-300 shadow-inner">
+        <div id="target-paper-sheet" class="lg:col-span-7 bg-slate-100 p-2.5 sm:p-3.5 rounded-2xl border border-slate-300 shadow-inner scroll-mt-36">
           <div class="paper-sheet p-3.5 sm:p-5 text-slate-800 space-y-4">
             
             <!-- 用紙ヘッダー -->
@@ -845,37 +1056,37 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-          <button onclick="selectQolBenefit('move')" class="qol-btn p-3 rounded-xl border-2 border-emerald-400 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <button onclick="selectQolBenefit('move')" class="qol-btn p-3 rounded-xl border-2 border-emerald-400 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group" data-qol="move">
             <div class="text-2xl mb-1 group-hover:scale-110 transition">🏃</div>
             <div class="text-xs font-black text-slate-900">動きが変わる</div>
             <div class="text-[10px] text-emerald-700 font-bold mt-0.5">足が軽い・階段ラク</div>
           </button>
 
-          <button onclick="selectQolBenefit('pain')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <button onclick="selectQolBenefit('pain')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group" data-qol="pain">
             <div class="text-2xl mb-1 group-hover:scale-110 transition">🩹</div>
             <div class="text-xs font-black text-slate-900">痛みが減る</div>
             <div class="text-[10px] text-slate-600 font-bold mt-0.5">膝・腰の負担軽減</div>
           </button>
 
-          <button onclick="selectQolBenefit('sleep')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <button onclick="selectQolBenefit('sleep')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group" data-qol="sleep">
             <div class="text-2xl mb-1 group-hover:scale-110 transition">🌙</div>
             <div class="text-xs font-black text-slate-900">ぐっすり快眠</div>
             <div class="text-[10px] text-slate-600 font-bold mt-0.5">だるさ解消・朝爽快</div>
           </button>
 
-          <button onclick="selectQolBenefit('posture')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <button onclick="selectQolBenefit('posture')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group" data-qol="posture">
             <div class="text-2xl mb-1 group-hover:scale-110 transition">✨</div>
             <div class="text-xs font-black text-slate-900">若々しく見える</div>
             <div class="text-[10px] text-slate-600 font-bold mt-0.5">姿勢がピン・服が似合う</div>
           </button>
 
-          <button onclick="selectQolBenefit('disease')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <button onclick="selectQolBenefit('disease')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group" data-qol="disease">
             <div class="text-2xl mb-1 group-hover:scale-110 transition">💊</div>
             <div class="text-xs font-black text-slate-900">お薬を見直したい</div>
             <div class="text-[10px] text-slate-600 font-bold mt-0.5">生活習慣の根本改善</div>
           </button>
 
-          <button onclick="selectQolBenefit('travel')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+          <button onclick="selectQolBenefit('travel')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group" data-qol="travel">
             <div class="text-2xl mb-1 group-hover:scale-110 transition">🍁</div>
             <div class="text-xs font-black text-slate-900">元気に旅に行ける</div>
             <div class="text-[10px] text-slate-600 font-bold mt-0.5">フレイル予防・一生歩く</div>
@@ -905,7 +1116,7 @@
                 <span>🗣</span> 相談者に響く希望の言葉：
               </strong>
               <p id="qolTalkText" class="text-slate-800 text-xs sm:text-sm leading-relaxed italic">
-                「〇〇さん、足の筋肉は歩く・立つを支える大切な部分です。今の数値を一つの目安にして、階段や買い物などで『少し楽になった』と感じられる変化を、一緒に見ていきませんか？」
+                「〇〇さん、足の筋肉は『天然のバネ』です。ここを目覚めさせると、駅の階段を一段飛ばしで登れそうなくらい足がスッと前に出るようになりますよ。お散歩や買い物帰りの『あぁ疲れた…』が劇的になくなる変化を、一緒に楽しみませんか？」
               </p>
             </div>
 
@@ -954,8 +1165,8 @@
           <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
             <div class="bg-white p-3.5 rounded-xl border border-emerald-200 text-slate-800 italic shadow-2xs">
               「〇〇さん、膝や腰がおつらい中、教えてくださりありがとうございます。痛いと動くのも億劫になりますよね。<br>
-              太ももや体幹の筋力は、立つ・歩くなどの日常動作を支える大切な要素です。筋力や身体機能は、移動や日常生活を支える大切な要素です。痛みがある場合は、痛みの原因や程度を確認し、無理のない方法を検討しましょう。<br>
-              痛みがあるときは、無理に運動を続けず、必要に応じて医療者へ相談しましょう。テレビを見ながら椅子に深く座り、片足を水平に5秒ピンと伸ばすだけ。膝に体重をかけずに筋肉のサポーターを作って、痛みを気にせずお買い物に行ける足を取り戻しましょう！」
+              実は、太ももやお腹の筋肉は『天然のサポーター・コルセット』にあたります。体重の負荷を骨や軟骨の代わりに筋肉がグッと受け止めてくれるため、太ももの筋肉がほんの少し強くなるだけで、歩くときの膝の痛みが驚くほどスッと楽になります。<br>
+              痛いときは無理に歩く必要はありません。テレビを見ながら椅子に深く座り、片足を水平に5秒ピンと伸ばすだけ。膝に体重をかけずに筋肉のサポーターを作って、痛みを気にせずお買い物に行ける足を取り戻しましょう！」
             </div>
             <div class="flex items-center justify-between pt-1">
               <span class="text-xs text-emerald-800 font-bold">💡 ポイント：痛みを100%受容し、「筋肉＝痛みを吸い取るサポーター」として希望を示す</span>
@@ -979,7 +1190,7 @@
             <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
               「〇〇さん、体重を落とされたこれまでの努力、取り組み、本当に素晴らしいですね！<br>
               ただ、InBodyの詳しい内訳を見てみますと、今回減ったのは脂肪ではなく、体を支える大切な『筋肉と水分』でした。<br>
-              筋肉量の変化はエネルギー消費を考える際の一つの要素です。体重だけでなく、脂肪と除脂肪量の変化も一緒に見てみましょう。<br>
+              筋肉がお風呂の追い焚きヒーターだとすると、筋肉が落ちると代謝が落ちて、かえって将来太りやすい体質になってしまいます。<br>
               ここからは『食事を減らす』のではなく、『卵やお肉、大豆などタンパク質をしっかり食べて、筋肉を守りながら脂肪を燃やす』次のステージに進みましょう！食事のこと栄養のこと、お薬のことも、もう少し話しましょうか？」
             </div>
             <div class="flex items-center justify-between pt-1">
@@ -1002,9 +1213,9 @@
           </summary>
           <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
             <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
-              「膝や腰がおつらい中、教えてくださりありがとうございます。痛みがあるときは、無理に歩いたりスクワットを続けず、痛みの原因や状態に応じて方法を選びましょう。<br>
+              「膝や腰がおつらい中、教えてくださりありがとうございます。痛いときに無理をして歩いたりスクワットをするのは絶対に禁物です。<br>
               実は、足の筋肉は『座ったまま』でも十分鍛えられます。椅子に深く腰掛けて、テレビを見ながら片足をピーンと前に伸ばして5秒キープする運動や、貧乏ゆすりのようにかかとをトントン上下させるだけでも、太ももやふくらはぎの血流がグンと良くなります。<br>
-              体重をかけずに膝周りの筋肉がついてくると、天然のサポーターになって膝の負担感が変わることもあります。今日から座ったまま1回、試してみませんか？」
+              体重をかけずに膝周りの筋肉がついてくると、天然のサポーターになって膝の痛みが和らぐことも多いですよ。今日から座ったまま1回、試してみませんか？」
             </div>
             <div class="flex items-center justify-between pt-1">
               <span class="text-xs text-slate-500 font-semibold">💡 ポイント：痛みを共感し、荷重のかからない椅子運動（大腿四頭筋セッティング）を提案</span>
@@ -1026,7 +1237,7 @@
           <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
             <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
               「そう思われるお気持ち、とてもよく分かります。ですが最新の医学研究では、90歳を超えた方でも適切な刺激と栄養を与えれば、筋肉は何歳からでも太く・強くなることが証明されているんです！<br>
-              年齢にかかわらず、適切な運動や栄養によって身体機能の維持・改善を目指せる場合があります。いきなり激しい筋トレをする必要はなく、毎日の歯磨きをしながらかかとを浮かせたり、手すりを持って立ち座りするだけで、筋肉は『おっ、まだ出番があるんだな』と応えてくれます。<br>
+              筋肉の細胞には定年退職がありません。いきなり激しい筋トレをする必要はなく、毎日の歯磨きをしながらかかとを浮かせたり、手すりを持って立ち座りするだけで、筋肉は『おっ、まだ出番があるんだな』と応えてくれます。<br>
               〇〇さんがこれからもご自身の足で行きたい場所へ自由にお出かけできるよう、私もしっかりサポートしますね！」
             </div>
             <div class="flex items-center justify-between pt-1">
@@ -1074,7 +1285,7 @@
             <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
               「毎日忘れずにお薬を飲まれていること、本当にしっかりされてますね！治療の大きな柱がしっかりしています。<br>
               お薬は血管を広げたり余分な糖を出してくれますが、実は食事で摂った糖や脂質の約70%を燃やして処理しているのは『下半身の筋肉』なんです。<br>
-              筋肉量や身体機能の変化を確認しながら、健康状態や検査値の改善につながる可能性があります。薬剤の変更や減量は自己判断せず、主治医・薬剤師で相談しながら考えていきましょう。<br>
+              その筋肉が元気になると、健康状態や検査値の改善につながる可能性があり、将来的に『お薬との付き合い方を見直す・適正化する』という嬉しいゴールも見えてきます。<br>
               お薬と筋肉の二人三脚で、さらに健康な体を作っていきましょう！目標や希望は何か立てていますか？」
             </div>
             <div class="flex items-center justify-between pt-1">
@@ -1186,35 +1397,35 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">① 骨格筋著減と推算eGFR過大評価</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">サルコペニア高齢者では血清Cr産生が枯渇し、筋肉量が著しく少ない場合、血清Crが低く出ることで、Crベースの推算eGFRだけでは腎機能を過大評価する可能性がある。必要に応じて検査値・病歴・処方内容を確認し、シスタチンCなど別の指標も含めて医療者間で評価する。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">サルコペニア高齢者では血清Cr産生が枯渇し、見かけ上Cr 0.3〜0.5mg/dLとなる。推算eGFRが見かけ上正常（>90）となり腎機能が著しく過大評価されるため、シスタチンCでの再推算や投与設計を提案。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">② むくみ・心不全による「見かけの筋量増加」</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">細胞外水分（ECW）貯留により、下肢筋肉量が「高」と偽陽性を示す。点数「-」やECW/TBW比率≧0.400に着目し、浮腫や体液貯留など臨床所見と合わせて確認し、心不全・腎疾患などが疑われる場合は医療者につなぐ。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">細胞外水分（ECW）貯留により、下肢筋肉量が「高」と偽陽性を示す。点数「-」やECW/TBW比率≧0.400に着目し、心不全増悪、ネフローゼ、利尿薬不十分を疑い下肢圧痕を確認。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">③ SGLT2阻害薬による筋異化（サルコペニア）</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">体重減少時には、薬剤だけを原因と決めつけず、食事量・栄養状態・活動量・病状などと合わせて、筋肉量が維持されているかを追跡する。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">尿糖排泄に伴うカロリーロス下で、インスリン分泌不足や低栄養が重なるとタンパク異化が亢進し骨格筋が急減。体重減少時に筋肉が維持されているかを追跡。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">④ GLP-1/GIP受容体作動薬と除脂肪量喪失</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">体重減少時には除脂肪量も変化しうるため、体重だけでなく筋肉量・食事・活動量を合わせて確認する。薬剤使用中は、体重減少の経過と栄養・運動の状況を確認し、必要に応じて医療者と連携する。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">急速な体重減少時、減少重量の20〜40%が骨格筋から失われ、サルコペニア肥満を助長する。タンパク質摂取（1.2〜1.5g/kg/日）と運動の併用を徹底指導。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">⑤ 下肢筋力低下 × 転倒誘発薬（FRIDs）</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">睡眠薬（筋弛緩・持ち越し）や降圧薬（起立性低血圧）の服用者が下肢低の場合、転倒リスクは薬剤だけで決まらないため、ふらつき・起立時症状・生活環境なども確認する。薬剤調整は処方医と連携して検討する。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">睡眠薬（筋弛緩・持ち越し）や降圧薬（起立性低血圧）の服用者が下肢低の場合、大腿骨近位部骨折リスクが急増。非ベンゾ系への変更や減薬提案を行う。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">⑥ 筋肉減少・脂肪増加による体内動態（PK/PD）変容</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">体組成の変化は、一部の薬物の分布容積や薬物動態を考える際の背景情報になりうる。InBodyだけで投与量を判断せず、薬剤ごとの特性、腎・肝機能、血中濃度などと合わせて評価する。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">筋肉（体水分）減で水溶性薬物（ジゴキシン等）の分布容積（Vd）縮小・血中濃度急上昇。脂肪増で脂溶性薬物（ジアゼパム等）のVd著増・半減期延長に厳重警戒。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">⑦ ステロイド筋症（Steroid Myopathy）</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">長期の副腎皮質ステロイド使用では筋力低下・筋萎縮が問題になることがある。部位別筋肉量で下肢のみの急減を捉え、階段昇降障害を早期発見。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">PSL換算10mg/日以上の長期投与で下肢近位筋（大腿四頭筋・腸腰筋）の選択的萎縮が生じる。部位別筋肉量で下肢のみの急減を捉え、階段昇降障害を早期発見。</p>
           </div>
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
             <strong class="text-purple-900 block font-bold">⑧ 骨ミネラル量（BMC）と活性型ビタミンD3</strong>
-            <p class="text-xs text-slate-600 leading-relaxed">骨ミネラル量（BMC）は除脂肪量と密接に連動。骨ミネラル量は骨の評価を考える際の参考情報の一つ。ビタミンD関連薬の評価は、骨・筋機能、検査値、疾患背景、処方目的を含めて行う。</p>
+            <p class="text-xs text-slate-600 leading-relaxed">骨ミネラル量（BMC）は除脂肪量と密接に連動。活性型ビタミンD3製剤は骨密度上昇のみならず、筋細胞VDR刺激を介して転倒リスクを約20%低下させる重要エビデンス。</p>
           </div>
         </div>
       </div>
@@ -1378,7 +1589,7 @@
   <!-- フッター -->
   <footer class="mt-8 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
     <p class="font-bold text-slate-800 text-sm mb-1">福岡市薬剤師会 広報委員会</p>
-    <p class="text-xs">InBody指導マニュアル for Pharmacist v13.6 ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
+    <p class="text-xs">InBody指導マニュアル for Pharmacist v13.7 ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
   </footer>
 
   <!-- スライド原本全画面ポップアップモーダル -->
@@ -1407,7 +1618,6 @@
     </div>
   </div>
 
-  <!-- インタラクティブJavaScriptロジック -->
   <script>
     // 1. スライド原本データライブラリ（全10スライド）
     const slideOriginals = {
@@ -1601,34 +1811,37 @@
       const tip = postureTips[key];
       if (!tip) return;
 
-      // ボタンのアクティブ状態の同期
       ['armpit', 'hand', 'thigh', 'heel'].forEach(k => {
         const btn = document.getElementById(`btn-tip-${k}`);
-        if (k === key) {
-          if (k === 'armpit') btn.className = "py-2 px-1 rounded-xl bg-rose-600 text-white font-black text-xs shadow-2xs";
-          if (k === 'hand') btn.className = "py-2 px-1 rounded-xl bg-sky-600 text-white font-black text-xs shadow-2xs";
-          if (k === 'thigh') btn.className = "py-2 px-1 rounded-xl bg-emerald-600 text-white font-black text-xs shadow-2xs";
-          if (k === 'heel') btn.className = "py-2 px-1 rounded-xl bg-amber-600 text-white font-black text-xs shadow-2xs";
-        } else {
-          btn.className = "py-2 px-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-center font-bold text-xs";
+        if (btn) {
+          if (k === key) {
+            if (k === 'armpit') btn.className = "py-2 px-1 rounded-xl bg-rose-600 text-white font-black text-xs shadow-2xs";
+            if (k === 'hand') btn.className = "py-2 px-1 rounded-xl bg-sky-600 text-white font-black text-xs shadow-2xs";
+            if (k === 'thigh') btn.className = "py-2 px-1 rounded-xl bg-emerald-600 text-white font-black text-xs shadow-2xs";
+            if (k === 'heel') btn.className = "py-2 px-1 rounded-xl bg-amber-600 text-white font-black text-xs shadow-2xs";
+          } else {
+            btn.className = "py-2 px-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-center font-bold text-xs";
+          }
         }
       });
 
-      // 右側カードの背景色・枠線・バッジの色を連動
-      document.getElementById('posture-detail-box').innerHTML = `
-        <div class="${tip.bg} ${tip.border} p-4 rounded-2xl shadow-2xs space-y-2 transition-all">
-          <div class="flex items-center justify-between border-b border-slate-200/60 pb-2">
-            <div class="flex items-center gap-2">
-              <span class="${tip.badge} px-2.5 py-0.5 rounded-full text-xs font-black">部位別解説</span>
-              <strong class="${tip.textTitle} font-black text-xs sm:text-sm">${tip.title}</strong>
+      const box = document.getElementById('posture-detail-box');
+      if (box) {
+        box.innerHTML = `
+          <div class="${tip.bg} ${tip.border} p-4 rounded-2xl shadow-2xs space-y-2 transition-all">
+            <div class="flex items-center justify-between border-b border-slate-200/60 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="${tip.badge} px-2.5 py-0.5 rounded-full text-xs font-black">部位別解説</span>
+                <strong class="${tip.textTitle} font-black text-xs sm:text-sm">${tip.title}</strong>
+              </div>
+              <button onclick="openSlideModal('p9')" class="text-xs bg-white px-2.5 py-1 rounded-lg border border-slate-300 font-bold text-slate-800 hover:bg-slate-50 transition shadow-2xs">
+                スライドP.9原本 ➔
+              </button>
             </div>
-            <button onclick="openSlideModal('p9')" class="text-xs bg-white px-2.5 py-1 rounded-lg border border-slate-300 font-bold text-slate-800 hover:bg-slate-50 transition shadow-2xs">
-              スライドP.9原本 ➔
-            </button>
+            <p class="${tip.textColor} text-xs sm:text-sm leading-relaxed pt-1">${tip.desc}</p>
           </div>
-          <p class="${tip.textColor} text-xs sm:text-sm leading-relaxed pt-1">${tip.desc}</p>
-        </div>
-      `;
+        `;
+      }
     }
 
     // 3. 症例パターン連動データ
@@ -1765,10 +1978,12 @@
 
       ['C_skinny', 'I_healthy', 'D_athlete', 'frail_senior', 'metabolic_fat'].forEach(k => {
         const btn = document.getElementById(`btn-live-${k}`);
-        if (k === caseKey) {
-          btn.className = "p-2.5 rounded-xl bg-sky-50 border-2 border-sky-400 text-left transition shadow-2xs text-sky-950";
-        } else {
-          btn.className = "p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 text-left transition text-slate-700";
+        if (btn) {
+          if (k === caseKey) {
+            btn.className = "p-2.5 rounded-xl bg-sky-50 border-2 border-sky-400 text-left transition shadow-2xs text-sky-950";
+          } else {
+            btn.className = "p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 text-left transition text-slate-700";
+          }
         }
       });
 
@@ -1823,7 +2038,6 @@
       clickPaperZone(c.activeZone);
     }
 
-    // 4. 紙面ゾーン詳細データ
     const paperZoneDetails = {
       comp: {
         zoneName: "ZONE ① 体成分分析（4区画モデル）",
@@ -1874,53 +2088,57 @@
 
       ['comp', 'graph', 'obesity', 'segmental', 'research'].forEach(k => {
         const el = document.getElementById(`paper-zone-${k}`);
-        if (k === zoneKey) {
-          el.className = "p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 cursor-pointer transition space-y-1.5 zone-active-paper shadow-2xs";
-        } else {
-          el.className = "p-2.5 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1.5 bg-white";
+        if (el) {
+          if (k === zoneKey) {
+            el.className = "p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 cursor-pointer transition space-y-1.5 zone-active-paper shadow-2xs";
+          } else {
+            el.className = "p-2.5 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1.5 bg-white";
+          }
         }
       });
 
-      document.getElementById('paper-detail-panel').innerHTML = `
-        <div class="space-y-3">
-          <div class="border-b border-slate-200 pb-2 flex items-center justify-between">
-            <div>
-              <span class="text-[10px] text-sky-700 font-bold block uppercase tracking-wider">Zone Analysis</span>
-              <h4 class="font-black text-sky-950 text-sm sm:text-base">${d.zoneName}</h4>
-              <span class="text-xs text-slate-500 font-bold block mt-0.5">${d.sub}</span>
+      const detailPanel = document.getElementById('paper-detail-panel');
+      if (detailPanel) {
+        detailPanel.innerHTML = `
+          <div class="space-y-3">
+            <div class="border-b border-slate-200 pb-2 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] text-sky-700 font-bold block uppercase tracking-wider">Zone Analysis</span>
+                <h4 class="font-black text-sky-950 text-sm sm:text-base">${d.zoneName}</h4>
+                <span class="text-xs text-slate-500 font-bold block mt-0.5">${d.sub}</span>
+              </div>
+              <button onclick="openSlideModal('${d.slideKey}')" class="px-3 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-bold border border-sky-300 transition flex items-center gap-1 shrink-0 shadow-2xs">
+                <span>📄 スライド原本</span>
+                <span>➔</span>
+              </button>
             </div>
-            <button onclick="openSlideModal('${d.slideKey}')" class="px-3 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-bold border border-sky-300 transition flex items-center gap-1 shrink-0 shadow-2xs">
-              <span>📄 スライド原本</span>
-              <span>➔</span>
-            </button>
-          </div>
 
-          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
-            <strong class="text-slate-900 block font-bold flex items-center gap-1">
-              <span>🔍</span> 基本的な見立て：
-            </strong>
-            <p class="leading-relaxed text-xs text-slate-700">${d.basic}</p>
-          </div>
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
+              <strong class="text-slate-900 block font-bold flex items-center gap-1">
+                <span>🔍</span> 基本的な見立て：
+              </strong>
+              <p class="leading-relaxed text-xs text-slate-700">${d.basic}</p>
+            </div>
 
-          <div class="bg-sky-50/80 p-3.5 rounded-xl border border-sky-200 space-y-1 text-xs sm:text-sm">
-            <strong class="text-sky-900 block font-bold flex items-center gap-1">
-              <span>🧩</span> 複数ゾーン掛け合わせ考察（深読み）：
-            </strong>
-            <p class="leading-relaxed text-xs text-slate-800">${d.combine}</p>
-          </div>
+            <div class="bg-sky-50/80 p-3.5 rounded-xl border border-sky-200 space-y-1 text-xs sm:text-sm">
+              <strong class="text-sky-900 block font-bold flex items-center gap-1">
+                <span>🧩</span> 複数ゾーン掛け合わせ考察（深読み）：
+              </strong>
+              <p class="leading-relaxed text-xs text-slate-800">${d.combine}</p>
+            </div>
 
-          <div class="bg-emerald-50/80 p-3.5 rounded-xl border border-emerald-200 space-y-1 text-xs sm:text-sm italic">
-            <strong class="text-emerald-950 block font-bold not-italic flex items-center gap-1">
-              <span>🗣️</span> 相談者へ伝える言葉かけ：
-            </strong>
-            <p class="text-slate-800 leading-relaxed text-xs sm:text-sm">${d.talk}</p>
+            <div class="bg-emerald-50/80 p-3.5 rounded-xl border border-emerald-200 space-y-1 text-xs sm:text-sm italic">
+              <strong class="text-emerald-950 block font-bold not-italic flex items-center gap-1">
+                <span>🗣️</span> 相談者へ伝える言葉かけ：
+              </strong>
+              <p class="text-slate-800 leading-relaxed text-xs sm:text-sm">${d.talk}</p>
+            </div>
           </div>
-        </div>
-      `;
+        `;
+      }
       updateChangeViewContent();
     }
 
-    // 5. QUICK / DEEP ＆ 視線ルート
     const guideFlowData = {
       comp: {
         quick: "体重だけでなく、体水分・タンパク質・ミネラル・体脂肪など「体の中身」も一緒に見ておくと変化が分かりやすくなります。",
@@ -1954,12 +2172,14 @@
       currentRouteMode = mode;
       const btnQ = document.getElementById('v132-btn-quick');
       const btnD = document.getElementById('v132-btn-deep');
-      if (mode === 'quick') {
-        btnQ.className = "p-2.5 rounded-xl border-2 border-emerald-400 bg-emerald-50/80 text-left transition flex items-center justify-between";
-        btnD.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-purple-300 flex items-center justify-between";
-      } else {
-        btnD.className = "p-2.5 rounded-xl border-2 border-purple-400 bg-purple-50/80 text-left transition flex items-center justify-between";
-        btnQ.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-emerald-300 flex items-center justify-between";
+      if (btnQ && btnD) {
+        if (mode === 'quick') {
+          btnQ.className = "p-2.5 rounded-xl border-2 border-emerald-400 bg-emerald-50/80 text-left transition flex items-center justify-between";
+          btnD.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-purple-300 flex items-center justify-between";
+        } else {
+          btnD.className = "p-2.5 rounded-xl border-2 border-purple-400 bg-purple-50/80 text-left transition flex items-center justify-between";
+          btnQ.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-emerald-300 flex items-center justify-between";
+        }
       }
       renderRoutePanel();
     }
@@ -1993,17 +2213,18 @@
       currentPaperZone = zoneKey;
       ['comp', 'graph', 'obesity', 'segmental', 'research'].forEach(k => {
         const btn = document.getElementById(`btn-guide-${k}`);
-        if (k === zoneKey) {
-          btn.className = "p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 text-left transition shadow-2xs";
-        } else {
-          btn.className = "p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300";
+        if (btn) {
+          if (k === zoneKey) {
+            btn.className = "p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 text-left transition shadow-2xs";
+          } else {
+            btn.className = "p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300";
+          }
         }
       });
       clickPaperZone(zoneKey);
       renderRoutePanel();
     }
 
-    // 6. CHANGE VIEW データ
     const changeViewData = {
       comp: {
         state: "体重だけでなく、体水分・タンパク質・ミネラル・体脂肪など「身体の中身」を見る。",
@@ -2042,10 +2263,12 @@
       currentChangeStep = step;
       ['state', 'aim', 'next'].forEach(s => {
         const btn = document.getElementById(`btn-change-${s}`);
-        if (s === step) {
-          btn.className = "py-2 px-1 rounded-xl bg-orange-500 text-white shadow-2xs text-center transition";
-        } else {
-          btn.className = "py-2 px-1 rounded-xl bg-orange-50 text-orange-800 border border-orange-200 text-center transition hover:bg-orange-100";
+        if (btn) {
+          if (s === step) {
+            btn.className = "py-2 px-1 rounded-xl bg-orange-500 text-white shadow-2xs text-center transition";
+          } else {
+            btn.className = "py-2 px-1 rounded-xl bg-orange-50 text-orange-800 border border-orange-200 text-center transition hover:bg-orange-100";
+          }
         }
       });
       updateChangeViewContent();
@@ -2067,7 +2290,6 @@
       }
     }
 
-    // 7. 5大ペルソナ別データ
     const personaData = {
       'young': {
         title: "🌸 ① 若年層・女性（無理なダイエット・隠れ肥満・将来の骨粗鬆症予防）",
@@ -2112,60 +2334,64 @@
 
       ['young', 'work', 'lifestyle', 'sports', 'senior'].forEach(k => {
         const btn = document.getElementById(`persona-btn-${k}`);
-        if (k === pKey) {
-          btn.className = "p-2.5 rounded-xl text-left border-2 border-teal-500 bg-teal-50 text-teal-950 transition shadow-2xs";
-        } else {
-          btn.className = "p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition";
+        if (btn) {
+          if (k === pKey) {
+            btn.className = "p-2.5 rounded-xl text-left border-2 border-teal-500 bg-teal-50 text-teal-950 transition shadow-2xs";
+          } else {
+            btn.className = "p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition";
+          }
         }
       });
 
-      document.getElementById('persona-panel').innerHTML = `
-        <div class="space-y-3">
-          <div class="border-b border-teal-100 pb-2">
-            <h4 class="font-black text-teal-950 text-sm sm:text-base">${d.title}</h4>
-            <span class="text-[11px] font-mono font-bold text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200 mt-1 inline-block">${d.focus}</span>
-          </div>
+      const panel = document.getElementById('persona-panel');
+      if (panel) {
+        panel.innerHTML = `
+          <div class="space-y-3">
+            <div class="border-b border-teal-100 pb-2">
+              <h4 class="font-black text-teal-950 text-sm sm:text-base">${d.title}</h4>
+              <span class="text-[11px] font-mono font-bold text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200 mt-1 inline-block">${d.focus}</span>
+            </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
-            <div class="bg-rose-50/70 p-3.5 rounded-xl border border-rose-200 space-y-1">
-              <strong class="text-rose-900 block font-bold flex items-center gap-1">
-                <span>⚠</span> 潜んでいる臨床課題・病態背景
-              </strong>
-              <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${d.problem}</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+              <div class="bg-rose-50/70 p-3.5 rounded-xl border border-rose-200 space-y-1">
+                <strong class="text-rose-900 block font-bold flex items-center gap-1">
+                  <span>⚠</span> 潜んでいる臨床課題・病態背景
+                </strong>
+                <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${d.problem}</p>
+              </div>
+              <div class="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200 space-y-1">
+                <strong class="text-emerald-900 block font-bold flex items-center gap-1">
+                  <span>🎯</span> 薬剤師が提案する1アクション
+                </strong>
+                <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${d.action}</p>
+              </div>
             </div>
-            <div class="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200 space-y-1">
-              <strong class="text-emerald-900 block font-bold flex items-center gap-1">
-                <span>🎯</span> 薬剤師が提案する1アクション
-              </strong>
-              <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${d.action}</p>
-            </div>
-          </div>
 
-          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
-            <div class="flex items-center justify-between">
-              <strong class="text-slate-900 font-bold flex items-center gap-1">
-                <span>🗣</span> 相談者の心に刺さるポジティブトーク
-              </strong>
-              <button onclick="copyToClipboard('${d.script}')" class="px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-2xs">
-                トークをコピー
-              </button>
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 font-bold flex items-center gap-1">
+                  <span>🗣</span> 相談者の心に刺さるポジティブトーク
+                </strong>
+                <button onclick="copyToClipboard('${d.script}')" class="px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-2xs">
+                  トークをコピー
+                </button>
+              </div>
+              <p class="text-slate-800 italic leading-relaxed text-xs sm:text-sm bg-white p-3 rounded-xl border border-slate-200">
+                ${d.script}
+              </p>
             </div>
-            <p class="text-slate-800 italic leading-relaxed text-xs sm:text-sm bg-white p-3 rounded-xl border border-slate-200">
-              ${d.script}
-            </p>
           </div>
-        </div>
-      `;
+        `;
+      }
     }
 
-    // 8. 6大希望別QOLデータ
     const qolBenefitsData = {
       'move': {
         icon: '🏃',
         sub: 'Move Freely & Lightly',
         title: '「足元が羽のように軽くなり、階段や散歩が楽しくなる」未来へ',
         badge: '着目する用紙項目：両脚の筋肉量（kg）',
-        talk: '「〇〇さん、足の筋肉は歩く・立つを支える大切な部分です。今の数値を一つの目安にして、階段や買い物などで『少し楽になった』と感じられる変化を、一緒に見ていきませんか？」',
+        talk: '「〇〇さん、足の筋肉は『天然のバネ』です。ここを目覚めさせると、駅の階段を一段飛ばしで登れそうなくらい足がスッと前に出るようになりますよ。お散歩や買い物帰りの『あぁ疲れた…』が劇的になくなる変化を、一緒に楽しみませんか？」',
         action: '歯磨きをしながら「かかとを上げて5秒キープ」を1日10回。第二の心臓であるふくらはぎを刺激し、血液とエネルギーを全身に送り出します。',
         timeline: '<strong>【2週間後】：</strong>夕方の足のだるさ・むくみが軽減。<br><strong>【1ヶ月後】：</strong>信号待ちや椅子からの立ち上がりが軽やかに！'
       },
@@ -2216,6 +2442,7 @@
       }
     };
 
+    // 安全化された selectQolBenefit 関数（バグ修正済み）
     function selectQolBenefit(type) {
       const data = qolBenefitsData[type];
       if (!data) return;
@@ -2229,14 +2456,14 @@
       document.getElementById('qolTimelineText').innerHTML = data.timeline;
 
       document.querySelectorAll('.qol-btn').forEach(btn => {
-        btn.classList.remove('border-2', 'border-emerald-400', 'bg-emerald-50');
-        btn.classList.add('border-slate-200', 'bg-white');
+        if (btn.getAttribute('data-qol') === type) {
+          btn.className = "qol-btn p-3 rounded-xl border-2 border-emerald-400 bg-emerald-50 text-left transition shadow-2xs active:scale-95 group";
+        } else {
+          btn.className = "qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group";
+        }
       });
-      event.currentTarget.classList.remove('border-slate-200', 'bg-white');
-      event.currentTarget.classList.add('border-2', 'border-emerald-400', 'bg-emerald-50');
     }
 
-    // 9. 医師ディスカッション論点データ
     const rxDocDetails = {
       egfr: {
         title: "Case 1. 骨格筋著減に伴う推算eGFR過大評価と腎排泄型薬剤の過量投与防止",
@@ -2270,66 +2497,70 @@
 
       ['egfr', 'frids', 'edema'].forEach(k => {
         const btn = document.getElementById(`btn-collab-${k}`);
-        if (k === key) {
-          btn.className = "p-3 rounded-xl border-2 border-indigo-400 bg-indigo-50/80 text-indigo-950 text-left transition shadow-2xs";
-        } else {
-          btn.className = "p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-left transition hover:border-indigo-200";
+        if (btn) {
+          if (k === key) {
+            btn.className = "p-3 rounded-xl border-2 border-indigo-400 bg-indigo-50/80 text-indigo-950 text-left transition shadow-2xs";
+          } else {
+            btn.className = "p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-left transition hover:border-indigo-200";
+          }
         }
       });
 
-      document.getElementById('rxdoc-panel').innerHTML = `
-        <div class="space-y-3">
-          <div class="flex items-center justify-between border-b border-indigo-100 pb-2">
-            <h4 class="font-black text-indigo-950 text-sm sm:text-base">${d.title}</h4>
-            <span class="text-xs font-mono font-bold bg-white text-indigo-800 px-2.5 py-0.5 rounded-full border border-indigo-200">${d.target}</span>
-          </div>
+      const panel = document.getElementById('rxdoc-panel');
+      if (panel) {
+        panel.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-indigo-100 pb-2">
+              <h4 class="font-black text-indigo-950 text-sm sm:text-base">${d.title}</h4>
+              <span class="text-xs font-mono font-bold bg-white text-indigo-800 px-2.5 py-0.5 rounded-full border border-indigo-200">${d.target}</span>
+            </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
-              <strong class="text-indigo-900 block font-bold text-xs flex items-center gap-1">
-                <span>🧠</span> 薬剤師の薬学的見立て
-              </strong>
-              <p class="text-slate-600 text-xs leading-relaxed">${d.view}</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+              <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
+                <strong class="text-indigo-900 block font-bold text-xs flex items-center gap-1">
+                  <span>🧠</span> 薬剤師の薬学的見立て
+                </strong>
+                <p class="text-slate-600 text-xs leading-relaxed">${d.view}</p>
+              </div>
+              <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
+                <strong class="text-emerald-900 block font-bold text-xs flex items-center gap-1">
+                  <span>🗣️</span> 相談者への助言
+                </strong>
+                <p class="text-slate-600 text-xs leading-relaxed italic">${d.talk}</p>
+              </div>
+              <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
+                <strong class="text-purple-900 block font-bold text-xs flex items-center gap-1">
+                  <span>🩺</span> 医師とのディスカッション論点
+                </strong>
+                <p class="text-slate-600 text-xs leading-relaxed">${d.point}</p>
+              </div>
             </div>
-            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
-              <strong class="text-emerald-900 block font-bold text-xs flex items-center gap-1">
-                <span>🗣️</span> 相談者への助言
-              </strong>
-              <p class="text-slate-600 text-xs leading-relaxed italic">${d.talk}</p>
-            </div>
-            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
-              <strong class="text-purple-900 block font-bold text-xs flex items-center gap-1">
-                <span>🩺</span> 医師とのディスカッション論点
-              </strong>
-              <p class="text-slate-600 text-xs leading-relaxed">${d.point}</p>
-            </div>
-          </div>
 
-          <div class="bg-white rounded-xl p-3.5 border-2 border-indigo-300 space-y-1.5 shadow-2xs">
-            <div class="flex items-center justify-between">
-              <span class="text-indigo-900 font-bold text-xs flex items-center gap-1">
-                <span>📋</span> 主治医・多職種共有用 要点サマリーメモ
-              </span>
-              <button onclick="copyToClipboard('${d.summary}')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-2xs">
-                コピー
-              </button>
+            <div class="bg-white rounded-xl p-3.5 border-2 border-indigo-300 space-y-1.5 shadow-2xs">
+              <div class="flex items-center justify-between">
+                <span class="text-indigo-900 font-bold text-xs flex items-center gap-1">
+                  <span>📋</span> 主治医・多職種共有用 要点サマリーメモ
+                </span>
+                <button onclick="copyToClipboard('${d.summary}')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-2xs">
+                  コピー
+                </button>
+              </div>
+              <p class="text-slate-700 text-xs font-mono leading-relaxed bg-indigo-50/50 p-3 rounded-lg border border-indigo-200 select-all">
+                ${d.summary}
+              </p>
             </div>
-            <p class="text-slate-700 text-xs font-mono leading-relaxed bg-indigo-50/50 p-3 rounded-lg border border-indigo-200 select-all">
-              ${d.summary}
-            </p>
           </div>
-        </div>
-      `;
+        `;
+      }
     }
 
-    // 10. SMI計算機
     function calculateSMI() {
       const gender = document.getElementById('smi-gender').value;
       const heightCm = parseFloat(document.getElementById('smi-height').value) || 0;
       const asm = parseFloat(document.getElementById('smi-asm').value) || 0;
       const resDiv = document.getElementById('smi-result');
 
-      if (heightCm <= 0 || asm <= 0) return;
+      if (!resDiv || heightCm <= 0 || asm <= 0) return;
 
       const heightM = heightCm / 100;
       const smi = (asm / (heightM * heightM)).toFixed(2);
@@ -2347,7 +2578,6 @@
       `;
     }
 
-    // 11. 検索機能
     function filterManual() {
       const q = document.getElementById('searchInput').value.toLowerCase().trim();
       if (!q) {
@@ -2387,7 +2617,120 @@
       if (textEl) copyToClipboard(textEl.innerText);
     }
 
-    // 読書進捗バー
+    /* ===== V13.6 Signal Check Logic ===== */
+    const v136Signals = {
+      p01:{name:'筋肉量低下・活動低下のサイン',zone:'②筋肉-脂肪分析 / ④部位別筋肉',priority:'red',label:'高',look:'SMMと下肢筋肉量の変化。特に前回より下がっているか。',talk:'「前回と比べて、足の筋肉量に少し変化がありますね。最近、歩く量や外出の頻度に変化はありませんでしたか？」',ask:['歩く速度・外出・買い物など活動量','食事量と肉・魚・卵・大豆などの摂取','足腰の痛み、体調変化、新しく始まった薬'],pharm:'年齢や運動不足だけに決めつけず、活動低下・食事・痛み・服薬変化を一緒に確認する。',caution:'この結果だけで「サルコペニア」「筋肉が衰えた」と断定しない。',action:'負担の少ない活動・食事の工夫を1つ決め、次回は同じ条件で変化を見る。'},
+      p02:{name:'体脂肪増加 × 筋肉維持/低下',zone:'②筋肉-脂肪分析',priority:'yellow',label:'中',look:'体脂肪量が増え、SMMが維持または低下しているか。',talk:'「体重だけではなく、中身の変化を一緒に見てみましょう。筋肉はどうでしょうか？」',ask:['食事時間・間食・飲酒','運動や日常の活動機会','睡眠・疲労・仕事や生活リズムの変化'],pharm:'単純な食べ過ぎ・運動不足だけにせず、生活リズムや疲労も確認する。',caution:'「肥満です」「食べ過ぎです」と一方的に評価しない。',action:'本人が続けられる小さな変更を1つ選び、次回の体組成変化で確認する。'},
+      p03:{name:'体水分・ECW関連の変化',zone:'①体成分分析 / 体水分関連',priority:'red',label:'高',look:'ECW/TBWの変化、点数表示の有無、前回からの変化を確認。',talk:'「体水分のバランスに少し変化があるようです。最近、夕方のむくみや靴のきつさはありませんか？」',ask:['足・まぶたなどのむくみ','塩分摂取や水分摂取の変化','体重の急な増加、息切れなどの体調変化','新しく始まった・変更された薬'],pharm:'測定条件や体調を確認したうえで、浮腫・循環/腎機能・薬剤背景などを“可能性”として整理する。',caution:'「心臓が悪い」「腎臓が弱い」「薬の副作用」と数値だけで断定しない。',action:'症状が強い・急な体重増加・息苦しさなどがあれば医療機関への相談を促す。',note:'ECW/TBW等の数値は機器・測定条件・対象者による違いを考慮し、単独で診断基準として扱わない。'},
+      p04:{name:'体重減少 ＋ 筋肉量減少',zone:'②筋肉-脂肪分析 / 体成分分析',priority:'red',label:'高',look:'体重が下がったとき、SMMも一緒に下がっていないか。',talk:'「体重は減っていますが、筋肉量も一緒に見てみましょう。今回の減量は意図したものでしょうか？」',ask:['意図したダイエットか、意図しない体重減少か','食欲・食事量の変化','消化器症状・発熱・疲労・服薬や体調の変化'],pharm:'まず意図的な減量かを確認。意図しない減量や食欲低下があれば背景を丁寧に確認する。',caution:'体重が減ったことだけを無条件に「良い」と評価しない。',action:'意図しない減量や著しい食欲低下が疑われる場合は医療相談につなげる。意図的減量なら筋肉維持も目標にする。'},
+      p05:{name:'改善・維持傾向',zone:'①〜⑤全体 / 前回比較',priority:'green',label:'良好',look:'筋肉量が維持・増加し、脂肪や体水分の変化も安定しているか。',talk:'「前回から良い変化が続いていますね。どんなことを続けてこられましたか？」',ask:['続けられた運動・食事の工夫','日常生活で楽になったこと','無理なく続けられているか'],pharm:'何がうまくいったのかを本人の言葉にしてもらい、自己効力感につなげる。',caution:'「完璧です」「このままもっと頑張って」と過剰に要求しない。',action:'今できていることを1つ言語化し、次回も同じ視点で変化を見る。'},
+      p06:{name:'前回からの推移差',zone:'結果シートの前回比較欄',priority:'yellow',label:'中',look:'単回値より、前回との差と測定条件の一致を確認。',talk:'「今回は前回と比べて、どこが変わったかを一緒に見てみましょう。」',ask:['測定時刻・食事・運動・入浴など条件の違い','生活や薬の変更','本人が実感している変化'],pharm:'単回値を評価しすぎず、同じ条件での経時変化を重視する。',caution:'測定条件が違う値をそのまま増減として断定しない。',action:'次回も可能な範囲で条件をそろえ、変化を追う。'}
+    };
+
+    function v136RenderSignals(){
+      const grid = document.getElementById('v136-signal-grid'); 
+      if (!grid) return;
+      grid.innerHTML = Object.entries(v136Signals).map(([k,d]) => `
+        <button class="v136-signal-btn ${k==='p01'?'active':''}" id="v136-sig-${k}" onclick="v136SelectSignal('${k}')">
+          <div class="sig-top"><span class="sig-name">${d.name}</span><span class="v136-priority ${d.priority==='red'?'v136-red':d.priority==='yellow'?'v136-yellow':'v136-green'}">${d.priority==='red'?'🔴':d.priority==='yellow'?'🟡':'🟢'} ${d.label}</span></div>
+          <div class="sig-zone">見る場所：${d.zone}</div>
+        </button>`).join('');
+      v136SelectSignal('p01');
+    }
+
+    function v136SelectSignal(key){
+      const d = v136Signals[key]; 
+      if (!d) return;
+      Object.keys(v136Signals).forEach(k => {
+        const b = document.getElementById('v136-sig-' + k);
+        if (b) b.classList.toggle('active', k === key);
+      });
+      const panel = document.getElementById('v136-signal-detail');
+      if (panel) {
+        panel.innerHTML = `
+          <div class="v136-detail-head">
+            <div>
+              <div class="v136-detail-zone">${d.zone}</div>
+              <div class="v136-detail-title">${d.name}</div>
+            </div>
+            <button onclick="v136JumpToPaper('${key}')" class="text-xs font-bold text-sky-700 bg-white border border-sky-200 rounded-lg px-2.5 py-1.5 shadow-2xs hover:bg-sky-50 transition">用紙を見る ↗</button>
+          </div>
+          <div class="v136-columns">
+            <div class="v136-box"><h4>🔎 LOOK｜何を見る？</h4><p>${d.look}</p></div>
+            <div class="v136-box v136-talk"><h4>🗣 TALK｜最初の一言</h4><p><strong>${d.talk}</strong></p></div>
+            <div class="v136-box"><h4>❓ ASK｜確認すること</h4><ul>${d.ask.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+            <div class="v136-box v136-pharm"><h4>💊 PHARM｜薬剤師的ポイント</h4><p>${d.pharm}</p></div>
+            <div class="v136-box v136-caution"><h4>⚠️ CAUTION｜言い切らない</h4><p>${d.caution}</p>${d.note?`<p class="mt-1 text-[10px] text-orange-700">${d.note}</p>`:''}</div>
+            <div class="v136-box v136-action"><h4>➡️️ NEXT｜次の一歩</h4><p>${d.action}</p></div>
+          </div>
+        `;
+      }
+    }
+
+    function v136JumpToPaper(key){
+      const map = { p01: 'segmental', p02: 'graph', p03: 'comp', p04: 'comp', p05: 'graph', p06: 'graph' };
+      const z = map[key] || 'graph';
+      const target = document.getElementById('target-paper-sheet');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => { if (typeof clickPaperZone === 'function') clickPaperZone(z); }, 350);
+      }
+    }
+
+    function v136SetTalk(mode){
+      ['green', 'red', 'yellow'].forEach(k => {
+        const b = document.getElementById('v136-talk-' + k);
+        if (b) b.classList.toggle('active', k === mode);
+      });
+      const p = document.getElementById('v136-talk-panel'); 
+      if (!p) return;
+      const t = {
+        green: '🟢 <strong>できていること・変化を認める：</strong>「筋肉量が維持できています」「前回より良い変化があります」など、結果に基づく事実から会話を始めます。',
+        red: '🔴 <strong>今日、話したい：</strong>最も優先度の高い1テーマだけを選び、「一言 → 質問1つ → 必要なら深掘り」で進めます。',
+        yellow: '🟡 <strong>もう一歩、確認したい：</strong>生活・食事・服薬・測定条件など、結果の背景を確認するための質問に回します。'
+      };
+      p.innerHTML = t[mode];
+    }
+
+    /* ===== V13.7 Pharmacist Judgment Navigator Logic ===== */
+    const v137Tabs = {
+      context: {
+        title: '① CONTEXT｜数字を見る前に、条件を確認',
+        cls: 'v137-bluebox',
+        html: '<ul><li>前回比較なら、測定時刻・食事・運動・入浴など条件の違いを確認する。</li><li>今回だけの値なら、本人の自覚症状・生活変化を先に聞く。</li><li>「数字が変わった＝身体が悪化した」と短絡しない。</li></ul>'
+      },
+      priority: {
+        title: '② PRIORITY｜今日いちばん話すテーマを1つ',
+        cls: 'v137-redbox',
+        html: '<p><strong>安全性・急な変化 → 本人が困っていること → 薬剤師として確認価値が高いこと → 改善・維持の強み</strong>の順で候補を絞ります。30秒モードでは1テーマに集中し、残りは必要に応じて次の機会へ。</p>'
+      },
+      talk: {
+        title: '③ TALK｜「評価」ではなく「一緒に見る」',
+        cls: 'v137-greenbox',
+        html: '<p>おすすめの型は<strong>事実 → 開かれた質問 → 必要なら1つ深掘り</strong>です。例：「前回と比べてここが変わっていますね。最近、生活の中で何か変わったことはありましたか？」</p>'
+      },
+      safe: {
+        title: '④ SAFETY｜言えること・言えないことを分ける',
+        cls: 'v137-yellowbox',
+        html: '<p><strong>言える：</strong>「今回の測定ではこう変化しています」「こうした背景がないか確認してみましょう」。<br><strong>言い切らない：</strong>病名、薬剤の因果関係、臓器機能の異常などをInBodyの数値だけから断定する。</p>'
+      }
+    };
+
+    function v137SelectTab(key){
+      const d = v137Tabs[key]; 
+      if (!d) return;
+      Object.keys(v137Tabs).forEach(k => {
+        const b = document.getElementById('v137-tab-' + k);
+        if (b) b.classList.toggle('active', k === key);
+      });
+      const p = document.getElementById('v137-tab-panel');
+      if (p) {
+        p.className = 'v137-card ' + d.cls;
+        p.innerHTML = '<h4>' + d.title + '</h4>' + d.html;
+      }
+    }
+
+    // 読書進捗バー追従
     window.addEventListener('scroll', () => {
       const doc = document.documentElement;
       const max = doc.scrollHeight - doc.clientHeight;
@@ -2396,7 +2739,7 @@
       if (bar) bar.style.width = (ratio * 100).toFixed(2) + '%';
     }, { passive: true });
 
-    // 初期化
+    // アプリケーション初期起動
     window.addEventListener('DOMContentLoaded', () => {
       showPostureTip('armpit');
       applyLiveCase('C_skinny');
@@ -2407,6 +2750,9 @@
       v131Guide('graph');
       v132Route('quick');
       setChangeStep('state');
+      v136RenderSignals();
+      v136SetTalk('green');
+      v137SelectTab('context');
     });
   </script>
 </body>
