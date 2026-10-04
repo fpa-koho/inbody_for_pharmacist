@@ -1,0 +1,2413 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="theme-color" content="#ffffff"/>
+  <title>InBody指導マニュアル for Pharmacist v13.6 ｜ 福岡市薬剤師会 広報委員会</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#10b981', 600: '#059669', 700: '#047857' },
+            medblue: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985' }
+          },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- 統合・最適化デザインシステム (Clean CSS Engine v13.6) -->
+  <style>
+    :root {
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #cbd5e1;
+      --bg: #f8fafc;
+      --blue: #0284c7;
+      --green: #059669;
+      --purple: #7c3aed;
+      --orange: #ea580c;
+    }
+    body {
+      font-family: "Noto Sans JP", sans-serif;
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      color: var(--ink);
+      padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+      -webkit-font-smoothing: antialiased;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* 読書プログレスバー */
+    #reading-progress {
+      position: fixed; left: 0; top: 0; width: 0; height: 3px; z-index: 100;
+      background: linear-gradient(90deg, #0284c7, #10b981, #ea580c);
+      transition: width .08s linear; pointer-events: none;
+    }
+    
+    /* A4用紙シミュレーター */
+    .paper-sheet {
+      box-shadow: 0 10px 30px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      border: 1px solid #cbd5e1;
+      background-color: #ffffff;
+      border-radius: 18px;
+    }
+    .zone-active-paper {
+      outline: 3px solid var(--blue);
+      outline-offset: 2px;
+      background-color: #f0f9ff !important;
+      box-shadow: 0 0 0 6px rgba(2, 132, 199, 0.12);
+    }
+    .bar-transition {
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .body-part {
+      transition: fill 0.35s ease, stroke 0.35s ease;
+    }
+    
+    /* モーダルポップアップ */
+    .modal-backdrop {
+      background-color: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(5px);
+    }
+    .modal-card {
+      max-height: 90vh;
+      animation: modalPop 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalPop {
+      0% { opacity: 0; transform: scale(0.96) translateY(8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* 薬剤師の相談OSバナー */
+    .os-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 9999px;
+      border-width: 1px;
+    }
+    .os-look { color: #0284c7; background: #f0f9ff; border-color: #bae6fd; }
+    .os-talk { color: #059669; background: #ecfdf5; border-color: #a7f3d0; }
+    .os-pharm { color: #7c3aed; background: #f5f3ff; border-color: #ddd6fe; }
+    .os-change { color: #ea580c; background: #fff7ed; border-color: #fed7aa; }
+
+    /* スマホ追従ミニHUDバー */
+    #mobile-case-hud {
+      display: none;
+    }
+    @media (max-width: 1023px) {
+      #mobile-case-hud {
+        display: flex;
+      }
+    }
+  
+/* v13.6 accessibility tuning: UI micro-text is readable; original-sheet fidelity stays at 10px. */
+.text-\[10px\]{font-size:11px !important;line-height:1.45;}
+.paper-sheet .text-\[10px\]{font-size:10px !important;}
+@media (min-width:768px){.text-\[10px\]{font-size:12px !important;}}
+
+@media print {
+  .no-print, nav, header button, #mobile-case-hud { display:none !important; }
+  body { background:#fff !important; color:#111827 !important; }
+  .shadow, .shadow-sm, .shadow-md, .shadow-lg, .shadow-xl { box-shadow:none !important; }
+  a { color:inherit !important; text-decoration:none !important; }
+}
+</style>
+</head>
+<body class="antialiased min-h-screen">
+  <div id="reading-progress"></div>
+
+  <!-- ヘッダー -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs px-3.5 py-2.5">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 via-teal-500 to-emerald-500 flex items-center justify-center font-black text-white text-lg shadow-sm">
+            In
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-black tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full uppercase">福岡市薬剤師会 広報委員会</span>
+              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">v13.6 UI調律版</span>
+            </div>
+            <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight mt-0.5">
+              InBody指導マニュアル <span class="text-sky-600 font-mono text-sm sm:text-base">for Pharmacist</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- 検索窓 ＆ スライドギャラリークイックボタン -->
+      <div class="flex items-center gap-2 w-full md:w-auto">
+        <div class="relative flex-1 md:w-64">
+          <input type="text" id="searchInput" onkeyup="filterManual()" placeholder="全項目検索（骨ミネラル, FRIDs, eGFR等）" 
+                 class="w-full bg-slate-100 text-xs sm:text-sm text-slate-800 rounded-xl pl-8 pr-3 py-1.5 border border-slate-200 focus:outline-none focus:border-sky-500 focus:bg-white transition" />
+          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </div>
+        <a href="#sec-slide-gallery" class="shrink-0 px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold transition flex items-center gap-1 shadow-2xs">
+          <span>📑</span>
+          <span class="hidden sm:inline">スライド</span>
+          <span>ギャラリー</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 5大ステップナビゲーション -->
+  <nav class="sticky top-[58px] md:top-[61px] z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 py-2 px-3 shadow-xs">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-5 gap-1.5 sm:gap-2.5 text-center font-bold text-xs">
+        <a href="#phase-posture" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-amber-500 hover:text-amber-800 hover:bg-amber-50/50 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-amber-600 font-black tracking-widest uppercase">STEP 1</span>
+          <span class="text-[11px] sm:text-xs font-black">① 実機立位姿勢</span>
+        </a>
+        <a href="#phase-live-paper" class="py-2 px-1 rounded-xl bg-sky-50 border-2 border-sky-400 text-sky-950 shadow-2xs hover:bg-sky-100/60 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-sky-600 font-black tracking-widest uppercase">STEP 2</span>
+          <span class="text-[11px] sm:text-xs font-black">② 結果シート連動</span>
+        </a>
+        <a href="#phase-persona" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-teal-500 hover:text-teal-800 hover:bg-teal-50/50 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-teal-600 font-black tracking-widest uppercase">STEP 3</span>
+          <span class="text-[11px] sm:text-xs font-black">③ 目的別５大考察</span>
+        </a>
+        <a href="#phase-qol-talks" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-emerald-500 hover:text-emerald-800 hover:bg-emerald-50/50 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-emerald-600 font-black tracking-widest uppercase">STEP 4</span>
+          <span class="text-[11px] sm:text-xs font-black">④ QOL・トーク8編</span>
+        </a>
+        <a href="#phase-rx" class="py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-indigo-500 hover:text-indigo-800 hover:bg-indigo-50/50 transition flex flex-col items-center justify-center">
+          <span class="text-[9px] text-indigo-600 font-black tracking-widest uppercase">STEP 5</span>
+          <span class="text-[11px] sm:text-xs font-black">⑤ 薬学・医師連携</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ヒーロー：思考OS（LOOK ➔ TALK ➔ PHARM ➔ CHANGE） -->
+  <section class="max-w-6xl mx-auto px-3.5 pt-4">
+    <div class="relative overflow-hidden border border-slate-200 rounded-3xl bg-gradient-to-br from-white via-sky-50/30 to-emerald-50/20 shadow-sm p-4 sm:p-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-[10px] font-black tracking-widest text-sky-700 uppercase">InBody × Pharmacist OS</span>
+          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">
+            「数字を読む」から、<span class="text-sky-600">次の一言</span>まで。
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
+            結果用紙の全項目を網羅して説明する必要はありません。<strong>どこを見るか → 何を一言伝えるか → 薬剤師として何を深めるか → 次回の変化につなげるか</strong>を迷わず判断するための臨床支援ツールです。
+          </p>
+        </div>
+        
+        <!-- OSバッジ群 -->
+        <div class="bg-white/80 backdrop-blur p-3 rounded-2xl border border-slate-200 flex flex-wrap items-center gap-1.5 shrink-0 shadow-2xs">
+          <span class="os-badge os-look">🔵 LOOK：見る場所</span>
+          <span class="text-slate-400 font-bold">➔</span>
+          <span class="os-badge os-talk">🟢 TALK：最初の一言</span>
+          <span class="text-slate-400 font-bold">➔</span>
+          <span class="os-badge os-pharm">🟣 PHARM：薬学視点</span>
+          <span class="text-slate-400 font-bold">➔</span>
+          <span class="os-badge os-change">🟠 CHANGE：次回の約束</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto px-3.5 py-6 space-y-8">
+
+    <!-- 禁忌・公式事前注意事項 -->
+    <section class="bg-rose-50/70 border-2 border-rose-300 rounded-2xl p-4 shadow-sm">
+      <div class="flex items-start gap-3">
+        <span class="text-2xl shrink-0">⚠️</span>
+        <div class="text-xs sm:text-sm leading-relaxed text-rose-950">
+          <div class="flex items-center justify-between mb-1">
+            <p class="font-black text-sm sm:text-base text-rose-700">【絶対禁忌 ＆ 測定前5大条件チェック】</p>
+            <button onclick="openSlideModal('p2')" class="text-xs bg-white hover:bg-rose-100 px-3 py-1 rounded-full font-bold border border-rose-300 text-rose-800 transition flex items-center gap-1 shadow-2xs">
+              <span>📄 スライドP.2原本</span>
+              <span>➔</span>
+            </button>
+          </div>
+          <p>
+            <strong>心臓ペースメーカー等の植込み型医療機器・生体情報モニタ</strong>を装着されている方は、微弱電流による誤作動の恐れがあるため測定できません。
+          </p>
+          <div class="mt-2.5 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold text-rose-900">
+            <div class="bg-white p-2.5 rounded-xl border border-rose-200 shadow-2xs">
+              <span class="text-rose-600 block font-black">① 5分起立後</span>
+              体水分の下半身移動を安定化
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-rose-200 shadow-2xs">
+              <span class="text-rose-600 block font-black">② 食後2時間以上</span>
+              消化管内容物の脂肪誤認を回避
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-rose-200 shadow-2xs">
+              <span class="text-rose-600 block font-black">③ 排尿・排便後</span>
+              膀胱内残余物の測定誤差を防止
+            </div>
+            <div class="bg-white p-2.5 rounded-xl border border-rose-200 shadow-2xs">
+              <span class="text-rose-600 block font-black">④ 運動・入浴前</span>
+              血流急変・発汗インピーダンス狂い防止
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 1: InBody実機立位 ＆ 測定姿勢 ==================== -->
+    <section id="phase-posture" class="scroll-mt-32 space-y-4">
+      <div class="border-b-2 border-amber-500 pb-2 flex items-center justify-between">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span class="bg-amber-600 text-white text-xs px-2.5 py-0.5 rounded-md shadow-2xs">STEP 1</span>
+            InBody470 実機 ＆ 立位測定姿勢
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">説明会スライドP.3・P.9を忠実に再現。番号ボタンを押すと、部位の色と連動して解説が切り替わります</p>
+        </div>
+        <button onclick="openSlideModal('p9')" class="text-xs font-bold text-amber-800 bg-amber-100 hover:bg-amber-200 px-3 py-1 rounded-full border border-amber-300 transition flex items-center gap-1 shadow-2xs">
+          <span>🔍 スライドP.9原本を開く</span>
+        </button>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+          
+          <!-- 左側：太線・大型ピン付き立位姿勢SVG -->
+          <div class="lg:col-span-5 bg-gradient-to-b from-slate-50 to-slate-100/60 p-4 rounded-2xl border border-slate-200 flex flex-col items-center relative">
+            <span class="text-xs sm:text-sm font-black text-slate-800 mb-2 flex items-center gap-1">
+              <span>🧍</span> InBody470 立位フォーム（タップして部位解説）
+            </span>
+
+            <svg class="w-64 h-80 select-none" viewBox="0 0 260 320">
+              <!-- InBody470 マシンベース・支柱 -->
+              <rect x="115" y="45" width="30" height="225" rx="5" fill="#94a3b8" stroke="#64748b" stroke-width="2.5"/>
+              <ellipse cx="130" cy="275" rx="92" ry="24" fill="#cbd5e1" stroke="#64748b" stroke-width="2.5"/>
+              <ellipse cx="130" cy="272" rx="82" ry="19" fill="#f8fafc"/>
+              
+              <!-- 足電極（左右） -->
+              <ellipse cx="94" cy="272" rx="18" ry="9" fill="#ffffff" stroke="#f59e0b" stroke-width="2.5"/>
+              <ellipse cx="166" cy="272" rx="18" ry="9" fill="#ffffff" stroke="#f59e0b" stroke-width="2.5"/>
+
+              <!-- 人体モデル -->
+              <circle cx="130" cy="35" r="20" fill="#64748b" stroke="#334155" stroke-width="3"/>
+              <path d="M 112 55 L 148 55 L 152 150 L 108 150 Z" fill="#64748b" stroke="#334155" stroke-width="2"/>
+              <path d="M 110 150 L 126 150 L 122 268 L 100 268 Z" fill="#475569" stroke="#334155" stroke-width="2"/>
+              <path d="M 134 150 L 150 150 L 160 268 L 138 268 Z" fill="#475569" stroke="#334155" stroke-width="2"/>
+
+              <!-- 腕 -->
+              <line x1="114" y1="62" x2="62" y2="148" stroke="#475569" stroke-width="15" stroke-linecap="round"/>
+              <circle cx="62" cy="148" r="11" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
+              <line x1="146" y1="62" x2="198" y2="148" stroke="#475569" stroke-width="15" stroke-linecap="round"/>
+              <circle cx="198" cy="148" r="11" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>
+
+              <!-- 【クリッカブル番号ピン（色分け・アフォーダンス）】 -->
+              <g class="cursor-pointer" onclick="showPostureTip('armpit')">
+                <circle cx="90" cy="98" r="16" fill="#f43f5e" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="90" y="103" font-size="14" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">①</text>
+              </g>
+              <g class="cursor-pointer" onclick="showPostureTip('hand')">
+                <circle cx="42" cy="148" r="16" fill="#0284c7" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="42" y="153" font-size="14" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">②</text>
+              </g>
+              <g class="cursor-pointer" onclick="showPostureTip('thigh')">
+                <circle cx="130" cy="180" r="16" fill="#10b981" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="130" y="185" font-size="14" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">③</text>
+              </g>
+              <g class="cursor-pointer" onclick="showPostureTip('heel')">
+                <circle cx="130" cy="252" r="16" fill="#f59e0b" stroke="#ffffff" stroke-width="2.5" class="hover:scale-110 transition"/>
+                <text x="130" y="257" font-size="14" fill="white" font-weight="900" text-anchor="middle" dominant-baseline="middle">④</text>
+              </g>
+            </svg>
+
+            <!-- 番号クイックボタンバー（各部位固有カラー連動） -->
+            <div class="grid grid-cols-4 gap-1.5 w-full mt-2 font-black text-xs">
+              <button onclick="showPostureTip('armpit')" id="btn-tip-armpit" class="py-2 px-1 rounded-xl bg-rose-100 text-rose-800 border-2 border-rose-300 text-center transition">① 脇離し</button>
+              <button onclick="showPostureTip('hand')" id="btn-tip-hand" class="py-2 px-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-center transition">② 手電極</button>
+              <button onclick="showPostureTip('thigh')" id="btn-tip-thigh" class="py-2 px-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-center transition">③ 内もも</button>
+              <button onclick="showPostureTip('heel')" id="btn-tip-heel" class="py-2 px-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-center transition">④ かかと</button>
+            </div>
+          </div>
+
+          <!-- 右側：姿勢解説（★ボタンと1対1で色が連動するカード） -->
+          <div class="lg:col-span-7 space-y-3">
+            <div id="posture-detail-box" class="transition-all duration-300">
+              <!-- JSで部位別カラーとともに動的注入 -->
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+              <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <span class="font-black text-slate-800 flex items-center gap-1">
+                    <span>💡</span> BIA電気原理
+                  </span>
+                  <button onclick="openSlideModal('p4')" class="text-xs text-sky-700 font-bold hover:underline">スライドP.4 ➔</button>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  筋肉（水分約73%）は電気がスイスイ流れ電球が点灯。脂肪は水分を含まないため絶縁体となり電気を通しません。
+                </p>
+              </div>
+              <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-1 shadow-2xs">
+                <div class="flex items-center justify-between">
+                  <span class="font-black text-slate-800 flex items-center gap-1">
+                    <span>⚖</span> 体積差約1.2倍
+                  </span>
+                  <button onclick="openSlideModal('p20')" class="text-xs text-amber-700 font-bold hover:underline">スライドP.20 ➔</button>
+                </div>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                  同じ1kgでも脂肪は筋肉よりかさばります。同じ体重80kgでも体脂肪率15%（引き締まり）と40%（肥満）では体格が全く異なります。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 2: InBody470 実物結果シートパターン連動＆解説 ==================== -->
+    <section id="phase-live-paper" class="scroll-mt-32 space-y-4">
+      <div class="border-b-2 border-sky-500 pb-2 flex items-center justify-between">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span class="bg-sky-600 text-white text-xs px-2.5 py-0.5 rounded-md shadow-2xs">STEP 2</span>
+            InBody470 実物結果シートパターン連動＆解説
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">症例パターンを切り替えると、下の実物用紙内のグラフ・人体図・内臓脂肪・点数が一斉に同時に変化します！</p>
+        </div>
+        <button onclick="openSlideModal('p11')" class="text-xs font-bold text-sky-800 bg-sky-100 hover:bg-sky-200 px-3 py-1 rounded-full border border-sky-300 transition flex items-center gap-1 shadow-2xs">
+          <span>📄 スライドP.11用紙原本</span>
+        </button>
+      </div>
+
+      <!-- 30秒視線ルート ＆ 相談時間セレクター -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-black text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">👀 30秒の視線ルート</span>
+              <span class="text-xs font-bold text-slate-500">全部を見る必要はありません。必要な1〜2か所から始めます</span>
+            </div>
+          </div>
+          <div class="text-xs text-slate-500 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200 font-bold">
+            👆 用紙の気になる部分を直接タップしても連動
+          </div>
+        </div>
+
+        <!-- 5大ゾーンセレクター（完全合致表記） -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          <button type="button" data-zone="comp" onclick="v131Guide('comp')" id="btn-guide-comp" class="p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300">
+            <span class="text-[10px] font-mono font-bold text-sky-700 block">01 LOOK</span>
+            <span class="font-black text-xs text-slate-900 block mt-0.5">① 体成分分析</span>
+            <span class="text-[10px] text-slate-500 block">水分・蛋白・ミネラル</span>
+          </button>
+          <button type="button" data-zone="graph" onclick="v131Guide('graph')" id="btn-guide-graph" class="p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 text-left transition shadow-2xs">
+            <span class="text-[10px] font-mono font-bold text-sky-700 block">02 LOOK</span>
+            <span class="font-black text-xs text-sky-950 block mt-0.5">② 筋肉・脂肪</span>
+            <span class="text-[10px] text-sky-700 block">体重とのバランス</span>
+          </button>
+          <button type="button" data-zone="obesity" onclick="v131Guide('obesity')" id="btn-guide-obesity" class="p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300">
+            <span class="text-[10px] font-mono font-bold text-sky-700 block">03 LOOK</span>
+            <span class="font-black text-xs text-slate-900 block mt-0.5">③ BMI・体脂肪</span>
+            <span class="text-[10px] text-slate-500 block">隠れ肥満判定</span>
+          </button>
+          <button type="button" data-zone="segmental" onclick="v131Guide('segmental')" id="btn-guide-segmental" class="p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300">
+            <span class="text-[10px] font-mono font-bold text-sky-700 block">04 LOOK</span>
+            <span class="font-black text-xs text-slate-900 block mt-0.5">④ 部位別筋肉</span>
+            <span class="text-[10px] text-slate-500 block">下肢・左右差</span>
+          </button>
+          <button type="button" data-zone="research" onclick="v131Guide('research')" id="btn-guide-research" class="p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300 col-span-2 sm:col-span-1">
+            <span class="text-[10px] font-mono font-bold text-sky-700 block">05 LOOK</span>
+            <span class="font-black text-xs text-slate-900 block mt-0.5">⑤ 内臓脂肪・研究</span>
+            <span class="text-[10px] text-slate-500 block">内臓Lv・SMI・骨量</span>
+          </button>
+        </div>
+
+        <!-- QUICK（30秒） vs DEEP（じっくり）時間セレクター -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+          <button type="button" id="v132-btn-quick" onclick="v132Route('quick')" class="p-2.5 rounded-xl border-2 border-emerald-400 bg-emerald-50/80 text-left transition flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-black text-emerald-800 uppercase tracking-wider block">⚡ QUICK MODE（約30秒）</span>
+              <span class="text-xs font-black text-emerald-950">見る ➔ 1つ伝える ➔ 今日はここで終えてOK</span>
+            </div>
+            <span class="text-base">⏱️</span>
+          </button>
+          <button type="button" id="v132-btn-deep" onclick="v132Route('deep')" class="p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-purple-300 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] font-black text-slate-600 uppercase tracking-wider block">🔎 DEEP MODE（対面ナビ）</span>
+              <span class="text-xs font-black text-slate-800">見る ➔ 1つ質問する ➔ 薬剤師目線を足す</span>
+            </div>
+            <span class="text-base">🩺</span>
+          </button>
+        </div>
+
+        <!-- 時間別アクションパネル -->
+        <div id="v132-panel" class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40 text-xs transition">
+          <!-- JSで切り替え -->
+        </div>
+      </div>
+
+      <!-- パターン切り替えボタンバー -->
+      <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-100 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">🎛️</span>
+            <div>
+              <h3 class="text-xs sm:text-sm font-black text-slate-900">【基本パターンの理解をアシスト】5大典型パターンをタップ</h3>
+              <p class="text-[10px] text-slate-500">ボタンを押すと、下のA4実物用紙全体の図・グラフ・判定が一斉に連動して動きます</p>
+            </div>
+          </div>
+          <span class="text-[10px] bg-sky-50 text-sky-700 font-bold px-2.5 py-0.5 rounded border border-sky-200">リアルタイム同期</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          <button onclick="applyLiveCase('C_skinny')" id="btn-live-C_skinny" class="p-2.5 rounded-xl bg-sky-50 border-2 border-sky-400 text-left transition shadow-2xs text-sky-950">
+            <div class="text-[10px] font-mono font-bold bg-white text-sky-900 border border-sky-200 inline-block px-1.5 py-0.2 rounded">パターン 1</div>
+            <div class="font-black text-xs mt-1">C型（隠れ肥満）</div>
+            <div class="text-[10px] text-sky-700">筋肉凹 × 脂肪凸 / 脚低</div>
+          </button>
+
+          <button onclick="applyLiveCase('I_healthy')" id="btn-live-I_healthy" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-emerald-400 text-left transition text-slate-700">
+            <div class="text-[10px] font-mono font-bold bg-white text-emerald-800 border border-slate-200 inline-block px-1.5 py-0.2 rounded">パターン 2</div>
+            <div class="font-black text-xs mt-1 text-slate-900">I型（標準健康）</div>
+            <div class="text-[10px] text-slate-500">均等整列 / 全部位標準</div>
+          </button>
+
+          <button onclick="applyLiveCase('D_athlete')" id="btn-live-D_athlete" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-indigo-400 text-left transition text-slate-700">
+            <div class="text-[10px] font-mono font-bold bg-white text-indigo-800 border border-slate-200 inline-block px-1.5 py-0.2 rounded">パターン 3</div>
+            <div class="font-black text-xs mt-1 text-slate-900">D型（筋肉量多）</div>
+            <div class="text-[10px] text-slate-500">筋肉突出 × 脂肪低 / 92点</div>
+          </button>
+
+          <button onclick="applyLiveCase('frail_senior')" id="btn-live-frail_senior" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-rose-400 text-left transition text-slate-700">
+            <div class="text-[10px] font-mono font-bold bg-white text-rose-800 border border-slate-200 inline-block px-1.5 py-0.2 rounded">パターン 4</div>
+            <div class="font-black text-xs mt-1 text-slate-900">低体重虚弱（シニア）</div>
+            <div class="text-[10px] text-slate-500">脚73%低 / 低SMI 4.8</div>
+          </button>
+
+          <button onclick="applyLiveCase('metabolic_fat')" id="btn-live-metabolic_fat" class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-amber-400 text-left transition text-slate-700 col-span-2 sm:col-span-1">
+            <div class="text-[10px] font-mono font-bold bg-white text-amber-800 border border-slate-200 inline-block px-1.5 py-0.2 rounded">パターン 5</div>
+            <div class="font-black text-xs mt-1 text-slate-900">過体重肥満（メタボ）</div>
+            <div class="text-[10px] text-slate-500">内臓Lv.14 / 腹囲94cm</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- メインエリア：実物用紙再現 ＆ 詳細解説パネル -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- 左側：InBody470結果用紙再現 -->
+        <div id="target-paper-sheet" class="lg:col-span-7 bg-slate-100 p-2.5 sm:p-3.5 rounded-2xl border border-slate-300 shadow-inner">
+          <div class="paper-sheet p-3.5 sm:p-5 text-slate-800 space-y-4">
+            
+            <!-- 用紙ヘッダー -->
+            <div class="flex justify-between items-end border-b-2 border-slate-800 pb-1.5 font-mono">
+              <div>
+                <span class="text-xl sm:text-2xl font-black tracking-tighter text-slate-900 block leading-tight">InBody<span class="text-xs font-normal ml-1 text-slate-500">[InBody470]</span></span>
+                <span class="text-xs text-slate-600 font-bold" id="paper-patient-name">ID: Jane Doe / 51歳 / 女性 / 156.9cm</span>
+              </div>
+              <div class="text-right text-xs text-slate-500">
+                <span id="paper-test-date">2026.10.02 09:46</span>
+              </div>
+            </div>
+
+            <!-- ① 体成分分析 -->
+            <div onclick="clickPaperZone('comp')" id="paper-zone-comp" class="p-2.5 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1.5 bg-white">
+              <div class="flex justify-between items-center text-xs font-black border-b border-slate-200 pb-1">
+                <span class="text-slate-800">① 体成分分析 (Body Composition Analysis)</span>
+                <button onclick="event.stopPropagation(); openSlideModal('p12')" class="text-[11px] text-sky-600 hover:underline">📄 スライドP.12 ➔</button>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5 text-center text-xs font-mono pt-0.5">
+                <div class="bg-sky-50 border border-sky-200 p-1.5 rounded-lg">
+                  <span class="text-slate-500 block text-[10px]">体水分 (L)</span>
+                  <strong class="text-sky-900 text-sm font-black" id="val-tbw">27.5</strong>
+                </div>
+                <div class="bg-rose-50 border border-rose-200 p-1.5 rounded-lg">
+                  <span class="text-slate-500 block text-[10px]">タンパク質 (kg)</span>
+                  <strong class="text-rose-900 text-sm font-black" id="val-protein">7.2</strong>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 p-1.5 rounded-lg">
+                  <span class="text-slate-500 block text-[10px]">ミネラル (kg)</span>
+                  <strong class="text-amber-900 text-sm font-black" id="val-mineral">2.63</strong>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 p-1.5 rounded-lg">
+                  <span class="text-slate-500 block text-[10px]">体脂肪 (kg)</span>
+                  <strong class="text-yellow-900 text-sm font-black" id="val-fat-mass">21.8</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- ② 筋肉-脂肪分析（C/I/D） -->
+            <div onclick="clickPaperZone('graph')" id="paper-zone-graph" class="p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/50 cursor-pointer transition space-y-2 zone-active-paper">
+              <div class="flex justify-between items-center text-xs font-black border-b border-slate-200 pb-1">
+                <span class="text-sky-950 font-black">② 筋肉-脂肪 (Soft Lean-Fat Analysis)</span>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="event.stopPropagation(); openSlideModal('p14')" class="text-[11px] text-sky-700 hover:underline">📄 スライドP.14 ➔</button>
+                  <span class="text-[10px] bg-sky-600 text-white px-2.5 py-0.5 rounded-full font-black shadow-2xs" id="badge-shape-type">C型（低筋高脂）</span>
+                </div>
+              </div>
+              
+              <div class="relative py-1 space-y-2.5 text-xs font-mono">
+                <!-- 100% 理想基準破線 -->
+                <div class="absolute top-0 bottom-0 left-[50%] w-0.5 border-r-2 border-dashed border-rose-500 z-10 pointer-events-none flex flex-col justify-between">
+                  <span class="text-[9px] text-rose-600 absolute -top-3 -left-3.5 font-black bg-white px-1 rounded border border-rose-300">100%</span>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-slate-700 mb-0.5 font-bold">
+                    <span>体重 (kg)</span>
+                    <span id="text-bar-weight" class="text-xs font-black">59.1 kg (100%)</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-4 rounded-md relative overflow-hidden">
+                    <div id="bar-weight" class="bg-slate-700 h-full rounded-md bar-transition" style="width: 50%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-sky-900 mb-0.5 font-bold">
+                    <span>筋肉量 (kg)</span>
+                    <span id="text-bar-muscle" class="text-xs font-black text-rose-600 bg-rose-50 px-1.5 py-0.2 rounded border border-rose-200">35.1 kg (82% 凹)</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-4 rounded-md relative overflow-hidden">
+                    <div id="bar-muscle" class="bg-rose-500 h-full rounded-md bar-transition" style="width: 38%;"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-amber-900 mb-0.5 font-bold">
+                    <span>体脂肪量 (kg)</span>
+                    <span id="text-bar-fat" class="text-xs font-black text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">21.8 kg (145% 凸)</span>
+                  </div>
+                  <div class="w-full bg-slate-200 h-4 rounded-md relative overflow-hidden">
+                    <div id="bar-fat" class="bg-amber-500 h-full rounded-md bar-transition" style="width: 78%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ③ 肥満指標 -->
+            <div onclick="clickPaperZone('obesity')" id="paper-zone-obesity" class="p-2.5 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1.5 bg-white">
+              <div class="flex justify-between items-center text-xs font-black border-b border-slate-200 pb-1">
+                <span class="text-slate-800">③ 肥満指標 (Obesity Index Analysis)</span>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="event.stopPropagation(); openSlideModal('p22')" class="text-[11px] text-sky-600 hover:underline">📄 スライドP.22 ➔</button>
+                  <span class="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200" id="badge-obesity-diag">隠れ肥満該当</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2.5 text-xs font-mono pt-0.5">
+                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 flex justify-between items-center">
+                  <span class="text-slate-600">BMI (kg/m²)</span>
+                  <strong class="text-sm font-black text-slate-900" id="val-bmi">24.0 (標準)</strong>
+                </div>
+                <div class="bg-slate-50 p-2 rounded-lg border border-slate-200 flex justify-between items-center">
+                  <span class="text-slate-600">体脂肪率 (%)</span>
+                  <strong class="text-sm font-black text-rose-600" id="val-fat-pct">36.9% (高)</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- ④ 部位別筋肉量（公式人体シルエット図） -->
+            <div onclick="clickPaperZone('segmental')" id="paper-zone-segmental" class="p-3 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-2 bg-white">
+              <div class="flex justify-between items-center text-xs font-black border-b border-slate-200 pb-1">
+                <span class="text-slate-900">④ 部位別筋肉量 (Segmental Lean) ＆ 人体バランス図</span>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="event.stopPropagation(); openSlideModal('p24')" class="text-[11px] text-rose-600 hover:underline">📄 スライドP.24 ➔</button>
+                  <span class="text-[10px] bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-black border border-rose-300" id="badge-segmental-status">両脚が「低」⚠️</span>
+                </div>
+              </div>
+
+              <!-- 人体図 ＆ 各部位の数値 -->
+              <div class="grid grid-cols-12 gap-3 items-center bg-slate-50 p-2.5 rounded-xl border border-slate-200 font-mono text-xs">
+                
+                <!-- 人体シルエットSVG -->
+                <div class="col-span-5 flex justify-center items-center py-1.5 bg-white rounded-xl border border-slate-200 shadow-2xs">
+                  <svg class="w-24 h-36 select-none" viewBox="0 0 100 150">
+                    <circle cx="50" cy="15" r="10" fill="#94a3b8"/>
+                    <rect id="svg-trunk" x="40" y="28" width="20" height="48" rx="3" fill="#0284c7" class="body-part"/>
+                    <rect id="svg-arm-l" x="18" y="32" width="16" height="42" rx="4" fill="#0284c7" class="body-part"/>
+                    <rect id="svg-arm-r" x="66" y="32" width="16" height="42" rx="4" fill="#0284c7" class="body-part"/>
+                    <rect id="svg-leg-l" x="38" y="80" width="10" height="60" rx="3" fill="#f43f5e" class="body-part"/>
+                    <rect id="svg-leg-r" x="52" y="80" width="10" height="60" rx="3" fill="#f43f5e" class="body-part"/>
+                  </svg>
+                </div>
+
+                <!-- 5部位の実測値 -->
+                <div class="col-span-7 space-y-2">
+                  <div class="grid grid-cols-2 gap-1.5 text-center">
+                    <div class="bg-white p-1.5 rounded-lg border" id="card-arm-l">
+                      <span class="text-[10px] text-slate-500 block">左腕</span>
+                      <strong class="text-xs block font-black" id="val-arm-l">1.94kg</strong>
+                      <span class="text-[10px] font-bold px-1 rounded bg-slate-100" id="eval-arm-l">標準 (98%)</span>
+                    </div>
+                    <div class="bg-white p-1.5 rounded-lg border" id="card-arm-r">
+                      <span class="text-[10px] text-slate-500 block">右腕</span>
+                      <strong class="text-xs block font-black" id="val-arm-r">2.02kg</strong>
+                      <span class="text-[10px] font-bold px-1 rounded bg-slate-100" id="eval-arm-r">標準 (102%)</span>
+                    </div>
+                  </div>
+
+                  <div class="bg-white p-1.5 rounded-lg border text-center" id="card-trunk">
+                    <span class="text-[10px] text-slate-500 block">体幹</span>
+                    <strong class="text-xs font-black" id="val-trunk">17.7kg</strong>
+                    <span class="text-[10px] font-bold px-1 rounded bg-slate-100" id="eval-trunk">標準 (95%)</span>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-1.5 text-center">
+                    <div class="bg-rose-50 border border-rose-300 p-1.5 rounded-lg" id="card-leg-l">
+                      <span class="text-[10px] text-slate-500 block">左脚</span>
+                      <strong class="text-xs text-rose-700 block font-black" id="val-leg-l">5.02kg</strong>
+                      <span class="text-[10px] font-black px-1 rounded bg-rose-200 text-rose-900" id="eval-leg-l">低 (80.6%)</span>
+                    </div>
+                    <div class="bg-rose-50 border border-rose-300 p-1.5 rounded-lg" id="card-leg-r">
+                      <span class="text-[10px] text-slate-500 block">右脚</span>
+                      <strong class="text-xs text-rose-700 block font-black" id="val-leg-r">5.20kg</strong>
+                      <span class="text-[10px] font-black px-1 rounded bg-rose-200 text-rose-900" id="eval-leg-r">低 (83.6%)</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ⑤ 内臓脂肪・点数・研究項目 -->
+            <div onclick="clickPaperZone('research')" id="paper-zone-research" class="p-2.5 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-2 bg-white">
+              <div class="flex justify-between items-center text-xs font-black border-b border-slate-200 pb-1">
+                <span class="text-slate-800">⑤ 内臓脂肪・点数・研究項目 (Research Parameters)</span>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="event.stopPropagation(); openSlideModal('p26')" class="text-[11px] text-indigo-700 hover:underline">📄 スライドP.26 ➔</button>
+                  <span class="text-[10px] text-indigo-700 font-bold">骨量・代謝・SMI</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs font-mono">
+                <div class="bg-slate-50 p-2 rounded-lg border">
+                  <span class="text-[10px] text-slate-500 block">InBody点数</span>
+                  <strong class="text-base font-black text-slate-900" id="val-score">68<span class="text-[10px] font-normal">/100点</span></strong>
+                </div>
+                <div class="bg-slate-50 p-2 rounded-lg border">
+                  <span class="text-[10px] text-slate-500 block">内臓脂肪Lv</span>
+                  <strong class="text-base font-black text-rose-600" id="val-vfl">Lv.12</strong>
+                </div>
+                <div class="bg-slate-50 p-2 rounded-lg border">
+                  <span class="text-[10px] text-slate-500 block">骨格筋指数(SMI)</span>
+                  <strong class="text-base font-black text-indigo-900" id="val-smi">5.8<span class="text-[10px] font-normal"> kg/m²</span></strong>
+                </div>
+              </div>
+              <div class="flex justify-between text-xs text-slate-600 px-1 font-mono font-bold">
+                <span>骨ミネラル(BMC): <strong id="val-bmc" class="text-slate-900">2.18 kg</strong></span>
+                <span>基礎代謝: <strong id="val-bmr" class="text-slate-900">1176 kcal</strong></span>
+                <span>腹囲: <strong id="val-waist" class="text-slate-900">91 cm</strong></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 右側：選択したゾーンの詳細解説パネル ＆ CHANGE VIEW -->
+        <div id="target-detail-panel" class="lg:col-span-5 bg-white p-4 sm:p-5 rounded-2xl border-2 border-sky-300 shadow-sm space-y-4">
+          <!-- 上部連動ナビゲーションバー（スマホ用ジャンプボタン付き） -->
+          <div class="bg-sky-50 border border-sky-200 rounded-xl p-2.5 flex items-center justify-between text-xs font-bold text-sky-950">
+            <div>
+              <span class="text-[10px] text-sky-600 block uppercase font-mono tracking-wider">Currently Analyzing</span>
+              <span id="current-analyzing-title" class="font-black text-xs sm:text-sm">パターン 1：C型（隠れ肥満）</span>
+            </div>
+            <a href="#target-paper-sheet" class="lg:hidden px-2.5 py-1 rounded-lg bg-white border border-sky-300 text-sky-800 text-xs font-bold shadow-2xs hover:bg-sky-100 transition flex items-center gap-1">
+              <span>📄 用紙の図を見る</span>
+              <span>↑</span>
+            </a>
+          </div>
+
+          <!-- 動的解説コンテンツ本体 -->
+          <div id="paper-detail-panel" class="space-y-3">
+            <!-- JSで書き換え -->
+          </div>
+
+          <!-- CHANGE VIEW（次の一歩：3段集約 ＆ 一言常時表示） -->
+          <div class="border-t-2 border-orange-200 pt-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[10px] font-black text-orange-600 uppercase tracking-widest block">CHANGE VIEW</span>
+                <h4 class="font-black text-slate-900 text-sm">注目したところを「変化」につなげる</h4>
+              </div>
+              <span class="text-[10px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded-full font-bold">次回の合意</span>
+            </div>
+
+            <!-- 3段集約ボタン -->
+            <div class="grid grid-cols-3 gap-1.5 text-xs font-black">
+              <button onclick="setChangeStep('state')" id="btn-change-state" class="py-2 px-1 rounded-xl bg-orange-500 text-white shadow-2xs text-center transition">
+                ① 今を見る
+              </button>
+              <button onclick="setChangeStep('aim')" id="btn-change-aim" class="py-2 px-1 rounded-xl bg-orange-50 text-orange-800 border border-orange-200 text-center transition hover:bg-orange-100">
+                ② 変化を考える
+              </button>
+              <button onclick="setChangeStep('next')" id="btn-change-next" class="py-2 px-1 rounded-xl bg-orange-50 text-orange-800 border border-orange-200 text-center transition hover:bg-orange-100">
+                ③ 次回を見る
+              </button>
+            </div>
+
+            <!-- 変化の解説ボックス -->
+            <div id="change-detail-box" class="p-3 rounded-xl bg-orange-50/60 border border-orange-200 text-xs text-slate-700 leading-relaxed">
+              <!-- JSで動的切り替え -->
+            </div>
+
+            <!-- 【常時固定表示】次回への合意キラーワード -->
+            <div class="p-3 rounded-xl bg-white border-2 border-orange-400 shadow-2xs space-y-1">
+              <span class="text-[10px] font-black text-orange-600 flex items-center gap-1 uppercase">
+                <span>💬</span> 一言でつなぐ（次回への合意ワード）：
+              </span>
+              <p id="change-cue-text" class="text-xs sm:text-sm font-bold text-slate-900 leading-snug italic">
+                「次に測ったとき、体重だけでなくこの3本のバランスがどう変わったか一緒に見てみましょう。」
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== STEP 3: 目的別５大考察 ==================== -->
+    <section id="phase-persona" class="scroll-mt-32 space-y-4">
+      <div class="border-b-2 border-teal-500 pb-2 flex items-center justify-between">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span class="bg-teal-600 text-white text-xs px-2.5 py-0.5 rounded-md shadow-2xs">STEP 3</span>
+            目的別５大考察
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">来局・相談者の年代や生活背景に応じて、着目すべき用紙のポイントと心に刺さる言葉が変わります</p>
+        </div>
+        <span class="text-xs font-bold text-teal-800 bg-teal-100 px-3 py-1 rounded-full border border-teal-300 hidden sm:inline">全世代対応</span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
+        <button onclick="selectPersona('young')" id="persona-btn-young" class="p-2.5 rounded-xl text-left border-2 border-teal-500 bg-teal-50 text-teal-950 transition shadow-2xs">
+          <div class="text-lg">🌸</div>
+          <div class="font-black text-xs mt-1">① 若年層・女性</div>
+          <div class="text-[10px] text-teal-700">隠れ肥満・骨量貯金</div>
+        </button>
+
+        <button onclick="selectPersona('work')" id="persona-btn-work" class="p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          <div class="text-lg">👔</div>
+          <div class="font-black text-xs mt-1">② 働き盛り・多忙</div>
+          <div class="text-[10px] text-slate-500">内臓脂肪・メタボ上流</div>
+        </button>
+
+        <button onclick="selectPersona('lifestyle')" id="persona-btn-lifestyle" class="p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          <div class="text-lg">💊</div>
+          <div class="font-black text-xs mt-1">③ 生活習慣病服薬</div>
+          <div class="text-[10px] text-slate-500">血圧・血糖・適正化</div>
+        </button>
+
+        <button onclick="selectPersona('sports')" id="persona-btn-sports" class="p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition">
+          <div class="text-lg">🏃</div>
+          <div class="font-black text-xs mt-1">④ スポーツ・筋トレ</div>
+          <div class="text-[10px] text-slate-500">D型維持・電解質・回復</div>
+        </button>
+
+        <button onclick="selectPersona('senior')" id="persona-btn-senior" class="p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition col-span-2 sm:col-span-1">
+          <div class="text-lg">👵</div>
+          <div class="font-black text-xs mt-1">⑤ 高齢・フレイル</div>
+          <div class="text-[10px] text-slate-500">転倒骨折・SMI・eGFR</div>
+        </button>
+      </div>
+
+      <div id="persona-panel" class="bg-white rounded-2xl p-4 sm:p-5 border border-teal-200 shadow-sm space-y-4">
+        <!-- JSで動的切り替え -->
+      </div>
+    </section>
+
+    <!-- ==================== STEP 4: 相談者QOLアプローチ ＆ ポジティブ対話（全8編） ==================== -->
+    <section id="phase-qol-talks" class="scroll-mt-32 space-y-5">
+      <div class="border-b-2 border-emerald-500 pb-2 flex items-center justify-between">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span class="bg-emerald-600 text-white text-xs px-2.5 py-0.5 rounded-md shadow-2xs">STEP 4</span>
+            相談者QOLアプローチ ＆ 生活の質が変わる！「ポジティブトーク・全8編」
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">数字の報告ではなく「生活がどう好転するか」の希望を提示し、現場であるあるの疑問を100%肯定で解きほぐします</p>
+        </div>
+        <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300 hidden sm:inline">QOL希望＆トーク全8編</span>
+      </div>
+
+      <!-- 6大希望別QOLセレクター -->
+      <div class="bg-gradient-to-br from-emerald-50/80 via-teal-50/30 to-white rounded-2xl p-4 sm:p-5 border-2 border-emerald-300 shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-emerald-200 pb-2">
+          <h3 class="text-xs sm:text-sm font-black text-slate-900 flex items-center gap-1.5">
+            <span>🌟</span> 相談者が本当に聞きたい「生活の質（QOL）向上」6大希望セレクター
+          </h3>
+          <span class="text-[10px] text-emerald-800 font-bold">主訴・希望に合わせてタップ</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+          <button onclick="selectQolBenefit('move')" class="qol-btn p-3 rounded-xl border-2 border-emerald-400 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+            <div class="text-2xl mb-1 group-hover:scale-110 transition">🏃</div>
+            <div class="text-xs font-black text-slate-900">動きが変わる</div>
+            <div class="text-[10px] text-emerald-700 font-bold mt-0.5">足が軽い・階段ラク</div>
+          </button>
+
+          <button onclick="selectQolBenefit('pain')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+            <div class="text-2xl mb-1 group-hover:scale-110 transition">🩹</div>
+            <div class="text-xs font-black text-slate-900">痛みが減る</div>
+            <div class="text-[10px] text-slate-600 font-bold mt-0.5">膝・腰の負担軽減</div>
+          </button>
+
+          <button onclick="selectQolBenefit('sleep')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+            <div class="text-2xl mb-1 group-hover:scale-110 transition">🌙</div>
+            <div class="text-xs font-black text-slate-900">ぐっすり快眠</div>
+            <div class="text-[10px] text-slate-600 font-bold mt-0.5">だるさ解消・朝爽快</div>
+          </button>
+
+          <button onclick="selectQolBenefit('posture')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+            <div class="text-2xl mb-1 group-hover:scale-110 transition">✨</div>
+            <div class="text-xs font-black text-slate-900">若々しく見える</div>
+            <div class="text-[10px] text-slate-600 font-bold mt-0.5">姿勢がピン・服が似合う</div>
+          </button>
+
+          <button onclick="selectQolBenefit('disease')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+            <div class="text-2xl mb-1 group-hover:scale-110 transition">💊</div>
+            <div class="text-xs font-black text-slate-900">お薬を見直したい</div>
+            <div class="text-[10px] text-slate-600 font-bold mt-0.5">生活習慣の根本改善</div>
+          </button>
+
+          <button onclick="selectQolBenefit('travel')" class="qol-btn p-3 rounded-xl border border-slate-200 bg-white hover:bg-emerald-50 text-left transition shadow-2xs active:scale-95 group">
+            <div class="text-2xl mb-1 group-hover:scale-110 transition">🍁</div>
+            <div class="text-xs font-black text-slate-900">元気に旅に行ける</div>
+            <div class="text-[10px] text-slate-600 font-bold mt-0.5">フレイル予防・一生歩く</div>
+          </button>
+        </div>
+
+        <!-- QOL動的回答カード -->
+        <div id="qolResultCard" class="bg-white rounded-xl p-4 border border-emerald-200 shadow-2xs space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+            <div class="flex items-center gap-2">
+              <span id="qolCardIcon" class="text-2xl">🏃</span>
+              <div>
+                <span id="qolCardSub" class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">Life Transformation</span>
+                <h4 id="qolCardTitle" class="text-sm sm:text-base font-black text-slate-900">
+                  「足元が羽のように軽くなり、階段や散歩が楽しくなる」未来へ
+                </h4>
+              </div>
+            </div>
+            <span id="qolKeyMetricBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+              着目する用紙項目：両脚の筋肉量（kg）
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+            <div class="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200 space-y-1">
+              <strong class="text-emerald-950 block font-bold flex items-center gap-1">
+                <span>🗣</span> 相談者に響く希望の言葉：
+              </strong>
+              <p id="qolTalkText" class="text-slate-800 text-xs sm:text-sm leading-relaxed italic">
+                「〇〇さん、足の筋肉は歩く・立つを支える大切な部分です。今の数値を一つの目安にして、階段や買い物などで『少し楽になった』と感じられる変化を、一緒に見ていきませんか？」
+              </p>
+            </div>
+
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+              <strong class="text-slate-900 block font-bold flex items-center gap-1">
+                <span>🎯</span> 今日からできる「1分生活処方」：
+              </strong>
+              <p id="qolActionText" class="text-slate-700 text-xs sm:text-sm leading-relaxed">
+                歯磨きをしながら「かかとを上げて5秒キープ」を1日10回。第二の心臓であるふくらはぎを刺激し、血液とエネルギーを全身に送り出します。
+              </p>
+            </div>
+
+            <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2 flex flex-col justify-between">
+              <div>
+                <strong class="text-slate-900 block font-bold flex items-center gap-1">
+                  <span>⏱</span> 実感できる変化のタイムライン：
+                </strong>
+                <p id="qolTimelineText" class="text-slate-700 text-xs sm:text-sm leading-relaxed">
+                  <strong>【2週間後】：</strong>夕方の足のだるさ・むくみが軽減。<br>
+                  <strong>【1ヶ月後】：</strong>信号待ちや椅子からの立ち上がりが軽やかに！
+                </p>
+              </div>
+              <button onclick="copyToClipboard(document.getElementById('qolTalkText').innerText)" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition flex items-center justify-center gap-1 shadow-2xs">
+                <span>📋</span> この希望トークをコピー
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ポジティブトーク集（全8編） -->
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm space-y-3" id="scriptAccordionList">
+        <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5 border-b border-slate-100 pb-2">
+          <span>💬</span> 現場で使える！「ポジティブトーク・全8編」
+        </h3>
+
+        <!-- スクリプト 1 -->
+        <details open class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-emerald-50/40 open:border-emerald-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-mono shrink-0">1</span>
+              <span class="text-emerald-950 font-bold">【痛みの減少】「膝や腰が重だるい・痛む」➔ 筋肉という“天然のサポーター”を育てる</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-emerald-200 text-slate-800 italic shadow-2xs">
+              「〇〇さん、膝や腰がおつらい中、教えてくださりありがとうございます。痛いと動くのも億劫になりますよね。<br>
+              太ももや体幹の筋力は、立つ・歩くなどの日常動作を支える大切な要素です。筋力や身体機能は、移動や日常生活を支える大切な要素です。痛みがある場合は、痛みの原因や程度を確認し、無理のない方法を検討しましょう。<br>
+              痛みがあるときは、無理に運動を続けず、必要に応じて医療者へ相談しましょう。テレビを見ながら椅子に深く座り、片足を水平に5秒ピンと伸ばすだけ。膝に体重をかけずに筋肉のサポーターを作って、痛みを気にせずお買い物に行ける足を取り戻しましょう！」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-emerald-800 font-bold">💡 ポイント：痛みを100%受容し、「筋肉＝痛みを吸い取るサポーター」として希望を示す</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 2 -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-mono shrink-0">2</span>
+              <span>【体重減・点数減】「食事制限で体重を減らしたのに、なぜ点数が下がったの？」（ショック・不満）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
+              「〇〇さん、体重を落とされたこれまでの努力、取り組み、本当に素晴らしいですね！<br>
+              ただ、InBodyの詳しい内訳を見てみますと、今回減ったのは脂肪ではなく、体を支える大切な『筋肉と水分』でした。<br>
+              筋肉量の変化はエネルギー消費を考える際の一つの要素です。体重だけでなく、脂肪と除脂肪量の変化も一緒に見てみましょう。<br>
+              ここからは『食事を減らす』のではなく、『卵やお肉、大豆などタンパク質をしっかり食べて、筋肉を守りながら脂肪を燃やす』次のステージに進みましょう！食事のこと栄養のこと、お薬のことも、もう少し話しましょうか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：体重減少をまず100%肯定した上で、ヒーターの例えで筋肉の重要性を伝える</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <!-- スクリプト 3〜8（簡潔に完全保持） -->
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-mono shrink-0">3</span>
+              <span>【運動拒絶】「膝や腰が痛いから、スクワットやウォーキングなんて無理」（拒絶・痛み）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
+              「膝や腰がおつらい中、教えてくださりありがとうございます。痛みがあるときは、無理に歩いたりスクワットを続けず、痛みの原因や状態に応じて方法を選びましょう。<br>
+              実は、足の筋肉は『座ったまま』でも十分鍛えられます。椅子に深く腰掛けて、テレビを見ながら片足をピーンと前に伸ばして5秒キープする運動や、貧乏ゆすりのようにかかとをトントン上下させるだけでも、太ももやふくらはぎの血流がグンと良くなります。<br>
+              体重をかけずに膝周りの筋肉がついてくると、天然のサポーターになって膝の負担感が変わることもあります。今日から座ったまま1回、試してみませんか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：痛みを共感し、荷重のかからない椅子運動（大腿四頭筋セッティング）を提案</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-mono shrink-0">4</span>
+              <span>【加齢による諦め】「もう80歳を過ぎたし、今さら筋肉なんてつかないでしょ」（諦め・無力感）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
+              「そう思われるお気持ち、とてもよく分かります。ですが最新の医学研究では、90歳を超えた方でも適切な刺激と栄養を与えれば、筋肉は何歳からでも太く・強くなることが証明されているんです！<br>
+              年齢にかかわらず、適切な運動や栄養によって身体機能の維持・改善を目指せる場合があります。いきなり激しい筋トレをする必要はなく、毎日の歯磨きをしながらかかとを浮かせたり、手すりを持って立ち座りするだけで、筋肉は『おっ、まだ出番があるんだな』と応えてくれます。<br>
+              〇〇さんがこれからもご自身の足で行きたい場所へ自由にお出かけできるよう、私もしっかりサポートしますね！」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：エビデンス（高齢者の筋肥大能）を優しく伝え、自己決定感を後押しする</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-mono shrink-0">5</span>
+              <span>【転倒予防】下肢筋肉量「低」× 睡眠薬・降圧薬（FRIDs）服用中の患者へ</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
+              「腕や体幹はしっかり保たれていますが、両足の筋肉量が少し低めに出ていますね。<br>
+              足の筋肉は、夜中にトイレへ立たれるときやお散歩のときに身体を支える一番のブレーキ役です。<br>
+              現在お飲みいただいている睡眠薬（または血圧のお薬）は、お体がしっかり休まる反面、夜間や朝方に少しふらつきが出やすい特徴があります。<br>
+              転倒やつまずきによる骨折を絶対に防ぐために、夜間は足元灯をつけていただくことと、日中に椅子からの立ち上がり運動を1日5回から始めてみませんか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：薬を否定せず、薬の特性（筋弛緩・起立性低血圧）と足の筋肉をリンクさせる</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center text-xs font-mono shrink-0">6</span>
+              <span>【薬物依存】「血圧や血糖の薬をちゃんと飲んでるから、運動や食事は今のままで十分でしょ」</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-sky-200 text-slate-800 italic shadow-2xs">
+              「毎日忘れずにお薬を飲まれていること、本当にしっかりされてますね！治療の大きな柱がしっかりしています。<br>
+              お薬は血管を広げたり余分な糖を出してくれますが、実は食事で摂った糖や脂質の約70%を燃やして処理しているのは『下半身の筋肉』なんです。<br>
+              筋肉量や身体機能の変化を確認しながら、健康状態や検査値の改善につながる可能性があります。薬剤の変更や減量は自己判断せず、主治医・薬剤師で相談しながら考えていきましょう。<br>
+              お薬と筋肉の二人三脚で、さらに健康な体を作っていきましょう！目標や希望は何か立てていますか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：服薬継続を賞賛し、「筋肉＝糖消費工場」と処方適正化の希望を問いかける</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-mono shrink-0">7</span>
+              <span>【極端な食事制限】「手っ取り早く痩せたいから、ご飯やパンを完全にゼロにする！」（糖新生）</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-amber-200 text-slate-800 italic shadow-2xs">
+              「早く結果を出したいという前向きなお気持ち、とても熱意が伝わってきます！<br>
+              ただ、お薬と体の仕組みからお伝えしますと、炭水化物を完全にゼロにすると、体はエネルギー不足を補うために、なんと『自分の筋肉を削って糖を作り出す（糖新生）』ようになってしまいます。<br>
+              そうすると体重計の数字は落ちても筋肉が痩せ細り、体脂肪率が跳ね上がる『C型』になってしまうんです。<br>
+              炭水化物はゼロにするのではなく、毎食お茶碗に軽く1杯（こぶし1個分）召し上がって筋肉を守りながら、夕食の揚げ物を控える方法が一番綺麗に引き締まりますよ。」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：熱意を認めつつ糖新生を分かりやすく解説し、具体的な食事相談へ広げる</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+
+        <details class="group bg-slate-50 rounded-xl border border-slate-200 p-3.5 transition open:bg-sky-50/40 open:border-sky-300">
+          <summary class="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-xs sm:text-sm list-none">
+            <span class="flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-mono shrink-0">8</span>
+              <span>【挫折・過負荷】「この前張り切って運動したら筋肉痛で動けなくなって…やっぱり続かない」</span>
+            </span>
+            <span class="text-slate-400 group-open:rotate-180 transition text-xs">▼</span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm text-slate-700 space-y-2 border-t border-slate-200 pt-2.5 leading-relaxed">
+            <div class="bg-white p-3.5 rounded-xl border border-emerald-200 text-slate-800 italic shadow-2xs">
+              「筋肉痛が出るほど全力で取り組まれたんですね！そこまで真剣に挑戦された行動力、本当に素晴らしいです！<br>
+              筋肉痛は、筋肉が生まれ変わろうとして『休ませて』と合図を出した証拠です。最初は『こんなに少なくていいの？』と物足りないくらいで終えるのが、三日坊主を防いでずっと続ける最大の秘訣なんです。<br>
+              例えば、信号待ちで背筋を伸ばす、歯磨きしながらかかとを浮かせたり、エスカレーターではなく階段を3段だけ登る、これだけでも立派な運動なんですよ。<br>
+              まずは『帰宅時に靴を脱ぐ前にスクワット2回』など、これならできそうと思える小さな習慣から試してみませんか？」
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-xs text-slate-500 font-semibold">💡 ポイント：挑戦を大いに称賛し、物足りないくらいの超低負荷から日常のタイミングを一緒に探す</span>
+              <button onclick="copyScriptText(this)" class="px-3 py-1 bg-white border border-slate-300 rounded-lg text-xs font-bold hover:bg-slate-100 text-slate-700 shadow-2xs">
+                📋 トークをコピー
+              </button>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 5: 薬学考察・医師連携 ==================== -->
+    <section id="phase-rx" class="scroll-mt-32 space-y-5">
+      <div class="border-b-2 border-indigo-500 pb-2 flex items-center justify-between">
+        <div>
+          <h2 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+            <span class="bg-indigo-600 text-white text-xs px-2.5 py-0.5 rounded-md shadow-2xs">STEP 5</span>
+            薬剤師の臨床的考察 ＆ 医師との情報共有・ディスカッション
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">数値を薬学的アセスメントへ深め、処方元医師と対等に対話するための論点整理</p>
+        </div>
+        <span class="text-xs font-bold text-indigo-800 bg-indigo-100 px-3 py-1 rounded-full border border-indigo-300 hidden sm:inline">臨床ディスカッション</span>
+      </div>
+
+      <!-- 医師ディスカッション論点カード -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button onclick="switchRxDoc('egfr')" id="btn-collab-egfr" class="p-3 rounded-xl border-2 border-indigo-400 bg-indigo-50/80 text-indigo-950 text-left transition shadow-2xs">
+            <span class="text-[10px] font-bold text-indigo-700 block uppercase">Case 1. 腎機能の真実</span>
+            <div class="font-extrabold text-xs sm:text-sm mt-0.5">筋肉量激減 × eGFR過大評価</div>
+            <div class="text-[11px] text-slate-600">見かけのCr低値による評価の見落としに注意</div>
+          </button>
+          <button onclick="switchRxDoc('frids')" id="btn-collab-frids" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-left transition hover:border-indigo-200">
+            <span class="text-[10px] font-bold text-slate-500 block uppercase">Case 2. 転倒・骨折回避</span>
+            <div class="font-extrabold text-xs sm:text-sm mt-0.5">下肢筋肉「低」× FRIDs</div>
+            <div class="text-[11px] text-slate-500">睡眠薬・降圧薬の適正化</div>
+          </button>
+          <button onclick="switchRxDoc('edema')" id="btn-collab-edema" class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-left transition hover:border-indigo-200">
+            <span class="text-[10px] font-bold text-slate-500 block uppercase">Case 3. 循環器・水分</span>
+            <div class="font-extrabold text-xs sm:text-sm mt-0.5">ECW比率異常 × 心不全疑い</div>
+            <div class="text-[11px] text-slate-500">偽陽性の筋量増・利尿薬調整</div>
+          </button>
+        </div>
+
+        <div id="rxdoc-panel" class="bg-gradient-to-br from-slate-50 to-indigo-50/20 border border-indigo-200 rounded-xl p-4 text-xs sm:text-sm space-y-3">
+          <!-- JSで切り替え -->
+        </div>
+      </div>
+
+      <!-- 深い薬学エビデンス集（全8項目） -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+          <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
+            <span>🔬</span> 深い薬学エビデンス集（学術詳細・全8項目完全収録）
+          </h3>
+          <span class="text-[10px] text-purple-700 font-bold bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200">処方鑑査・病態連動</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">① 骨格筋著減と推算eGFR過大評価</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">サルコペニア高齢者では血清Cr産生が枯渇し、筋肉量が著しく少ない場合、血清Crが低く出ることで、Crベースの推算eGFRだけでは腎機能を過大評価する可能性がある。必要に応じて検査値・病歴・処方内容を確認し、シスタチンCなど別の指標も含めて医療者間で評価する。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">② むくみ・心不全による「見かけの筋量増加」</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">細胞外水分（ECW）貯留により、下肢筋肉量が「高」と偽陽性を示す。点数「-」やECW/TBW比率≧0.400に着目し、浮腫や体液貯留など臨床所見と合わせて確認し、心不全・腎疾患などが疑われる場合は医療者につなぐ。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">③ SGLT2阻害薬による筋異化（サルコペニア）</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">体重減少時には、薬剤だけを原因と決めつけず、食事量・栄養状態・活動量・病状などと合わせて、筋肉量が維持されているかを追跡する。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">④ GLP-1/GIP受容体作動薬と除脂肪量喪失</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">体重減少時には除脂肪量も変化しうるため、体重だけでなく筋肉量・食事・活動量を合わせて確認する。薬剤使用中は、体重減少の経過と栄養・運動の状況を確認し、必要に応じて医療者と連携する。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">⑤ 下肢筋力低下 × 転倒誘発薬（FRIDs）</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">睡眠薬（筋弛緩・持ち越し）や降圧薬（起立性低血圧）の服用者が下肢低の場合、転倒リスクは薬剤だけで決まらないため、ふらつき・起立時症状・生活環境なども確認する。薬剤調整は処方医と連携して検討する。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">⑥ 筋肉減少・脂肪増加による体内動態（PK/PD）変容</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">体組成の変化は、一部の薬物の分布容積や薬物動態を考える際の背景情報になりうる。InBodyだけで投与量を判断せず、薬剤ごとの特性、腎・肝機能、血中濃度などと合わせて評価する。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">⑦ ステロイド筋症（Steroid Myopathy）</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">長期の副腎皮質ステロイド使用では筋力低下・筋萎縮が問題になることがある。部位別筋肉量で下肢のみの急減を捉え、階段昇降障害を早期発見。</p>
+          </div>
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-purple-900 block font-bold">⑧ 骨ミネラル量（BMC）と活性型ビタミンD3</strong>
+            <p class="text-xs text-slate-600 leading-relaxed">骨ミネラル量（BMC）は除脂肪量と密接に連動。骨ミネラル量は骨の評価を考える際の参考情報の一つ。ビタミンD関連薬の評価は、骨・筋機能、検査値、疾患背景、処方目的を含めて行う。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SMI自動判定シミュレーター -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3">
+        <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5 border-b border-slate-100 pb-2">
+          <span>🧮</span> 骨格筋指数（SMI）サルコペニア自動判定シミュレーター
+        </h3>
+        <p class="text-xs text-slate-500">用紙の数値を入力すると、AWGS 2019基準（アジアサルコペニア診断基準）に基づき即座に判定します。</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs sm:text-sm">
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1">性別</label>
+            <select id="smi-gender" onchange="calculateSMI()" class="w-full text-xs sm:text-sm p-2 rounded-lg border border-slate-300 bg-white font-bold">
+              <option value="male">男性（カットオフ: 7.0 kg/m²未満）</option>
+              <option value="female" selected>女性（カットオフ: 5.7 kg/m²未満）</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1">身長 (cm)</label>
+            <input type="number" id="smi-height" value="156.9" step="0.1" oninput="calculateSMI()" class="w-full text-xs sm:text-sm p-2 rounded-lg border border-slate-300 bg-white font-bold font-mono"/>
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-700 block mb-1">四肢筋肉量合計 ASM (kg)</label>
+            <input type="number" id="smi-asm" value="14.18" step="0.01" oninput="calculateSMI()" class="w-full text-xs sm:text-sm p-2 rounded-lg border border-slate-300 bg-white font-bold font-mono"/>
+          </div>
+        </div>
+
+        <div id="smi-result" class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 text-xs sm:text-sm text-emerald-900 font-bold space-y-1">
+          <!-- 自動計算 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 巻末：研修会スライドギャラリー ==================== -->
+    <section id="sec-slide-gallery" class="scroll-mt-32 space-y-4 pt-4 border-t-2 border-slate-200">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-indigo-200 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">📑</span>
+          <div>
+            <h2 class="text-base sm:text-lg font-black text-slate-900">
+              研修会スライドギャラリー（全10重要スライド）
+            </h2>
+            <p class="text-xs text-slate-500">タップすると全画面でスライド原本の図解が開きます。閉じるボタン［✕］を押せば元の場所に戻れます。</p>
+          </div>
+        </div>
+        <span class="text-xs font-bold text-indigo-800 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full shrink-0">
+          全画面拡大＆ワンタップ復帰
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <button onclick="openSlideModal('p2')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">
+            <span>SLIDE P.2</span>
+            <span>禁忌・条件</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">測定前の注意事項</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">ペースメーカー禁忌、5分起立、食後2時間、排尿後等</p>
+        </button>
+
+        <button onclick="openSlideModal('p3')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+            <span>SLIDE P.3</span>
+            <span>測定姿勢</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">8極接触電極フォーム</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">腕・体幹・太もも離し、親指密着、かかと合わせ</p>
+        </button>
+
+        <button onclick="openSlideModal('p4')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200">
+            <span>SLIDE P.4</span>
+            <span>原理図</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">BIA法の電気原理</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">筋肉（通電・点灯）vs 脂肪（絶縁体）</p>
+        </button>
+
+        <button onclick="openSlideModal('p9')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+            <span>SLIDE P.9</span>
+            <span>解剖注意</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">測定時の注意事項詳細</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">電解ティッシュの活用、電流短絡防止</p>
+        </button>
+
+        <button onclick="openSlideModal('p11')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200">
+            <span>SLIDE P.11</span>
+            <span>実物用紙</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">InBody470 結果用紙</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">実機マシンとA4シート全体レイアウト</p>
+        </button>
+
+        <button onclick="openSlideModal('p12')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-teal-600 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200">
+            <span>SLIDE P.12</span>
+            <span>体成分</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">体成分4区画モデル</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">水分＋蛋白＋ミネラル＋脂肪＝体重</p>
+        </button>
+
+        <button onclick="openSlideModal('p14')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-sky-600 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200">
+            <span>SLIDE P.14</span>
+            <span>グラフ判定</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">筋肉-脂肪 C/I/D型</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">100%基準線対比の体型シルエット</p>
+        </button>
+
+        <button onclick="openSlideModal('p20')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">
+            <span>SLIDE P.20</span>
+            <span>体積比較</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">筋肉1kg vs 脂肪1kg</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">同じ重さでも脂肪は約1.2倍かさばる</p>
+        </button>
+
+        <button onclick="openSlideModal('p22')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+            <span>SLIDE P.22</span>
+            <span>マトリクス</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">BMI × 体脂肪率 9分類</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">隠れ肥満、過体重虚弱、アスリート判定</p>
+        </button>
+
+        <button onclick="openSlideModal('p24')" class="p-3 rounded-xl bg-white border border-slate-200 hover:border-indigo-400 hover:shadow-md text-left transition space-y-1.5 group">
+          <div class="flex items-center justify-between text-[10px] font-mono font-bold text-rose-600 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200">
+            <span>SLIDE P.24</span>
+            <span>筋肉バランス</span>
+          </div>
+          <div class="text-xs font-black text-slate-900 group-hover:text-indigo-600 transition">末広がり vs 逆三角形</div>
+          <p class="text-[10px] text-slate-500 line-clamp-2">ピラミッド型⭕ vs 歪み・猫背❌</p>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- スマホ用フローティングHUD（現在選択中の症例ダイジェスト固定バー） -->
+  <div id="mobile-case-hud" class="fixed bottom-3 left-3 right-3 z-30 bg-slate-900/90 backdrop-blur-md text-white rounded-2xl p-2.5 px-3.5 shadow-xl border border-slate-700 items-center justify-between text-xs">
+    <div class="flex items-center gap-2 overflow-hidden">
+      <span class="w-2 h-2 rounded-full bg-sky-400 shrink-0 animate-pulse"></span>
+      <span id="hud-case-name" class="font-black truncate">C型（隠れ肥満）</span>
+      <span class="text-slate-400">|</span>
+      <span id="hud-case-detail" class="text-[11px] text-slate-300 truncate">両脚: 低 ｜ 内臓: Lv.12</span>
+    </div>
+    <a href="#phase-live-paper" class="shrink-0 px-2.5 py-1 rounded-xl bg-sky-600 text-white font-black text-[11px] shadow-2xs hover:bg-sky-500 transition">
+      用紙へ ↑
+    </a>
+  </div>
+
+  <!-- フッター -->
+  <footer class="mt-8 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
+    <p class="font-bold text-slate-800 text-sm mb-1">福岡市薬剤師会 広報委員会</p>
+    <p class="text-xs">InBody指導マニュアル for Pharmacist v13.6 ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
+  </footer>
+
+  <!-- スライド原本全画面ポップアップモーダル -->
+  <div id="slideModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-3 sm:p-5" onclick="closeSlideModalOnBackdrop(event)">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full border border-slate-300 overflow-hidden flex flex-col modal-card" onclick="event.stopPropagation()">
+      <div class="px-4 py-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span id="modalSlideBadge" class="text-xs font-mono font-black text-indigo-700 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded">SLIDE P.9</span>
+          <h3 id="modalSlideTitle" class="text-sm font-black text-slate-900">測定姿勢チェックポイント</h3>
+        </div>
+        <button onclick="closeSlideModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-200 border border-slate-300 flex items-center justify-center text-slate-700 font-black text-sm transition">
+          ✕
+        </button>
+      </div>
+
+      <div id="modalSlideContent" class="p-4 sm:p-6 overflow-y-auto space-y-4 text-xs sm:text-sm leading-relaxed">
+        <!-- JSで動的注入 -->
+      </div>
+
+      <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs">
+        <span class="text-slate-500 text-[10px]">※［✕ 閉じる］を押すと直前の画面位置に戻ります</span>
+        <button onclick="closeSlideModal()" class="px-4 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold transition flex items-center gap-1 shadow-2xs">
+          <span>✕ 閉じる（元の場所に戻る）</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- インタラクティブJavaScriptロジック -->
+  <script>
+    // 1. スライド原本データライブラリ（全10スライド）
+    const slideOriginals = {
+      p2: {
+        badge: "SLIDE P.2",
+        title: "測定前の注意事項 ＆ 安全管理",
+        html: `
+          <div class="space-y-3">
+            <div class="bg-rose-50 border-2 border-rose-300 p-3.5 rounded-xl text-rose-950 space-y-1">
+              <strong class="font-black text-rose-700 block text-xs">【警告：絶対禁忌】</strong>
+              <p class="text-xs leading-relaxed">心臓ペースメーカーのような植え込み型医療機器、または生体情報モニタを装着されている方は測定しないでください。微弱電流による機器誤作動・生命の危機に繋がる恐れがあります。</p>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-xl space-y-2">
+              <strong class="font-black text-slate-800 block text-xs">【測定精度を担保する5大条件】</strong>
+              <ul class="list-disc list-inside space-y-1 text-slate-700 text-xs">
+                <li><strong>5分起立後：</strong>横臥・着座状態からの下半身体水分移動を安定化。</li>
+                <li><strong>空腹時（食後2時間以上）：</strong>飲食物を「体脂肪」と誤認・消化管インピーダンス誤差防止。</li>
+                <li><strong>排尿・排便後：</strong>膀胱内残余物による測定誤差を防止。</li>
+                <li><strong>運動・入浴前：</strong>血流急変や発汗によるインピーダンス狂いを防止。</li>
+                <li><strong>午前中推奨：</strong>午後の重力による下肢水分貯留の影響を最小化。</li>
+              </ul>
+            </div>
+          </div>
+        `
+      },
+      p3: {
+        badge: "SLIDE P.3",
+        title: "正しい測定姿勢（8極接触電極）",
+        html: `
+          <div class="space-y-3">
+            <div class="bg-amber-50 border border-amber-300 p-3 rounded-xl text-center">
+              <strong class="font-black text-amber-950 text-xs sm:text-sm">直立・非接触・8点電極密着フォーム</strong>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                <span class="font-bold text-sky-800 block">① 手電極</span>
+                <p class="text-slate-600">4本の指は裏側のシルバー面に密着。親指は上部の丸い電極に触れさせます。肘を伸ばし、脇の下を空けます。</p>
+              </div>
+              <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                <span class="font-bold text-sky-800 block">② 足電極</span>
+                <p class="text-slate-600">素足になり、かかとを丸い後方電極に合わせ、前足底も密着。左右の太もも同士を接触させません。</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      p4: {
+        badge: "SLIDE P.4",
+        title: "BIA法（生体電気インピーダンス分析法）の基本原理",
+        html: `
+          <div class="space-y-3 text-xs">
+            <div class="p-3 bg-slate-50 border rounded-xl flex items-center justify-around text-center">
+              <div class="space-y-1">
+                <div class="text-3xl">🥩 ➔ 💡</div>
+                <strong class="text-emerald-700 block text-xs">筋肉（水分約73%）</strong>
+                <span class="text-[10px] text-slate-500">電気がスイスイ流れる（点灯）</span>
+              </div>
+              <div class="text-xl font-bold text-slate-300">VS</div>
+              <div class="space-y-1">
+                <div class="text-3xl">🧈 ➔ ✕</div>
+                <strong class="text-amber-700 block text-xs">脂肪（水分なし）</strong>
+                <span class="text-[10px] text-slate-500">電気を通さない（絶縁体）</span>
+              </div>
+            </div>
+            <p class="text-slate-700 leading-relaxed">
+              体内に微弱な交流電流を流し、その際に生じる電気抵抗（インピーダンス）から水分量を測定し、筋肉量や脂肪量を高精度に算出します。年齢・性別の「統計的下駄（補正）」を履かせず純測定するのがInBodyの強みです。
+            </p>
+          </div>
+        `
+      },
+      p9: {
+        badge: "SLIDE P.9",
+        title: "測定時の注意事項（短絡防止と電解ティッシュ）",
+        html: `
+          <div class="space-y-3 text-xs">
+            <div class="bg-rose-50 border border-rose-300 p-3 rounded-xl space-y-1">
+              <strong class="text-rose-900 font-bold block">【電流短絡（ショート）の防止】</strong>
+              <p class="text-slate-700 leading-relaxed">
+                腕が胴体に触れたり、太もも同士が接触していると、電流がその接触面からショートしてしまい、四肢の筋肉量が不正確になります。肘をピンと伸ばして脇に風を通し、内ももを開いて立ちます。
+              </p>
+            </div>
+            <div class="bg-sky-50 border border-sky-300 p-3 rounded-xl space-y-1">
+              <strong class="text-sky-950 font-bold block">【乾燥・角質対策（電解ティッシュ）】</strong>
+              <p class="text-slate-700 leading-relaxed">
+                手の平や足裏が乾燥していたり角質が厚い場合、通電不良で測定エラーとなります。備え付けの電解ティッシュで十分に湿らせてから電極に乗ります。
+              </p>
+            </div>
+          </div>
+        `
+      },
+      p11: {
+        badge: "SLIDE P.11",
+        title: "InBody470 実機 ＆ A4結果用紙全体レイアウト",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">説明会スライドP.11で紹介された実寸A4シート。視線は「中央の筋肉-脂肪グラフ（C/I/D）から入る」のが最もスムーズな臨床読み解き動線です。</p>`
+      },
+      p12: {
+        badge: "SLIDE P.12",
+        title: "体成分分析「4区画モデル」と筋肉量の定義",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">体水分＋タンパク質＝筋肉量（除脂肪軟組織）。筋肉量＋ミネラル量＝除脂肪量。除脂肪量＋体脂肪量＝体重。</p>`
+      },
+      p14: {
+        badge: "SLIDE P.14",
+        title: "筋肉-脂肪分析（C型・I型・D型の判定）",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">C型（低筋高脂）、I型（標準健康型）、D型（筋肉量が多く体脂肪量が少ないパターン）。</p>`
+      },
+      p20: {
+        badge: "SLIDE P.20",
+        title: "筋肉1kg vs 脂肪1kg の体積差（約1.2倍）",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">同じ体重でも体脂肪率によってシルエットが全く異なります。</p>`
+      },
+      p22: {
+        badge: "SLIDE P.22",
+        title: "体型評価（BMI × 体脂肪率 9大マトリクス）",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">BMIが標準でも体脂肪率が高いのが「隠れ肥満」。</p>`
+      },
+      p24: {
+        badge: "SLIDE P.24",
+        title: "部位別筋肉量（安定ピラミッド型 ⭕ vs 逆三角形 ❌）",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">上半身に比べ下半身筋肉量が少ないと、猫背や転倒リスクの要因になります。</p>`
+      },
+      p26: {
+        badge: "SLIDE P.26",
+        title: "研究項目（基礎代謝量・骨ミネラル量・SMI）",
+        html: `<p class="text-xs text-slate-700 leading-relaxed">カニンガム式基礎代謝、特定健診腹囲境界、骨ミネラル量（BMC）、骨格筋指数（SMI）。</p>`
+      }
+    };
+
+    function openSlideModal(key) {
+      const data = slideOriginals[key];
+      if (!data) return;
+      document.getElementById('modalSlideBadge').innerText = data.badge;
+      document.getElementById('modalSlideTitle').innerText = data.title;
+      document.getElementById('modalSlideContent').innerHTML = data.html;
+      document.getElementById('slideModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSlideModal() {
+      document.getElementById('slideModal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    function closeSlideModalOnBackdrop(e) {
+      if (e.target.id === 'slideModal') closeSlideModal();
+    }
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSlideModal();
+    });
+
+    // 2. STEP 1 部位別解説 ＆ 【固有カラー連動デザイン】
+    const postureTips = {
+      armpit: {
+        title: "① 脇を離す・腕をまっすぐ伸ばす理由（短絡防止）",
+        desc: "腕が体幹（胴体）に触れてしまうと、電流が腕から直接胴体へショート（短絡）してしまい、腕の電気抵抗が正しく測れず筋肉量が過小評価されます。肘を曲げず、脇に風を通すイメージでピンと伸ばします。",
+        bg: "bg-rose-50/90",
+        border: "border-2 border-rose-300",
+        badge: "bg-rose-600 text-white",
+        textTitle: "text-rose-950",
+        textColor: "text-rose-900"
+      },
+      hand: {
+        title: "② 手電極の握り方（親指と4本指の密着）",
+        desc: "4本の指は裏側のシルバー電極に均等に触れるように下から軽く握り、親指は上部にある丸い金属電極にまっすぐ密着させます。手の平が乾燥しているとエラーになるため、電解ティッシュで十分に湿らせて通電を確保します。",
+        bg: "bg-sky-50/90",
+        border: "border-2 border-sky-300",
+        badge: "bg-sky-600 text-white",
+        textTitle: "text-sky-950",
+        textColor: "text-sky-900"
+      },
+      thigh: {
+        title: "③ 太もも同士を接触させない理由",
+        desc: "左右の太もも同士がくっついていると、下半身の電流経路が短絡し、脚の筋肉量や体水分が不正確になります。軽く隙間を開けて立ちます（スカート着用の際も注意）。",
+        bg: "bg-emerald-50/90",
+        border: "border-2 border-emerald-300",
+        badge: "bg-emerald-600 text-white",
+        textTitle: "text-emerald-950",
+        textColor: "text-emerald-900"
+      },
+      heel: {
+        title: "④ 足電極のかかと合わせ（4点接触）",
+        desc: "必ず素足になり、かかとを丸い後方電極にぴったり合わせ、前足底も前方の楕円電極に乗せます。ストッキング着用は電流を通さないため厳禁です。足裏の角質が厚い場合も電解ティッシュで拭きます。",
+        bg: "bg-amber-50/90",
+        border: "border-2 border-amber-300",
+        badge: "bg-amber-600 text-white",
+        textTitle: "text-amber-950",
+        textColor: "text-amber-900"
+      }
+    };
+
+    function showPostureTip(key) {
+      const tip = postureTips[key];
+      if (!tip) return;
+
+      // ボタンのアクティブ状態の同期
+      ['armpit', 'hand', 'thigh', 'heel'].forEach(k => {
+        const btn = document.getElementById(`btn-tip-${k}`);
+        if (k === key) {
+          if (k === 'armpit') btn.className = "py-2 px-1 rounded-xl bg-rose-600 text-white font-black text-xs shadow-2xs";
+          if (k === 'hand') btn.className = "py-2 px-1 rounded-xl bg-sky-600 text-white font-black text-xs shadow-2xs";
+          if (k === 'thigh') btn.className = "py-2 px-1 rounded-xl bg-emerald-600 text-white font-black text-xs shadow-2xs";
+          if (k === 'heel') btn.className = "py-2 px-1 rounded-xl bg-amber-600 text-white font-black text-xs shadow-2xs";
+        } else {
+          btn.className = "py-2 px-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-center font-bold text-xs";
+        }
+      });
+
+      // 右側カードの背景色・枠線・バッジの色を連動
+      document.getElementById('posture-detail-box').innerHTML = `
+        <div class="${tip.bg} ${tip.border} p-4 rounded-2xl shadow-2xs space-y-2 transition-all">
+          <div class="flex items-center justify-between border-b border-slate-200/60 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="${tip.badge} px-2.5 py-0.5 rounded-full text-xs font-black">部位別解説</span>
+              <strong class="${tip.textTitle} font-black text-xs sm:text-sm">${tip.title}</strong>
+            </div>
+            <button onclick="openSlideModal('p9')" class="text-xs bg-white px-2.5 py-1 rounded-lg border border-slate-300 font-bold text-slate-800 hover:bg-slate-50 transition shadow-2xs">
+              スライドP.9原本 ➔
+            </button>
+          </div>
+          <p class="${tip.textColor} text-xs sm:text-sm leading-relaxed pt-1">${tip.desc}</p>
+        </div>
+      `;
+    }
+
+    // 3. 症例パターン連動データ
+    const liveCases = {
+      C_skinny: {
+        name: "パターン 1：C型（隠れ肥満）",
+        hudDetail: "両脚: 低 ｜ 内臓: Lv.12",
+        id: "ID: Jane Doe / 51歳 / 女性 / 156.9cm",
+        date: "2026.10.02 09:46",
+        tbw: "27.5", protein: "7.2", mineral: "2.63", fatMass: "21.8",
+        shapeType: "C型（低筋高脂）",
+        weightPct: 50, weightTxt: "59.1 kg (100% / 標準)",
+        musclePct: 38, muscleTxt: "35.1 kg (82% 凹)",
+        fatPct: 78, fatTxt: "21.8 kg (145% 凸)",
+        bmi: "24.0 (標準)", fatPctVal: "36.9% (高⚠️)",
+        obesityDiag: "隠れ肥満該当",
+        armL: "1.94kg", armLEval: "標準 (98%)",
+        trunk: "17.7kg", trunkEval: "標準 (95%)",
+        armR: "2.02kg", armREval: "標準 (102%)",
+        legL: "5.02kg", legLEval: "低 (80.6%)",
+        legR: "5.20kg", legREval: "低 (83.6%)",
+        trunkColor: "#0284c7", armLColor: "#0284c7", armRColor: "#0284c7",
+        legLColor: "#f43f5e", legRColor: "#f43f5e",
+        segBadge: "両脚が「低」⚠️",
+        score: "68", vfl: "Lv.12", smi: "5.8",
+        bmc: "2.18 kg", bmr: "1176 kcal", waist: "91 cm",
+        activeZone: "graph"
+      },
+      I_healthy: {
+        name: "パターン 2：I型（標準健康）",
+        hudDetail: "全身標準 ｜ 内臓: Lv.6",
+        id: "ID: Taro Yamada / 42歳 / 男性 / 171.0cm",
+        date: "2026.10.02 10:15",
+        tbw: "38.2", protein: "10.4", mineral: "3.55", fatMass: "12.8",
+        shapeType: "I型（標準均衡）",
+        weightPct: 50, weightTxt: "64.9 kg (100% / 標準)",
+        musclePct: 50, muscleTxt: "52.1 kg (100% 整列)",
+        fatPct: 50, fatTxt: "12.8 kg (100% 整列)",
+        bmi: "22.2 (適正)", fatPctVal: "19.7% (標準)",
+        obesityDiag: "適正・健康体型",
+        armL: "2.85kg", armLEval: "標準 (100%)",
+        trunk: "24.5kg", trunkEval: "標準 (100%)",
+        armR: "2.88kg", armREval: "標準 (101%)",
+        legL: "8.52kg", legLEval: "標準 (99%)",
+        legR: "8.60kg", legREval: "標準 (100%)",
+        trunkColor: "#0284c7", armLColor: "#0284c7", armRColor: "#0284c7",
+        legLColor: "#0284c7", legRColor: "#0284c7",
+        segBadge: "全身が「標準」調和⭕",
+        score: "80", vfl: "Lv.6", smi: "6.8",
+        bmc: "2.95 kg", bmr: "1520 kcal", waist: "81 cm",
+        activeZone: "graph"
+      },
+      D_athlete: {
+        name: "パターン 3：D型（筋肉量多）",
+        hudDetail: "筋肉突出 ｜ 内臓: Lv.4",
+        id: "ID: Kenji Sato / 34歳 / 男性 / 178.0cm",
+        date: "2026.10.02 11:30",
+        tbw: "51.8", protein: "14.2", mineral: "4.80", fatMass: "9.2",
+        shapeType: "D型（筋肉量多）",
+        weightPct: 60, weightTxt: "80.0 kg (107% 筋肉過体重)",
+        musclePct: 85, muscleTxt: "70.8 kg (128% 突出凸)",
+        fatPct: 35, fatTxt: "9.2 kg (65% 絞り)",
+        bmi: "25.2 (筋肉型過体重)", fatPctVal: "11.5% (引き締まり)",
+        obesityDiag: "アスリート型（減量不要）",
+        armL: "4.10kg", armLEval: "高 (132%)",
+        trunk: "34.2kg", trunkEval: "高 (125%)",
+        armR: "4.15kg", armREval: "高 (133%)",
+        legL: "11.2kg", legLEval: "高 (130%)",
+        legR: "11.3kg", legREval: "高 (131%)",
+        trunkColor: "#10b981", armLColor: "#10b981", armRColor: "#10b981",
+        legLColor: "#10b981", legRColor: "#10b981",
+        segBadge: "全身が「高」強靭💪",
+        score: "92", vfl: "Lv.4", smi: "9.4",
+        bmc: "4.10 kg", bmr: "1980 kcal", waist: "79 cm",
+        activeZone: "graph"
+      },
+      frail_senior: {
+        name: "パターン 4：低体重虚弱（シニア）",
+        hudDetail: "四肢低 ｜ SMI: 4.8 警戒",
+        id: "ID: Hanako Suzuki / 79歳 / 女性 / 148.2cm",
+        date: "2026.10.02 14:00",
+        tbw: "21.4", protein: "5.6", mineral: "1.82", fatMass: "14.2",
+        shapeType: "低体重C型（筋枯渇）",
+        weightPct: 35, weightTxt: "43.0 kg (85% 低体重)",
+        musclePct: 25, muscleTxt: "28.8 kg (70% 著明凹)",
+        fatPct: 55, fatTxt: "14.2 kg (110% 平坦)",
+        bmi: "19.6 (標準低値)", fatPctVal: "33.0% (軽度高)",
+        obesityDiag: "サルコペニア肥満傾向",
+        armL: "1.45kg", armLEval: "低 (82%)",
+        trunk: "13.2kg", trunkEval: "低 (79%)",
+        armR: "1.48kg", armREval: "低 (83%)",
+        legL: "3.60kg", legLEval: "低 (73% 萎縮)",
+        legR: "3.65kg", legLEval: "低 (74% 萎縮)",
+        trunkColor: "#f43f5e", armLColor: "#f43f5e", armRColor: "#f43f5e",
+        legLColor: "#f43f5e", legRColor: "#f43f5e",
+        segBadge: "四肢・体幹すべて「低」⚠️",
+        score: "58", vfl: "Lv.7", smi: "4.8",
+        bmc: "1.65 kg", bmr: "980 kcal", waist: "76 cm",
+        activeZone: "segmental"
+      },
+      metabolic_fat: {
+        name: "パターン 5：過体重肥満（メタボ）",
+        hudDetail: "内臓Lv.14 ｜ 腹囲: 94cm",
+        id: "ID: Ichiro Tanaka / 48歳 / 男性 / 172.5cm",
+        date: "2026.10.02 15:20",
+        tbw: "44.2", protein: "11.8", mineral: "3.92", fatMass: "26.5",
+        shapeType: "過体重肥満（大凸）",
+        weightPct: 75, weightTxt: "86.4 kg (135% 過体重)",
+        musclePct: 52, muscleTxt: "59.9 kg (102% 標準)",
+        fatPct: 90, fatTxt: "26.5 kg (185% 大突出)",
+        bmi: "29.0 (高度肥満)", fatPctVal: "30.6% (肥満⚠️)",
+        obesityDiag: "メタボ内臓脂肪型",
+        armL: "3.20kg", armLEval: "標準 (104%)",
+        trunk: "29.8kg", trunkEval: "高 (112%)",
+        armR: "3.25kg", armREval: "標準 (105%)",
+        legL: "8.90kg", legLEval: "標準 (94%)",
+        legR: "8.95kg", legREval: "標準 (95%)",
+        trunkColor: "#0284c7", armLColor: "#0284c7", armRColor: "#0284c7",
+        legLColor: "#f59e0b", legRColor: "#f59e0b",
+        segBadge: "体重に対し脚支持限界",
+        score: "62", vfl: "Lv.14", smi: "7.6",
+        bmc: "3.40 kg", bmr: "1720 kcal", waist: "94 cm",
+        activeZone: "research"
+      }
+    };
+
+    let activeLiveKey = 'C_skinny';
+    let currentPaperZone = 'graph';
+
+    function applyLiveCase(caseKey) {
+      activeLiveKey = caseKey;
+      const c = liveCases[caseKey];
+      if (!c) return;
+
+      ['C_skinny', 'I_healthy', 'D_athlete', 'frail_senior', 'metabolic_fat'].forEach(k => {
+        const btn = document.getElementById(`btn-live-${k}`);
+        if (k === caseKey) {
+          btn.className = "p-2.5 rounded-xl bg-sky-50 border-2 border-sky-400 text-left transition shadow-2xs text-sky-950";
+        } else {
+          btn.className = "p-2.5 rounded-xl bg-slate-50 border border-slate-200 hover:border-slate-300 text-left transition text-slate-700";
+        }
+      });
+
+      document.getElementById('current-analyzing-title').innerText = c.name;
+      document.getElementById('hud-case-name').innerText = c.name.replace(/パターン \d：/, '');
+      document.getElementById('hud-case-detail').innerText = c.hudDetail;
+
+      document.getElementById('paper-patient-name').innerText = c.id;
+      document.getElementById('paper-test-date').innerText = c.date;
+      document.getElementById('val-tbw').innerText = c.tbw;
+      document.getElementById('val-protein').innerText = c.protein;
+      document.getElementById('val-mineral').innerText = c.mineral;
+      document.getElementById('val-fat-mass').innerText = c.fatMass;
+
+      document.getElementById('badge-shape-type').innerText = c.shapeType;
+      document.getElementById('text-bar-weight').innerText = c.weightTxt;
+      document.getElementById('bar-weight').style.width = c.weightPct + '%';
+      document.getElementById('text-bar-muscle').innerText = c.muscleTxt;
+      document.getElementById('bar-muscle').style.width = c.musclePct + '%';
+      document.getElementById('text-bar-fat').innerText = c.fatTxt;
+      document.getElementById('bar-fat').style.width = c.fatPct + '%';
+
+      document.getElementById('val-bmi').innerText = c.bmi;
+      document.getElementById('val-fat-pct').innerText = c.fatPctVal;
+      document.getElementById('badge-obesity-diag').innerText = c.obesityDiag;
+
+      document.getElementById('val-arm-l').innerText = c.armL;
+      document.getElementById('eval-arm-l').innerText = c.armLEval;
+      document.getElementById('val-trunk').innerText = c.trunk;
+      document.getElementById('eval-trunk').innerText = c.trunkEval;
+      document.getElementById('val-arm-r').innerText = c.armR;
+      document.getElementById('eval-arm-r').innerText = c.armREval;
+      document.getElementById('val-leg-l').innerText = c.legL;
+      document.getElementById('eval-leg-l').innerText = c.legLEval;
+      document.getElementById('val-leg-r').innerText = c.legR;
+      document.getElementById('eval-leg-r').innerText = c.legREval;
+      document.getElementById('badge-segmental-status').innerText = c.segBadge;
+
+      document.getElementById('svg-trunk').setAttribute('fill', c.trunkColor);
+      document.getElementById('svg-arm-l').setAttribute('fill', c.armLColor);
+      document.getElementById('svg-arm-r').setAttribute('fill', c.armRColor);
+      document.getElementById('svg-leg-l').setAttribute('fill', c.legLColor);
+      document.getElementById('svg-leg-r').setAttribute('fill', c.legRColor);
+
+      document.getElementById('val-score').innerHTML = `${c.score}<span class="text-[10px] font-normal">/100点</span>`;
+      document.getElementById('val-vfl').innerText = c.vfl;
+      document.getElementById('val-smi').innerHTML = `${c.smi}<span class="text-[10px] font-normal"> kg/m²</span>`;
+      document.getElementById('val-bmc').innerText = c.bmc;
+      document.getElementById('val-bmr').innerText = c.bmr;
+      document.getElementById('val-waist').innerText = c.waist;
+
+      clickPaperZone(c.activeZone);
+    }
+
+    // 4. 紙面ゾーン詳細データ
+    const paperZoneDetails = {
+      comp: {
+        zoneName: "ZONE ① 体成分分析（4区画モデル）",
+        sub: "体水分(L) ＋ タンパク質(kg) ＋ ミネラル量(kg) ＋ 体脂肪量(kg) ＝ 体重",
+        basic: "人体の構成成分を化学的に分析。タンパク質不足は低栄養、ミネラル量不足は骨粗鬆症や骨折の危険性に直結します。",
+        combine: "【複数ゾーン掛け合わせ】<br/>・<strong>ミネラル量低 × 体重低：</strong>若年女性の最大骨量未達、または高齢者の骨粗鬆症ハイリスク。<br/>・<strong>体水分不均衡：</strong>むくみにより筋肉量が見かけ上多く算出される偽陽性に注意。",
+        talk: "「体重の数字だけでなく、骨や筋肉の材料となるタンパク質やミネラルがしっかり足りているかを見ることが、将来の元気な足腰を守る一番の秘訣です！」",
+        slideKey: "p12"
+      },
+      graph: {
+        zoneName: "ZONE ② 筋肉-脂肪グラフ（全体の体型シルエット：C/I/D型）",
+        sub: "中央の「100%理想基準線」に対して筋肉量が凹んでいるか・突出しているか",
+        basic: "中央の100%基準線に対し、筋肉が凹んでいれば『C型（低筋高脂）』、垂直に揃っていれば『I型』、突出していれば『D型（筋肉量多）』。",
+        combine: "【複数ゾーン掛け合わせ】<br/>・<strong>C型 × ZONE ⑤(内臓脂肪Lv高)：</strong>典型的なインスリン抵抗性型・隠れ肥満。<br/>・<strong>C型 × ZONE ④(両脚低)：</strong>代謝低下に加え、歩行ふらつきによる夜間転倒リスク。<br/>・<strong>処方薬連動：</strong>SGLT2阻害薬やGLP-1受容体作動薬服用中の筋肉減少追跡。",
+        talk: "「体重の数字だけでなく、内訳のバランスが最も大切です。筋肉量を守りながら、余分な脂肪を上手に燃やす次のステップへ進みましょう！」",
+        slideKey: "p14"
+      },
+      obesity: {
+        zoneName: "ZONE ③ 肥満指標（BMI × 体脂肪率）",
+        sub: "見かけの体格（BMI）と実際の脂質の比率（体脂肪率）の乖離を見抜く",
+        basic: "BMIだけでは体組成を十分に評価できません。BMIと体脂肪率を組み合わせ、InBodyの表示基準として体型を読み取ります。",
+        combine: "【複数ゾーン掛け合わせ】<br/>・<strong>BMI標準 × 体脂肪率高値：</strong>無理な食事制限や運動不足に多発。筋肉不足による冷えや食後高血糖リスクの温床。",
+        talk: "「見た目はスリムでも体脂肪率が高めの場合は、食事を減らすのではなくタンパク質とミネラルを摂って動かすことが一番の近道です！」",
+        slideKey: "p22"
+      },
+      segmental: {
+        zoneName: "ZONE ④ 部位別筋肉量（左右腕・体幹・左右脚 人体バランス）",
+        sub: "現在の体重を支え切れているかを評価（公式2段評価ロジック）",
+        basic: "実測値(kg)だけでなく下の％表記に注目。過体重の人は筋肉が多くても体を支えきれなければ『低』、やせ型の人は少なくても支えられれば『標準』と判定されます。",
+        combine: "【複数ゾーン掛け合わせ】<br/>・<strong>体幹標準 × 下肢低：</strong>上半身の重みを支える土台が弱く、変形性膝関節症・腰痛・歩行ふらつきの直結リスク。<br/>・<strong>× 睡眠薬・降圧薬(FRIDs)：</strong>夜間排尿時のふらつきによる大腿骨近位部骨折の超ハイリスク群。",
+        talk: "「腕や体幹は保たれていますが、両足の筋肉が少しお休みモードです。足の筋肉は体重を支える一番のブレーキですので、座ったままの足伸ばし運動で土台を作っていきましょう！」",
+        slideKey: "p24"
+      },
+      research: {
+        zoneName: "ZONE ⑤ 内臓脂肪・研究項目（骨ミネラル量BMC・SMI・点数）",
+        sub: "内臓脂肪Lv(目標≦10)、骨ミネラル量(BMC kg)、四肢骨格筋指数(SMI)",
+        basic: "骨ミネラル量（BMC）は除脂肪量から筋肉量を除いた骨塩総量。SMI（四肢骨格筋量÷身長²）はAWGS 2019基準でサルコペニアを早期判定します。",
+        combine: "【複数ゾーン掛け合わせ】<br/>・<strong>低SMI × 血清Cr低値：</strong>筋肉枯渇によるCr産生低下 ➔ 推算eGFR過大評価（DOAC等の中毒防止・シスタチンC提案）。<br/>・<strong>低BMC × 長期服薬（PPI・ステロイド）：</strong>薬剤性骨粗鬆症リスクの早期察知と医師共有。<br/>・<strong>点数空白（--）：</strong>体水分均衡破綻（浮腫・心不全疑い）。",
+        talk: "「骨ミネラル量や筋肉の指数を見ることで、将来の骨粗鬆症予防や代謝の様子が分かります。骨と筋肉を守る良い変化を一緒に見つけていきましょう！」",
+        slideKey: "p26"
+      }
+    };
+
+    function clickPaperZone(zoneKey) {
+      currentPaperZone = zoneKey;
+      const d = paperZoneDetails[zoneKey];
+      if (!d) return;
+
+      ['comp', 'graph', 'obesity', 'segmental', 'research'].forEach(k => {
+        const el = document.getElementById(`paper-zone-${k}`);
+        if (k === zoneKey) {
+          el.className = "p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 cursor-pointer transition space-y-1.5 zone-active-paper shadow-2xs";
+        } else {
+          el.className = "p-2.5 rounded-xl border border-slate-300 hover:border-sky-500 cursor-pointer transition space-y-1.5 bg-white";
+        }
+      });
+
+      document.getElementById('paper-detail-panel').innerHTML = `
+        <div class="space-y-3">
+          <div class="border-b border-slate-200 pb-2 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-sky-700 font-bold block uppercase tracking-wider">Zone Analysis</span>
+              <h4 class="font-black text-sky-950 text-sm sm:text-base">${d.zoneName}</h4>
+              <span class="text-xs text-slate-500 font-bold block mt-0.5">${d.sub}</span>
+            </div>
+            <button onclick="openSlideModal('${d.slideKey}')" class="px-3 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-bold border border-sky-300 transition flex items-center gap-1 shrink-0 shadow-2xs">
+              <span>📄 スライド原本</span>
+              <span>➔</span>
+            </button>
+          </div>
+
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
+            <strong class="text-slate-900 block font-bold flex items-center gap-1">
+              <span>🔍</span> 基本的な見立て：
+            </strong>
+            <p class="leading-relaxed text-xs text-slate-700">${d.basic}</p>
+          </div>
+
+          <div class="bg-sky-50/80 p-3.5 rounded-xl border border-sky-200 space-y-1 text-xs sm:text-sm">
+            <strong class="text-sky-900 block font-bold flex items-center gap-1">
+              <span>🧩</span> 複数ゾーン掛け合わせ考察（深読み）：
+            </strong>
+            <p class="leading-relaxed text-xs text-slate-800">${d.combine}</p>
+          </div>
+
+          <div class="bg-emerald-50/80 p-3.5 rounded-xl border border-emerald-200 space-y-1 text-xs sm:text-sm italic">
+            <strong class="text-emerald-950 block font-bold not-italic flex items-center gap-1">
+              <span>🗣️</span> 相談者へ伝える言葉かけ：
+            </strong>
+            <p class="text-slate-800 leading-relaxed text-xs sm:text-sm">${d.talk}</p>
+          </div>
+        </div>
+      `;
+      updateChangeViewContent();
+    }
+
+    // 5. QUICK / DEEP ＆ 視線ルート
+    const guideFlowData = {
+      comp: {
+        quick: "体重だけでなく、体水分・タンパク質・ミネラル・体脂肪など「体の中身」も一緒に見ておくと変化が分かりやすくなります。",
+        question: "「最近、食事量や食欲、水分のとり方に何か変化はありましたか？」",
+        deep: "食事・水分・体重の変化を聞き、必要なら服薬や検査値など別の情報と照らし合わせます。"
+      },
+      graph: {
+        quick: "体重が変わったときは、脂肪が変わったのか、筋肉などが変わったのかを一緒に見ると、変化の意味が分かりやすくなります。",
+        question: "「最近、食事や運動の量は前と比べて変わりましたか？」",
+        deep: "体重変化の中身を確認し、食事・活動量・服薬などの背景から次の一手を考えます。"
+      },
+      obesity: {
+        quick: "BMIは体格の目安なので、体脂肪率も一緒に見ると、体重だけでは分からない体の内訳を考えるきっかけになります。",
+        question: "「今いちばん気になっているのは、体重・見た目・体力のどれに近いですか？」",
+        deep: "本人の目的を起点に、食事・活動量・筋肉量などを確認し、必要なら医療情報へつなぎます。"
+      },
+      segmental: {
+        quick: "全身の筋肉量だけでなく、どの部分に変化があるかも見られます。普段よく使う足元と合わせて見てみましょう。",
+        question: "「歩く・階段を上る・立ち上がる動作で、最近気になることはありますか？」",
+        deep: "身体機能の実感を聞き、転倒歴・歩行・栄養・服薬（FRIDs等）など必要な情報へ広げます。"
+      },
+      research: {
+        quick: "ここには少し専門的な項目もあります。今日は気になる項目を一つだけ確認して、必要なら次回もう少し詳しく見ましょう。",
+        question: "「内臓脂肪や骨ミネラルなど、この中でいちばん気になる数字はどれですか？」",
+        deep: "本人の関心を起点に、検査値・処方・既往歴など確認できる情報と照合します。"
+      }
+    };
+
+    let currentRouteMode = 'quick';
+    function v132Route(mode) {
+      currentRouteMode = mode;
+      const btnQ = document.getElementById('v132-btn-quick');
+      const btnD = document.getElementById('v132-btn-deep');
+      if (mode === 'quick') {
+        btnQ.className = "p-2.5 rounded-xl border-2 border-emerald-400 bg-emerald-50/80 text-left transition flex items-center justify-between";
+        btnD.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-purple-300 flex items-center justify-between";
+      } else {
+        btnD.className = "p-2.5 rounded-xl border-2 border-purple-400 bg-purple-50/80 text-left transition flex items-center justify-between";
+        btnQ.className = "p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-left transition hover:border-emerald-300 flex items-center justify-between";
+      }
+      renderRoutePanel();
+    }
+
+    function renderRoutePanel() {
+      const d = guideFlowData[currentPaperZone] || guideFlowData.graph;
+      const p = document.getElementById('v132-panel');
+      if (!p) return;
+      if (currentRouteMode === 'quick') {
+        p.className = "p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/40 text-xs sm:text-sm space-y-1.5 transition";
+        p.innerHTML = `
+          <strong class="text-emerald-900 block font-black text-xs uppercase">⚡ 30秒で伝える一言：</strong>
+          <p class="text-slate-800 leading-relaxed font-bold">${d.quick}</p>
+          <div class="mt-1 pt-1 border-t border-emerald-200/60 text-[11px] text-emerald-800">
+            ここで終えてOK ➔ 「今日はここを意識して、また次回変化を見てみましょう！」
+          </div>
+        `;
+      } else {
+        p.className = "p-3.5 rounded-xl border border-purple-200 bg-purple-50/40 text-xs sm:text-sm space-y-1.5 transition";
+        p.innerHTML = `
+          <strong class="text-purple-900 block font-black text-xs uppercase">🔎 まず一つだけ聞く（対面質問）：</strong>
+          <p class="text-slate-900 font-bold leading-relaxed">${d.question}</p>
+          <div class="mt-1 pt-1 border-t border-purple-200/60 text-[11px] text-purple-800">
+            <strong>答えが出たら：</strong>${d.deep}
+          </div>
+        `;
+      }
+    }
+
+    function v131Guide(zoneKey) {
+      currentPaperZone = zoneKey;
+      ['comp', 'graph', 'obesity', 'segmental', 'research'].forEach(k => {
+        const btn = document.getElementById(`btn-guide-${k}`);
+        if (k === zoneKey) {
+          btn.className = "p-2.5 rounded-xl border-2 border-sky-500 bg-sky-50/70 text-left transition shadow-2xs";
+        } else {
+          btn.className = "p-2.5 rounded-xl border border-slate-200 bg-white text-left transition hover:border-sky-300";
+        }
+      });
+      clickPaperZone(zoneKey);
+      renderRoutePanel();
+    }
+
+    // 6. CHANGE VIEW データ
+    const changeViewData = {
+      comp: {
+        state: "体重だけでなく、体水分・タンパク質・ミネラル・体脂肪など「身体の中身」を見る。",
+        aim: "体重を単独のゴールにせず、身体の中身（除脂肪量）の変化を一緒に確認できる状態を目指す。",
+        next: "次回は、体重だけでなく「どの成分が動いたか」を見る。",
+        cue: "「もし次回ここが少し変わっていたら、何が変わったのか一緒に見てみましょう。」"
+      },
+      graph: {
+        state: "体重と、筋肉量・体脂肪量のバランスを見る。体重だけでは変化の中身が分からない。",
+        aim: "「減らす」だけではなく、脂肪の燃焼と筋肉量の維持を一緒に見る。",
+        next: "次回は、体重の変化に加えて筋肉・体脂肪のどちらが動いたかを見る。",
+        cue: "「次に測ったとき、体重だけでなくこの3本のバランスがどう変わったか一緒に見てみましょう。」"
+      },
+      obesity: {
+        state: "BMIと体脂肪率を組み合わせ、体格と身体の内訳を別々に考える。",
+        aim: "体重だけを追わず、本人の目的に合った変化を確認できる状態を目指す。",
+        next: "次回はBMIだけでなく、体脂肪率や筋肉量の変化も合わせて見る。",
+        cue: "「次回、体重が同じでも中身が変わっているか、一緒に見てみましょう。」"
+      },
+      segmental: {
+        state: "全身だけでなく、腕・体幹・脚など、どこに変化があるかを見る。",
+        aim: "普段の動作や活動と照らし合わせ、本人が実感できる変化につなげる。",
+        next: "次回は、気になっている部位（特に両脚）と数値の変化を一緒に確認する。",
+        cue: "「次に測ったとき、歩く・立つなどで気になっていたところがどう変わったか見てみましょう。」"
+      },
+      research: {
+        state: "内臓脂肪、SMI、骨ミネラル量など、目的に応じて意味を考える項目がある。",
+        aim: "数字を単独で良し悪しと決めず、本人の関心や他の情報と合わせて見る。",
+        next: "次回は、今回気になった項目がどう動いたかを確認する。",
+        cue: "「今日はこの数字を一つ覚えておいて、次回どう変わったか見てみましょう。」"
+      }
+    };
+
+    let currentChangeStep = 'state';
+    function setChangeStep(step) {
+      currentChangeStep = step;
+      ['state', 'aim', 'next'].forEach(s => {
+        const btn = document.getElementById(`btn-change-${s}`);
+        if (s === step) {
+          btn.className = "py-2 px-1 rounded-xl bg-orange-500 text-white shadow-2xs text-center transition";
+        } else {
+          btn.className = "py-2 px-1 rounded-xl bg-orange-50 text-orange-800 border border-orange-200 text-center transition hover:bg-orange-100";
+        }
+      });
+      updateChangeViewContent();
+    }
+
+    function updateChangeViewContent() {
+      const z = changeViewData[currentPaperZone] || changeViewData.graph;
+      const box = document.getElementById('change-detail-box');
+      const cue = document.getElementById('change-cue-text');
+      if (!box || !cue) return;
+
+      cue.innerText = z.cue;
+      if (currentChangeStep === 'state') {
+        box.innerHTML = `<strong>① 今の状態を理解：</strong>${z.state}`;
+      } else if (currentChangeStep === 'aim') {
+        box.innerHTML = `<strong>② 変化を考える：</strong>${z.aim}`;
+      } else {
+        box.innerHTML = `<strong>③ 次回どこを見る？：</strong>${z.next}`;
+      }
+    }
+
+    // 7. 5大ペルソナ別データ
+    const personaData = {
+      'young': {
+        title: "🌸 ① 若年層・女性（無理なダイエット・隠れ肥満・将来の骨粗鬆症予防）",
+        focus: "着目：ZONE ②(C型) × ZONE ③(BMI標準/体脂肪高) × ZONE ⑤(骨ミネラル量 BMC)",
+        problem: "体重だけを目標に食事を極端に減らし、筋肉と骨ミネラルが削られた『隠れ肥満』。20〜30代での最大骨量（ピークボーンマス）未達成は閉経後の急速な骨粗鬆症リスクに直結。冷え、低体温の火種。",
+        action: "「減量」から「美姿勢・骨と筋肉の貯金」へリフレーミング。食事量・たんぱく質・カルシウム・ビタミンDなどの摂取状況を確認し、必要に応じて栄養職種とも連携します。",
+        script: "「〇〇さん、体重はスリムでとても素敵ですが、内訳を見てみますと、体を支える筋肉と骨のミネラル量が少し控えめになっています。必要以上に食事を減らすと骨と筋肉が削られて、将来冷えや骨のもろさに繋がりやすくなります。しっかり食べて体の中からポカポカ引き締まる美姿勢を作っていきましょう！」"
+      },
+      'work': {
+        title: "👔 ② 働き盛り・多忙世代（運動不足・内臓脂肪・脂肪肝・メタボリックドミノ）",
+        focus: "着目：ZONE ②(過体重/肥満型) × ZONE ⑤(内臓脂肪Lv.11以上 ＆ 腹囲境界超過)",
+        problem: "デスクワークと外食・夜遅い食事による内臓脂肪蓄積。ALT/AST上昇（脂肪肝）、高尿酸血症など、メタボリックドミノの最上流に位置。",
+        action: "長時間の運動ではなく、「食後15分の速歩」「夕食の主食半量」「就寝直前の食事ストップ」などのマイクロアクション（1分生活処方）に合意。",
+        script: "「お仕事本当にお忙しい中、測定にお越しいただき素晴らしいです！体重は大きく崩れていませんが、お腹の内臓脂肪が少し蓄積しやすいサインが出ています。内臓脂肪は『普通預金』のように使われやすいので、夜遅い食事を少し控えて駅の階段を使うだけでも驚くほどすぐ下がってくれますよ！」"
+      },
+      'lifestyle': {
+        title: "💊 ③ 生活習慣病・服薬中の患者（降圧薬・血糖降下薬・脂質治療薬）",
+        focus: "着目：ZONE ②(C型) × ZONE ④(下肢筋肉量低) × ZONE ⑤(内臓脂肪高)",
+        problem: "全身のブドウ糖取り込みの70〜80%を担う骨格筋（特に下肢）が低下し、インスリン抵抗性が増大。薬を飲んでいても血糖や血圧がコントロール不良になりやすい。",
+        action: "薬物療法を大いに肯定した上で、「筋肉という最大の燃焼工場」を動かすことで薬の効き目を高め、将来的な『処方適正化』という目標を共有する。",
+        script: "「毎日忘れずにお薬を飲まれていること、本当に素晴らしいです！お薬は血管を広げたり糖を出してくれますが、食事の糖や脂質の約7割を燃やすのは『足の筋肉』なんです。足の筋肉が元気になると、お薬の効き目が格段に良くなり、将来お薬との付き合い方を見直す嬉しいゴールも見えてきますよ！」"
+      },
+      'sports': {
+        title: "🏃 ④ スポーツ・筋トレ・健康づくり層（D型維持・電解質バランス・高代謝）",
+        focus: "着目：ZONE ②(突出したD型) × ZONE ⑤(基礎代謝量・BMC) × 体水分均衡",
+        problem: "オーバートレーニング、大量発汗に伴う電解質（マグネシウム・カルシウム・カリウム）喪失によるこむら返り（足のつり）や脱水、関節・腱の疲労蓄積。",
+        action: "力強いD型シルエットと骨ミネラル量を称賛。運動前後の適切な電解質・水分補給、急速回復のための糖質：タンパク質黄金比補給、十分な休養日設定を指導。",
+        script: "「素晴らしい筋肉量と骨ミネラルバランスです！力強いD型シルエットで基礎代謝量も高く、筋肉量がしっかり保たれていますね。大量の発汗時は水分だけでなく電解質（マグネシウム等）が失われて足のつりや疲労に繋がりやすいので、運動前後の適切なミネラル補給と筋肉を育てる休息日を大切にしていきましょう！」"
+      },
+      'senior': {
+        title: "👵 ⑤ 高齢シニア・フレイル予防（転倒骨折ドミノ回避・骨粗鬆症薬継続・eGFR）",
+        focus: "着目：ZONE ④(下肢筋肉低) × ZONE ⑤(低SMI ＆ 低BMC) × FRIDs",
+        problem: "加齢性筋萎縮（サルコペニア）と骨密度低下が重複。睡眠薬や降圧薬のふらつきが重なると大腿骨骨折の超ハイリスク。Cr低値に伴う推算eGFR過大評価。",
+        action: "座ったままの椅子運動（大腿四頭筋セッティング）。骨粗鬆症治療薬の服薬継続の動機付け。シスタチンC再評価・非ベンゾ化の医師ディスカッション。",
+        script: "「腕や体幹は保たれていますが、足の筋肉と骨を支えるミネラルが少しお休みモードになっています。足の筋肉は夜中にトイレへ立つときの命綱のブレーキです。椅子に座ったまま片足を水平に5秒伸ばす運動を1日5回から始めて、ずっと行きたい場所へ歩ける元気な足腰を守りましょう！」"
+      }
+    };
+
+    function selectPersona(pKey) {
+      const d = personaData[pKey];
+      if (!d) return;
+
+      ['young', 'work', 'lifestyle', 'sports', 'senior'].forEach(k => {
+        const btn = document.getElementById(`persona-btn-${k}`);
+        if (k === pKey) {
+          btn.className = "p-2.5 rounded-xl text-left border-2 border-teal-500 bg-teal-50 text-teal-950 transition shadow-2xs";
+        } else {
+          btn.className = "p-2.5 rounded-xl text-left border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition";
+        }
+      });
+
+      document.getElementById('persona-panel').innerHTML = `
+        <div class="space-y-3">
+          <div class="border-b border-teal-100 pb-2">
+            <h4 class="font-black text-teal-950 text-sm sm:text-base">${d.title}</h4>
+            <span class="text-[11px] font-mono font-bold text-teal-800 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200 mt-1 inline-block">${d.focus}</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+            <div class="bg-rose-50/70 p-3.5 rounded-xl border border-rose-200 space-y-1">
+              <strong class="text-rose-900 block font-bold flex items-center gap-1">
+                <span>⚠</span> 潜んでいる臨床課題・病態背景
+              </strong>
+              <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${d.problem}</p>
+            </div>
+            <div class="bg-emerald-50/70 p-3.5 rounded-xl border border-emerald-200 space-y-1">
+              <strong class="text-emerald-900 block font-bold flex items-center gap-1">
+                <span>🎯</span> 薬剤師が提案する1アクション
+              </strong>
+              <p class="text-slate-700 leading-relaxed text-xs sm:text-sm">${d.action}</p>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1 text-xs sm:text-sm">
+            <div class="flex items-center justify-between">
+              <strong class="text-slate-900 font-bold flex items-center gap-1">
+                <span>🗣</span> 相談者の心に刺さるポジティブトーク
+              </strong>
+              <button onclick="copyToClipboard('${d.script}')" class="px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold transition shadow-2xs">
+                トークをコピー
+              </button>
+            </div>
+            <p class="text-slate-800 italic leading-relaxed text-xs sm:text-sm bg-white p-3 rounded-xl border border-slate-200">
+              ${d.script}
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    // 8. 6大希望別QOLデータ
+    const qolBenefitsData = {
+      'move': {
+        icon: '🏃',
+        sub: 'Move Freely & Lightly',
+        title: '「足元が羽のように軽くなり、階段や散歩が楽しくなる」未来へ',
+        badge: '着目する用紙項目：両脚の筋肉量（kg）',
+        talk: '「〇〇さん、足の筋肉は歩く・立つを支える大切な部分です。今の数値を一つの目安にして、階段や買い物などで『少し楽になった』と感じられる変化を、一緒に見ていきませんか？」',
+        action: '歯磨きをしながら「かかとを上げて5秒キープ」を1日10回。第二の心臓であるふくらはぎを刺激し、血液とエネルギーを全身に送り出します。',
+        timeline: '<strong>【2週間後】：</strong>夕方の足のだるさ・むくみが軽減。<br><strong>【1ヶ月後】：</strong>信号待ちや椅子からの立ち上がりが軽やかに！'
+      },
+      'pain': {
+        icon: '🩹',
+        sub: 'Pain-Free Active Life',
+        title: '「太ももが天然のサポーターになり、膝や腰の重だるさがスーッと軽くなる」未来へ',
+        badge: '着目する用紙項目：左右下肢筋肉バランス',
+        talk: '「膝や腰の痛みは、骨や軟骨が一人で体重を支えきれなくなっているサインです。太ももの筋肉は『天然のサポーター』。ここが少し引き締まるだけで、体重のクッションになって痛みが驚くほど和らぎます。体重をかけない座り運動から始めましょう！」',
+        action: 'テレビを見ながら、椅子に深く腰掛けて「片足を水平に伸ばして5秒キープ」。左右交互に5回ずつ。膝に負担をかけずに大腿四頭筋を鍛えます。',
+        timeline: '<strong>【2週間後】：</strong>立ち上がり時の『イタタ…』が軽減。<br><strong>【1ヶ月後】：</strong>階段を降りるときの膝の不安感が解消！'
+      },
+      'sleep': {
+        icon: '🌙',
+        sub: 'Deep Sleep & Fresh Morning',
+        title: '「夜はベッドに入って即ぐっすり、朝は目覚まし前にスッキリ起きられる」未来へ',
+        badge: '着目する用紙項目：基礎代謝量 ＆ 骨格筋量',
+        talk: '「日中、筋肉に適度な刺激を与えると、夜に良質な睡眠ホルモン（メラトニン）がたっぷり分泌されます。さらに筋肉が増えると寝ている間の体温が保たれ、夜中に寒さやトイレで起きることが減り、朝の目覚めが爽快になりますよ！」',
+        action: '夕食後や寝る1時間前の「深呼吸しながらの股関節・ふくらはぎストレッチ」。副交感神経を優位にし、スムーズな入眠を促します。',
+        timeline: '<strong>【3日後】：</strong>寝付きの早さと朝の目覚めの良さを実感。<br><strong>【2週間後】：</strong>日中の眠気やだるさがスッキリ解消！'
+      },
+      'posture': {
+        icon: '✨',
+        sub: 'Youthful Posture & Confidence',
+        title: '「背筋がピンと伸びてお腹スッキリ、周りから『若々しいね！』と褒められる」未来へ',
+        badge: '着目する用紙項目：体幹筋肉量 ＆ 内臓脂肪レベル',
+        talk: '「体幹の筋肉は、身体を内側から支える『美姿勢の柱』です。ここがシャンとすると、胃腸が正しい位置に戻ってポッコリお腹が自然と引っ込みます。お洋服がスッキリ着こなせて、歩く姿も5歳若返って見えますよ！」',
+        action: '椅子に座る時、おへその下（丹田）に軽く力を入れて背もたれから背中を5cm離す「美姿勢キープ」。',
+        timeline: '<strong>【1週間後】：</strong>背中のハリや肩こりが楽になる。<br><strong>【1ヶ月後】：</strong>スカートやズボンのウエスト周りに嬉しい余裕が！'
+      },
+      'disease': {
+        icon: '💊',
+        sub: 'Natural Health & Deprescribing',
+        title: '「筋肉と生活習慣を整え、お薬との付き合い方を見直す」未来へ',
+        badge: '着目する用紙項目：骨格筋量（SMM） / 筋肉発達率',
+        talk: '「毎日のお薬服用、本当に素晴らしい管理力です！実は、血液中の糖分の約70〜80%を消費してくれる最大の燃焼工場は『筋肉』なんです。筋肉が元気に働き始めると、お薬の効き目が格段に良くなり、将来的にお薬との付き合い方を見直せる嬉しい可能性が大きく広がります！」',
+        action: '食後15分〜30分の間に、その場で足踏み100回または軽い散歩。食後の血糖値スパイクを筋肉がダイレクトに吸収します。',
+        timeline: '<strong>【1ヶ月後】：</strong>次回の血液検査（血糖値・中性脂肪・HbA1c）で改善の兆候。<br><strong>【3ヶ月後】：</strong>主治医から『お薬減らせるかもね』と言われる未来へ！'
+      },
+      'travel': {
+        icon: '🍁',
+        sub: 'Lifelong Freedom & Vitality',
+        title: '「何歳になっても自分の足で行きたい場所へ！旅行や趣味を一生楽しめる」未来へ',
+        badge: '着目する用紙項目：四肢骨格筋指数（SMI）',
+        talk: '「健康の最大の目的は、やりたいことを思い切り楽しめる自由ですよね。足腰の筋肉がしっかりしていれば、温泉旅行の石段も、お孫さんとの外出も、ずっと笑顔で自分の足で楽しめます。筋肉は何歳からでも育ちます。一生楽しむための貯金を今から始めましょう！」',
+        action: 'お出かけ時に「いつもより歩幅を3cm広げて歩く」。これだけで大腰筋（深層筋肉）が刺激され、つまずきをゼロにします。',
+        timeline: '<strong>【2週間後】：</strong>歩行スピードが自然と速くなり、疲れにくくなる。<br><strong>【半年後】：</strong>長時間の外出や旅行でも全く足が痛まない自信を獲得！'
+      }
+    };
+
+    function selectQolBenefit(type) {
+      const data = qolBenefitsData[type];
+      if (!data) return;
+
+      document.getElementById('qolCardIcon').innerText = data.icon;
+      document.getElementById('qolCardSub').innerText = data.sub;
+      document.getElementById('qolCardTitle').innerText = data.title;
+      document.getElementById('qolKeyMetricBadge').innerText = data.badge;
+      document.getElementById('qolTalkText').innerText = data.talk;
+      document.getElementById('qolActionText').innerText = data.action;
+      document.getElementById('qolTimelineText').innerHTML = data.timeline;
+
+      document.querySelectorAll('.qol-btn').forEach(btn => {
+        btn.classList.remove('border-2', 'border-emerald-400', 'bg-emerald-50');
+        btn.classList.add('border-slate-200', 'bg-white');
+      });
+      event.currentTarget.classList.remove('border-slate-200', 'bg-white');
+      event.currentTarget.classList.add('border-2', 'border-emerald-400', 'bg-emerald-50');
+    }
+
+    // 9. 医師ディスカッション論点データ
+    const rxDocDetails = {
+      egfr: {
+        title: "Case 1. 骨格筋著減に伴う推算eGFR過大評価と腎排泄型薬剤の過量投与防止",
+        target: "着目薬剤：DOAC / ジゴキシン / ガバペンチノイド / 親水性抗菌薬",
+        view: "SMIがサルコペニア基準を下回る患者では、内因性クレアチニン産生そのものが低下しているため、血清Crが0.3〜0.5mg/dL等と異常低値を示し、推算eGFRが見かけ上正常〜高値に算出される。実質腎機能（GFR）低下を見落とした過量投与事故を防ぐ。",
+        talk: "「〇〇さん、いま筋肉がかなり細くなっていて、お体の代謝の様子が少し変わってきているサインが出ています。次回主治医の先生に『薬局で筋肉量を測ったらかなり少なめだったので、今のお薬の量や腎臓の数値に影響がないか確認してほしいと言われました』と一言お伝えしてみませんか？」",
+        point: "・InBodyによる四肢骨格筋量著減（低SMI）の客観的事実を共有<br/>・筋肉量の影響を受けない血清シスタチンC（eGFRcys）に基づく腎機能再評価の提案<br/>・腎排泄型薬物の投与設計・減量検討のディスカッション",
+        summary: "【薬学的判断・共有事項】患者様のInBody測定にて四肢骨格筋指数（SMI）著減を認めました。筋肉量減少に伴い血清Cr産生低下により、推算eGFRが見かけ上過大評価されている懸念がございます。処方中の腎排泄型薬剤につきまして、シスタチンCでの再評価や用量適正化をご相談させていただけますと幸いです。"
+      },
+      frids: {
+        title: "Case 2. 下肢筋肉量低下 × 転倒誘発薬（FRIDs）による夜間骨折ハイリスクの未然防止",
+        target: "着目薬剤：BZ系/Z-drug睡眠薬 / α1遮断薬・降圧薬 / 抗コリン薬",
+        view: "下肢筋肉量が『低』の場合、上半身の体重を支える土台とブレーキ機能が低下している。ここに睡眠薬の筋弛緩・翌朝持ち越しや降圧薬の起立性低血圧が重なると、夜間排尿時の大腿骨近位部骨折リスクが急激に跳ね上がる。骨ミネラル量（BMC）低下も併せて評価。",
+        talk: "「〇〇さん、腕や体幹は保たれていますが、足の筋肉が少しお休みモードになっています。夜間にトイレへ立たれるとき、足元がふらついたりヒヤッとしたことはありませんか？安心して眠れるよう、先生と一緒にお薬の見直しを相談してみましょう。」",
+        point: "・下肢筋肉量著減（標準比低値）と夜間ふらつき自覚の共有<br/>・筋弛緩作用の少ない非ベンゾジアゼピン系（オレキシン受容体拮抗薬等）への変更相談<br/>・就寝前降圧薬の服用タイミング調整や睡眠衛生指導の実施",
+        summary: "【薬学的判断・共有事項】患者様のInBody測定にて下肢筋肉量『低』を認めました。処方中の睡眠薬・降圧薬による筋弛緩・起立性ふらつきと相まって夜間転倒・骨折リスクが高いとアセスメントいたします。転倒防止の観点より、非ベンゾ系睡眠薬への変更や漸減のご検討につきご相談申し上げます。"
+      },
+      edema: {
+        title: "Case 3. 細胞外水分比率異常（ECW高値・点数空白）と心不全・浮腫の早期察知",
+        target: "着目薬剤：ループ利尿薬 / Ca拮抗薬（浮腫副作用） / NSAIDs",
+        view: "下肢筋肉量が『高』と出ても喜んではいけない。細胞外水分比率（ECW/TBW）≧0.400や点数空白は、組織間隙への水分貯留（浮腫）を反映した見かけの偽陽性。心不全の潜在的増悪、低アルブミン血症、または利尿薬のアドヒアランス低下を疑う。",
+        talk: "「〇〇さん、足の測定数値に少し水分が多く溜まっているサインが出ています。最近、夕方に靴下のゴム跡が深く残ったり、階段を登ったときにいつもより息が切れるようなことはございませんか？一度主治医の先生に足のむくみ具合を診ていただきましょう。」",
+        point: "・細胞外水分比率高値およびInBody点数算出不能、下腿圧痕性浮腫（pitting edema）の報告<br/>・心不全増悪の精査や利尿薬の用量調節の検討依頼<br/>・Ca拮抗薬等による薬剤性浮腫の鑑別",
+        summary: "【薬学的判断・共有事項】患者様の測定にて細胞外水分比率（ECW/TBW）高値と著明な体水分貯留を認め、下腿圧痕性浮腫および直近体重急増を確認いたしました。心不全増悪または体水分コントロール不全の懸念がございますため、循環機能・腎機能のご診察および利尿薬等のご評価をご検討いただけますよう情報共有いたします。"
+      }
+    };
+
+    function switchRxDoc(key) {
+      const d = rxDocDetails[key];
+      if (!d) return;
+
+      ['egfr', 'frids', 'edema'].forEach(k => {
+        const btn = document.getElementById(`btn-collab-${k}`);
+        if (k === key) {
+          btn.className = "p-3 rounded-xl border-2 border-indigo-400 bg-indigo-50/80 text-indigo-950 text-left transition shadow-2xs";
+        } else {
+          btn.className = "p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 text-left transition hover:border-indigo-200";
+        }
+      });
+
+      document.getElementById('rxdoc-panel').innerHTML = `
+        <div class="space-y-3">
+          <div class="flex items-center justify-between border-b border-indigo-100 pb-2">
+            <h4 class="font-black text-indigo-950 text-sm sm:text-base">${d.title}</h4>
+            <span class="text-xs font-mono font-bold bg-white text-indigo-800 px-2.5 py-0.5 rounded-full border border-indigo-200">${d.target}</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
+              <strong class="text-indigo-900 block font-bold text-xs flex items-center gap-1">
+                <span>🧠</span> 薬剤師の薬学的見立て
+              </strong>
+              <p class="text-slate-600 text-xs leading-relaxed">${d.view}</p>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
+              <strong class="text-emerald-900 block font-bold text-xs flex items-center gap-1">
+                <span>🗣️</span> 相談者への助言
+              </strong>
+              <p class="text-slate-600 text-xs leading-relaxed italic">${d.talk}</p>
+            </div>
+            <div class="bg-white p-3.5 rounded-xl border border-indigo-100 space-y-1">
+              <strong class="text-purple-900 block font-bold text-xs flex items-center gap-1">
+                <span>🩺</span> 医師とのディスカッション論点
+              </strong>
+              <p class="text-slate-600 text-xs leading-relaxed">${d.point}</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-3.5 border-2 border-indigo-300 space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="text-indigo-900 font-bold text-xs flex items-center gap-1">
+                <span>📋</span> 主治医・多職種共有用 要点サマリーメモ
+              </span>
+              <button onclick="copyToClipboard('${d.summary}')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition shadow-2xs">
+                コピー
+              </button>
+            </div>
+            <p class="text-slate-700 text-xs font-mono leading-relaxed bg-indigo-50/50 p-3 rounded-lg border border-indigo-200 select-all">
+              ${d.summary}
+            </p>
+          </div>
+        </div>
+      `;
+    }
+
+    // 10. SMI計算機
+    function calculateSMI() {
+      const gender = document.getElementById('smi-gender').value;
+      const heightCm = parseFloat(document.getElementById('smi-height').value) || 0;
+      const asm = parseFloat(document.getElementById('smi-asm').value) || 0;
+      const resDiv = document.getElementById('smi-result');
+
+      if (heightCm <= 0 || asm <= 0) return;
+
+      const heightM = heightCm / 100;
+      const smi = (asm / (heightM * heightM)).toFixed(2);
+      const cutoff = gender === 'male' ? 7.0 : 5.7;
+      const isSarcopenia = smi < cutoff;
+
+      resDiv.className = `p-3.5 rounded-xl border text-xs sm:text-sm font-bold space-y-1 ${isSarcopenia ? 'bg-rose-50 border-rose-300 text-rose-900' : 'bg-emerald-50 border-emerald-300 text-emerald-900'}`;
+      resDiv.innerHTML = `
+        <div class="flex items-baseline gap-2">
+          <span class="text-xs">算出 SMI:</span>
+          <span class="text-2xl sm:text-3xl font-black font-mono ${isSarcopenia ? 'text-rose-600' : 'text-emerald-700'}">${smi}</span>
+          <span class="text-xs">kg/m² （AWGS 2019基準値: ${cutoff} kg/m²未満）</span>
+        </div>
+        <p class="mt-1">${isSarcopenia ? '⚠️ サルコペニア基準に該当（骨格筋量減少）。Crベースの推算eGFR過大評価リスクや転倒リスクの精査が強く推奨されます。' : '✅ 基準値以上です。力強い骨格筋量が良好に維持されています。'}</p>
+      `;
+    }
+
+    // 11. 検索機能
+    function filterManual() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      if (!q) {
+        document.querySelectorAll('main > section, details').forEach(el => el.style.display = '');
+        return;
+      }
+      document.querySelectorAll('details, #phase-rx .grid > div, #persona-panel, #paper-detail-panel, #sec-slide-gallery button').forEach(el => {
+        if (el.innerText.toLowerCase().includes(q)) {
+          el.style.display = '';
+          if (el.tagName === 'DETAILS') el.open = true;
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    function copyToClipboard(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-14 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs px-4 py-2.5 rounded-full shadow-2xl z-50 font-bold border border-slate-700';
+      toast.innerText = 'テキストをクリップボードにコピーしました！';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 2200);
+    }
+
+    function copyScriptText(btn) {
+      const container = btn.closest('details');
+      const textEl = container.querySelector('.italic');
+      if (textEl) copyToClipboard(textEl.innerText);
+    }
+
+    // 読書進捗バー
+    window.addEventListener('scroll', () => {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const ratio = max > 0 ? (window.scrollY / max) : 0;
+      const bar = document.getElementById('reading-progress');
+      if (bar) bar.style.width = (ratio * 100).toFixed(2) + '%';
+    }, { passive: true });
+
+    // 初期化
+    window.addEventListener('DOMContentLoaded', () => {
+      showPostureTip('armpit');
+      applyLiveCase('C_skinny');
+      selectPersona('young');
+      selectQolBenefit('move');
+      switchRxDoc('egfr');
+      calculateSMI();
+      v131Guide('graph');
+      v132Route('quick');
+      setChangeStep('state');
+    });
+  </script>
+</body>
+</html>
