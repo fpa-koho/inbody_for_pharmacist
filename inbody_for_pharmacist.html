@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="theme-color" content="#ffffff"/>
-  <title>InBody指導マニュアル for Pharmacist v13.7 ｜ 福岡市薬剤師会 広報委員会</title>
+  <title>InBody指導マニュアル for Pharmacist ｜ 福岡市薬剤師会 広報委員会</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,7 +31,7 @@
     }
   </script>
 
-  <!-- 統合・最適化デザインシステム (Clean CSS Engine v13.7) -->
+  <!-- 統合・最適化デザインシステム (Clean CSS Engine) -->
   <style>
     :root {
       --ink: #0f172a;
@@ -115,19 +115,34 @@
       }
     }
 
-    /* v13.7 accessibility tuning */
     .text-\[10px\] { font-size: 11px !important; line-height: 1.45; }
     .paper-sheet .text-\[10px\] { font-size: 10px !important; }
     @media (min-width: 768px) { .text-\[10px\] { font-size: 12px !important; } }
 
-    /* V13.6 Signal Check Styles */
+    /* 30秒相談セクション（旧V13.6エリア） */
     .v136-hero{background:linear-gradient(135deg,#ffffff 0%,#f0f9ff 52%,#ecfdf5 100%);border:1px solid #bae6fd;border-radius:24px;padding:18px;box-shadow:0 10px 28px rgba(15,23,42,.07)}
     .v136-kicker{font-size:10px;font-weight:900;letter-spacing:.14em;color:#0369a1;text-transform:uppercase}
     .v136-title{font-size:20px;line-height:1.35;font-weight:950;color:#0f172a;margin-top:3px}
     .v136-sub{font-size:12px;line-height:1.75;color:#475569;margin-top:6px}
-    .v136-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:14px}
-    .v136-flow span{display:flex;align-items:center;justify-content:center;min-height:38px;border-radius:11px;background:#fff;border:1px solid #dbeafe;font-size:10px;font-weight:900;color:#334155;text-align:center;padding:4px}
-    .v136-flow span:nth-child(2){color:#0369a1}.v136-flow span:nth-child(3){color:#047857}.v136-flow span:nth-child(4){color:#7c3aed}.v136-flow span:nth-child(5){color:#c2410c}
+    
+    /* 思考プロセスステップバー（偽アフォーダンスを排除した流れるステップ図） */
+    .v136-process-bar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:4px;margin-top:14px;padding:8px 12px;border-radius:14px;
+      background:rgba(255,255,255,0.7);border:1px dashed #93c5fd;
+      overflow-x:auto;
+    }
+    .v136-step-item{
+      display:inline-flex;align-items:center;gap:4px;
+      font-size:11px;font-weight:900;color:#334155;white-space:nowrap;
+    }
+    .v136-step-num{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:900;
+      color:#fff;background:#0284c7;
+    }
+    .v136-step-arrow{color:#94a3b8;font-size:11px;font-weight:900;user-select:none;}
+
     .v136-signal-wrap{background:#fff;border:1px solid #cbd5e1;border-radius:22px;padding:15px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
     .v136-signal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .v136-signal-btn{min-height:72px;text-align:left;border:1px solid #dbe3ec;border-radius:14px;background:#f8fafc;padding:10px;cursor:pointer;transition:.18s ease}
@@ -139,9 +154,14 @@
     .v136-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.v136-box{background:#fff;border:1px solid #e2e8f0;border-radius:13px;padding:10px}.v136-box h4{font-size:11px;font-weight:900;margin:0 0 4px}.v136-box p,.v136-box li{font-size:11px;line-height:1.7;color:#475569}.v136-box ul{padding-left:1.1em;margin:0}.v136-talk{background:#ecfdf5!important;border-color:#a7f3d0!important}.v136-talk h4{color:#047857}.v136-pharm{background:#f5f3ff!important;border-color:#ddd6fe!important}.v136-pharm h4{color:#6d28d9}.v136-caution{background:#fff7ed!important;border-color:#fed7aa!important}.v136-caution h4{color:#c2410c}.v136-action{background:#eff6ff!important;border-color:#bfdbfe!important}.v136-action h4{color:#0369a1}
     .v136-quick{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.v136-quick button{min-height:52px;border-radius:13px;border:1px solid #dbe3ec;background:#fff;font-size:11px;font-weight:900;color:#334155;transition:all 0.15s ease;}.v136-quick button.active{border-color:#0284c7;background:#eff6ff;color:#075985}
     .v136-rule{margin-top:11px;padding:11px 12px;border-radius:14px;background:#f8fafc;border:1px dashed #cbd5e1;font-size:11px;line-height:1.65;color:#475569}.v136-rule strong{color:#0f172a}
-    @media(max-width:640px){.v136-flow{grid-template-columns:1fr;gap:4px}.v136-flow span{min-height:28px}.v136-signal-grid{grid-template-columns:1fr}.v136-columns{grid-template-columns:1fr}.v136-quick{grid-template-columns:1fr}}
+    @media(max-width:640px){
+      .v136-signal-grid{grid-template-columns:1fr}
+      .v136-columns{grid-template-columns:1fr}
+      .v136-quick{grid-template-columns:1fr}
+      .v136-process-bar{flex-wrap:wrap;justify-content:flex-start;gap:6px;}
+    }
 
-    /* V13.7 Judgment Navigator Styles */
+    /* 対話ナビセクション（旧V13.7エリア） */
     .v137-hero{background:linear-gradient(135deg,#fff 0%,#f8fafc 48%,#f0fdf4 100%);border:1px solid #cbd5e1;border-radius:24px;padding:18px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
     .v137-kicker{font-size:10px;font-weight:900;letter-spacing:.14em;color:#047857;text-transform:uppercase}
     .v137-title{font-size:20px;line-height:1.4;font-weight:950;color:#0f172a;margin-top:3px}
@@ -202,7 +222,7 @@
           <div>
             <div class="flex items-center gap-2">
               <span class="text-[10px] font-black tracking-wider text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full uppercase">福岡市薬剤師会 広報委員会</span>
-              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">v13.7 判断ナビ版</span>
+              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 border border-sky-300 px-2 py-0.5 rounded-full">臨床対話ナビ版</span>
             </div>
             <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight mt-0.5">
               InBody指導マニュアル <span class="text-sky-600 font-mono text-sm sm:text-base">for Pharmacist</span>
@@ -229,7 +249,7 @@
     </div>
   </header>
 
-  <!-- 上部ナビゲーション（7大ステップ／スマホ対応横スクロールレール） -->
+  <!-- 上部ナビゲーション（臨床機能名に統一・横スクロールレール） -->
   <nav class="sticky top-[58px] md:top-[61px] z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 py-2 px-3 shadow-xs">
     <div class="max-w-6xl mx-auto overflow-x-auto no-scrollbar">
       <div class="flex sm:grid sm:grid-cols-7 gap-1.5 sm:gap-2 text-center font-bold text-xs min-w-[620px] sm:min-w-0">
@@ -238,12 +258,12 @@
           <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">① 測定姿勢</span>
         </a>
         <a href="#v136-signal-check" class="flex-1 py-2 px-1 rounded-xl bg-sky-50 border-2 border-sky-400 text-sky-950 shadow-2xs hover:bg-sky-100 transition flex flex-col items-center justify-center">
-          <span class="text-[9px] text-sky-600 font-black tracking-widest uppercase">V13.6</span>
-          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">🔎 30秒相談</span>
+          <span class="text-[9px] text-sky-600 font-black tracking-widest uppercase">⚡ SPEED</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">30秒相談</span>
         </a>
         <a href="#v137-judgment" class="flex-1 py-2 px-1 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-emerald-950 shadow-2xs hover:bg-emerald-100 transition flex flex-col items-center justify-center">
-          <span class="text-[9px] text-emerald-700 font-black tracking-widest uppercase">V13.7</span>
-          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">🧭 判断ナビ</span>
+          <span class="text-[9px] text-emerald-700 font-black tracking-widest uppercase">🧭 NAVI</span>
+          <span class="text-[11px] sm:text-xs font-black whitespace-nowrap">対話ナビ</span>
         </a>
         <a href="#phase-live-paper" class="flex-1 py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 hover:border-sky-400 hover:text-sky-900 transition flex flex-col items-center justify-center">
           <span class="text-[9px] text-sky-600 font-black tracking-widest uppercase">STEP 2</span>
@@ -441,13 +461,28 @@
       </div>
     </section>
 
-    <!-- ==================== V13.6: SIGNAL CHECK / 30秒対面相談 ==================== -->
+    <!-- ==================== 30秒相談セクション（旧V13.6）：SIGNAL CHECK ==================== -->
     <section id="v136-signal-check" class="scroll-mt-32 space-y-4">
       <div class="v136-hero">
-        <div class="v136-kicker">V13.6 · PHARMACIST INTERACTION ENGINE</div>
+        <div class="v136-kicker">INTERACTION ENGINE · 30-SECOND COUNSELING</div>
         <div class="v136-title">「全部を読む」から、<span class="text-sky-700">今日ひとつ話す</span>へ。</div>
-        <p class="v136-sub">InBody 470の結果用紙を薬剤師自身の目でざっと見て、「ここが気になる」と感じた場所を1つ選びます。V13.6は、その気づきを<strong>質問 → 説明 → 次の一歩</strong>につなげるための現場支援です。</p>
-        <div class="v136-flow"><span>① 見る</span><span>② 気づく</span><span>③ 選ぶ</span><span>④ 聞く・伝える</span><span>⑤ 次回につなぐ</span></div>
+        <p class="v136-sub">InBody 470の結果用紙を薬剤師自身の目でざっと見て、「ここが気になる」と感じた場所を1つ選びます。本機能は、その気づきを<strong>質問 → 説明 → 次の一歩</strong>につなげるための現場支援です。</p>
+        
+        <!-- 洗練された思考プロセスマップ（誤クリックを防ぎ、思考の流れが一目でわかるデザイン） -->
+        <div class="v136-process-bar">
+          <span class="text-[10px] text-sky-900 font-black mr-1 flex items-center gap-1">
+            <span>💡</span> 30秒思考の流れ：
+          </span>
+          <div class="v136-step-item"><span class="v136-step-num">1</span><span>見る</span></div>
+          <span class="v136-step-arrow">➔</span>
+          <div class="v136-step-item"><span class="v136-step-num">2</span><span>気づく</span></div>
+          <span class="v136-step-arrow">➔</span>
+          <div class="v136-step-item"><span class="v136-step-num">3</span><span>選ぶ</span></div>
+          <span class="v136-step-arrow">➔</span>
+          <div class="v136-step-item"><span class="v136-step-num">4</span><span>聞く・伝える</span></div>
+          <span class="v136-step-arrow">➔</span>
+          <div class="v136-step-item"><span class="v136-step-num">5</span><span>次回につなぐ</span></div>
+        </div>
       </div>
 
       <div class="v136-signal-wrap">
@@ -478,13 +513,13 @@
       </div>
     </section>
 
-    <!-- ==================== V13.7: PHARMACIST JUDGMENT NAVIGATOR ==================== -->
+    <!-- ==================== 対話ナビセクション（旧V13.7）：CLINICAL NAVIGATOR ==================== -->
     <section id="v137-judgment" class="scroll-mt-32 space-y-4">
       <div class="v137-hero">
-        <div class="v137-kicker">V13.7 · PHARMACIST JUDGMENT NAVIGATOR</div>
+        <div class="v137-kicker">CLINICAL NAVIGATOR · JUDGMENT & SAFETY</div>
         <div class="v137-title">「気になる」を、<span class="text-emerald-700">今日の対話</span>に変える。</div>
         <p class="v137-sub">
-          V13.6のSignal Checkを一段進め、<strong>何を見るか → 測定条件を確かめる → 何を優先するか → 何を聞くか → どこまで伝えるか</strong>を薬剤師自身が判断できるようにします。
+          直前のシグナルチェックを一段進め、<strong>何を見るか → 測定条件を確かめる → 何を優先するか → 何を聞くか → どこまで伝えるか</strong>を薬剤師自身が判断できるようにします。
           これは診断を自動化する機能ではなく、目の前のInBody 470結果用紙から「次の一言」を組み立てるためのナビゲーションです。
         </p>
         <div class="v137-grid">
@@ -500,7 +535,7 @@
             <div class="text-[10px] font-black tracking-widest text-emerald-700 uppercase">JUDGMENT NAVIGATOR</div>
             <h3 class="text-sm sm:text-base font-black text-slate-900">選んだSignalを、どう扱う？</h3>
           </div>
-          <span class="text-[10px] font-bold text-slate-500">V13.6を補強</span>
+          <span class="text-[10px] font-bold text-slate-500">シグナル対話を補強</span>
         </div>
 
         <div class="v137-tabs">
@@ -555,7 +590,7 @@
           </div>
           <div class="v137-card v137-purplebox">
             <h4>🧭 INTERMEDIATE｜判断を自分で行う</h4>
-            <p>先に自分で1テーマを選び、あとからV13.7で確認する。アプリを「答え」ではなく「答え合わせ」にする。</p>
+            <p>先に自分で1テーマを選び、あとから対話ナビで確認する。アプリを「答え」ではなく「答え合わせ」にする。</p>
           </div>
         </div>
         <div class="v137-card v137-greenbox">
@@ -568,7 +603,7 @@
         <div class="flex items-center justify-between gap-2 mb-2">
           <div>
             <div class="text-[10px] font-black tracking-widest text-rose-700 uppercase">SAFETY GUARDRAIL</div>
-            <h3 class="text-sm sm:text-base font-black text-slate-900">V13.7で「やらないこと」を明文化</h3>
+            <h3 class="text-sm sm:text-base font-black text-slate-900">現場で「やらないこと」の安全基準（NOT TO DO）</h3>
           </div>
         </div>
 
@@ -578,8 +613,8 @@
         <label class="v137-check cursor-pointer select-none"><input type="checkbox" aria-label="測定条件の違いを無視しない"><span><strong>測定条件の違いを無視しない。</strong> 前回値との比較では、条件の違いが結果に影響しうることを意識する。</span></label>
 
         <div class="v137-v14">
-          <strong>🔭 V14への橋渡し</strong>
-          <p>V13.7で整理した「SIGNAL → CONTEXT → PRIORITY → TALK → NEXT」が、将来のカメラ読み取り時のAI判定フローになります。V14ではAIが最初の候補を提示しても、薬剤師が確認・修正してから対話へ進む設計を基本とします。</p>
+          <strong>🔭 今後のAIカメラ読み取り展開（V14）への橋渡し</strong>
+          <p>ここで整理した「SIGNAL → CONTEXT → PRIORITY → TALK → NEXT」の思考順序が、将来のカメラ自動読み取り時の判定フローになります。AIが候補を自動抽出しても、薬剤師が目で確認・修正してから対話へ進む安全設計の基準となります。</p>
         </div>
       </div>
     </section>
@@ -1589,7 +1624,7 @@
   <!-- フッター -->
   <footer class="mt-8 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
     <p class="font-bold text-slate-800 text-sm mb-1">福岡市薬剤師会 広報委員会</p>
-    <p class="text-xs">InBody指導マニュアル for Pharmacist v13.7 ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
+    <p class="text-xs">InBody指導マニュアル for Pharmacist ｜ 地域包括ケア・全世代臨床意思決定支援ツール</p>
   </footer>
 
   <!-- スライド原本全画面ポップアップモーダル -->
@@ -2442,7 +2477,6 @@
       }
     };
 
-    // 安全化された selectQolBenefit 関数（バグ修正済み）
     function selectQolBenefit(type) {
       const data = qolBenefitsData[type];
       if (!data) return;
@@ -2617,7 +2651,7 @@
       if (textEl) copyToClipboard(textEl.innerText);
     }
 
-    /* ===== V13.6 Signal Check Logic ===== */
+    /* ===== Signal Check ロジック ===== */
     const v136Signals = {
       p01:{name:'筋肉量低下・活動低下のサイン',zone:'②筋肉-脂肪分析 / ④部位別筋肉',priority:'red',label:'高',look:'SMMと下肢筋肉量の変化。特に前回より下がっているか。',talk:'「前回と比べて、足の筋肉量に少し変化がありますね。最近、歩く量や外出の頻度に変化はありませんでしたか？」',ask:['歩く速度・外出・買い物など活動量','食事量と肉・魚・卵・大豆などの摂取','足腰の痛み、体調変化、新しく始まった薬'],pharm:'年齢や運動不足だけに決めつけず、活動低下・食事・痛み・服薬変化を一緒に確認する。',caution:'この結果だけで「サルコペニア」「筋肉が衰えた」と断定しない。',action:'負担の少ない活動・食事の工夫を1つ決め、次回は同じ条件で変化を見る。'},
       p02:{name:'体脂肪増加 × 筋肉維持/低下',zone:'②筋肉-脂肪分析',priority:'yellow',label:'中',look:'体脂肪量が増え、SMMが維持または低下しているか。',talk:'「体重だけではなく、中身の変化を一緒に見てみましょう。筋肉はどうでしょうか？」',ask:['食事時間・間食・飲酒','運動や日常の活動機会','睡眠・疲労・仕事や生活リズムの変化'],pharm:'単純な食べ過ぎ・運動不足だけにせず、生活リズムや疲労も確認する。',caution:'「肥満です」「食べ過ぎです」と一方的に評価しない。',action:'本人が続けられる小さな変更を1つ選び、次回の体組成変化で確認する。'},
@@ -2661,7 +2695,7 @@
             <div class="v136-box"><h4>❓ ASK｜確認すること</h4><ul>${d.ask.map(x=>`<li>${x}</li>`).join('')}</ul></div>
             <div class="v136-box v136-pharm"><h4>💊 PHARM｜薬剤師的ポイント</h4><p>${d.pharm}</p></div>
             <div class="v136-box v136-caution"><h4>⚠️ CAUTION｜言い切らない</h4><p>${d.caution}</p>${d.note?`<p class="mt-1 text-[10px] text-orange-700">${d.note}</p>`:''}</div>
-            <div class="v136-box v136-action"><h4>➡️️ NEXT｜次の一歩</h4><p>${d.action}</p></div>
+            <div class="v136-box v136-action"><h4>➡️ NEXT｜次の一歩</h4><p>${d.action}</p></div>
           </div>
         `;
       }
@@ -2692,7 +2726,7 @@
       p.innerHTML = t[mode];
     }
 
-    /* ===== V13.7 Pharmacist Judgment Navigator Logic ===== */
+    /* ===== 対話ナビゲーター ロジック ===== */
     const v137Tabs = {
       context: {
         title: '① CONTEXT｜数字を見る前に、条件を確認',
